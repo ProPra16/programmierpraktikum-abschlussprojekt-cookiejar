@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox prefHeight="32.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" text="New" />
+            <Button mnemonicParsing="false" text="Save" />
+            <Button mnemonicParsing="false" text="Load" />
+            <Button mnemonicParsing="false" text="Run">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" text="Test" />
+            <Button mnemonicParsing="false" text="Settings">
+               <HBox.margin>
+                  <Insets left="920.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.783289817232376" orientation="VERTICAL" prefHeight="735.0" prefWidth="960.0">
+         <items>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+              <tabs>
+                <Tab text="Code">
+                     <content>
+                        <TextArea prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                </Tab>
+                <Tab text="Tests">
+                     <content>
+                        <TextArea prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+            <TextArea prefHeight="26.0" prefWidth="958.0" />
+         </items>
+      </SplitPane>
+   </center>
+   <right>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="366.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <items>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" />
+            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+        </items>
+      </SplitPane>
+   </right>
+   <left>
+      <SplitPane dividerPositions="0.04046997389033943, 0.5065274151436031" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="4.0" prefWidth="158.0" />
+            <TreeView prefHeight="478.0" prefWidth="158.0" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+        </items>
+      </SplitPane>
+   </left>
+</BorderPane>
