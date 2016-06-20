@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIControll">
    <top>
       <HBox prefHeight="32.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="New" />
-            <Button mnemonicParsing="false" text="Save" />
-            <Button mnemonicParsing="false" text="Load" />
-            <Button mnemonicParsing="false" text="Run">
+            <Button mnemonicParsing="false" text="New" fx:id="buttonNew"/>
+            <Button mnemonicParsing="false" text="Save" fx:id="buttonSave"/>
+            <Button mnemonicParsing="false" text="Load" fx:id="butonLoad"/>
+            <Button mnemonicParsing="false" text="Run" fx:id="buttonRun">
                <HBox.margin>
                   <Insets left="50.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Test" />
-            <Button mnemonicParsing="false" text="Settings">
+            <Button mnemonicParsing="false" text="Test" fx:id="buttonTest"/>
+            <Button mnemonicParsing="false" text="Settings" fx:id="buttonSettings">
                <HBox.margin>
                   <Insets left="920.0" />
                </HBox.margin>
@@ -38,17 +36,17 @@
               <tabs>
                 <Tab text="Code">
                      <content>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" fx:id="textCode"/>
                      </content>
                 </Tab>
                 <Tab text="Tests">
                      <content>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" fx:id="textTest"/>
                      </content>
                 </Tab>
               </tabs>
             </TabPane>
-            <TextArea prefHeight="26.0" prefWidth="958.0" />
+            <TextArea prefHeight="26.0" prefWidth="958.0" fx:id="textConsole"/>
          </items>
       </SplitPane>
    </center>
