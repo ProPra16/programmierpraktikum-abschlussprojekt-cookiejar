@@ -20,6 +20,7 @@
 # IDE Settings #
 ################
 *.idea
+*.iml
 *.classpath
 *.project
 *.settings
