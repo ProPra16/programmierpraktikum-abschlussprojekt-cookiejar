@@ -17,3 +17,9 @@
 *.tar
 *.zip
 
+# IDE Settings #
+################
+*.idea
+*.classpath
+*.project
+*.settings
