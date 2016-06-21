@@ -9,9 +9,7 @@
    <top>
       <HBox prefHeight="32.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="New" fx:id="buttonNew"/>
-            <Button mnemonicParsing="false" text="Save" fx:id="buttonSave"/>
-            <Button mnemonicParsing="false" text="Load" fx:id="butonLoad"/>
+            <Button mnemonicParsing="false" text="File" fx:id="buttonFile"/>
             <Button mnemonicParsing="false" text="Run" fx:id="buttonRun">
                <HBox.margin>
                   <Insets left="50.0" />
