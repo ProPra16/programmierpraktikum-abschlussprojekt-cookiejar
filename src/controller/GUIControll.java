@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 
 public class GUIControll{
 	

@@ -1,7 +1,5 @@
 import controller.GUIControll;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,9 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 
 public class GUIDisplay extends Application{
