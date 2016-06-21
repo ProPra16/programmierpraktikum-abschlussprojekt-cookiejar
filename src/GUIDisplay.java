@@ -39,11 +39,18 @@ public class GUIDisplay extends Application{
             main.setScene(scene);
             main.show();
 
-
+            //Add EventHandler for Cycle-button
             Button cycle = controller.getElementById("buttonCycle");
             cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
                 setState(state^1);
             });
+
+            //Redirect standart output to "console" TextArea
+            TextArea console = controller.getElementById("textConsole");
+            Console outStr = new Console(console);
+            PrintStream ps = new PrintStream(outStr, true);
+            System.setOut(ps);
+            System.setErr(ps);
 
         }
         catch (Exception e) {

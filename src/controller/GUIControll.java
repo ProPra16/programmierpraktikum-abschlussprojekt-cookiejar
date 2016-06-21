@@ -20,6 +20,11 @@ public class GUIControll{
 	@FXML private TextArea textConsole;
 	@FXML private Button buttonCycle;
 
+	/*	Returns element from the field with the given name, as generic type.
+	* 	Usage: 	Type t = getElementById("FieldName");
+ 	* 	E.g.: 	TextArea console = getElementById("textConsole");
+	* 	Or: 	((Type)getElementById("FieldName")).someMethod();
+	* */
 	public <T> T getElementById(String id) {
 		try {
 			Field field = this.getClass().getDeclaredField(id);
