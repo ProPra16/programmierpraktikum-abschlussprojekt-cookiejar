@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.PrintStream;
+import java.net.URL;
 
 public class GUIDisplay extends Application{
     public GUIControll controller;
@@ -26,10 +27,13 @@ public class GUIDisplay extends Application{
         try {
             main = stage;
             FXMLLoader fxmlLoader = new FXMLLoader();
-            Pane root = fxmlLoader.load(new FileInputStream("res/Cookiejar-main.fxml"));
+            Pane root = fxmlLoader.load(new FileInputStream("res/fxml/Cookiejar-main.fxml"));
             controller = (GUIControll) fxmlLoader.getController();
 
             Scene scene = new Scene(root, 1280, 800);
+
+            //URL teststyle = getClass().getResource("res/css/teststyle.css");
+            //scene.getStylesheets().add(teststyle.toExternalForm());
 
             main.setTitle("TDDT");
             main.setScene(scene);
