@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.net.URL;
@@ -20,7 +21,7 @@ public class GUIDisplay extends Application{
     public GUIDisplay() {
         main = new Stage();
         start(main);
-        state = 0;
+        setState(0);
     }
 
     public void start(Stage stage) {
@@ -32,8 +33,8 @@ public class GUIDisplay extends Application{
 
             Scene scene = new Scene(root, 1280, 800);
 
-            //URL teststyle = getClass().getResource("res/css/teststyle.css");
-            //scene.getStylesheets().add(teststyle.toExternalForm());
+            File f = new File("res/css/teststyle.css");
+            scene.getStylesheets().add(f.toURI().toString());
 
             main.setTitle("TDDT");
             main.setScene(scene);
