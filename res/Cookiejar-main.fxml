@@ -16,9 +16,10 @@
                </HBox.margin>
             </Button>
             <Button mnemonicParsing="false" text="Test" fx:id="buttonTest"/>
+            <Button mnemonicParsing="false" text="Cycle" fx:id="buttonCycle"/>
             <Button mnemonicParsing="false" text="Settings" fx:id="buttonSettings">
                <HBox.margin>
-                  <Insets left="920.0" />
+                  <Insets left="870.0" />
                </HBox.margin>
             </Button>
          </children>
@@ -32,14 +33,14 @@
          <items>
             <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
               <tabs>
-                <Tab text="Code">
-                     <content>
-                        <TextArea prefHeight="200.0" prefWidth="200.0" fx:id="textCode"/>
-                     </content>
-                </Tab>
                 <Tab text="Tests">
                      <content>
                         <TextArea prefHeight="200.0" prefWidth="200.0" fx:id="textTest"/>
+                   </content>
+                </Tab>
+                <Tab text="Code">
+                     <content>
+                        <TextArea prefHeight="200.0" prefWidth="200.0" fx:id="textCode"/>
                      </content>
                 </Tab>
               </tabs>
