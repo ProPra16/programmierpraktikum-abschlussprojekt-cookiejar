@@ -1,0 +1,50 @@
+<exercises>
+    <exercise name="Roemische Zahlen">
+        <description>Konvertiert arabische in roemische Zahlen.</description>
+        <classes>
+            <class name="RomanNumberConverter">
+                public class RomanNumberConverter {
+                }
+            </class>
+        </classes>
+        <tests>
+            <test name="RomanNumberConverterTest">
+                import static org.junit.Assert.*;
+                import org.junit.Test;
+                public class RomanNumbersTest {
+                @Test
+                public void testSomething() {
+                }
+                }
+            </test>
+        </tests>
+        <!--<config>
+            <babysteps value="False" />
+            <timetracking value="True" />
+        </config>-->
+    </exercise>
+    <exercise name="Zaehle bis 10">
+        <description>Gibt alle Zahlen von 1 bis 10 in verschiedenen Methoden aus.</description>
+        <classes>
+            <class name="UsefulCounter">
+                public class UsefulCounter {
+                }
+            </class>
+        </classes>
+        <tests>
+            <test name="UsefulCounterTest">
+                import static org.junit.Assert.*;
+                import org.junit.Test;
+                public class UsefulCounterTest {
+                @Test
+                public void testSomething() {
+                }
+                }
+            </test>
+        </tests>
+        <!--<config> <! no need to be set yet >
+            <babysteps value="True" time="2:00" />
+            <timetracking value="True" />
+        </config>-->
+    </exercise>
+</exercises>

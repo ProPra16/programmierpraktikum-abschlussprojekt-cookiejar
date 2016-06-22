@@ -37,12 +37,12 @@ public class GUIControll{
 		}
 		return null;
 	}
-	
-	public void handleFile(){
+	@FXML
+	protected void handleFile(){
 		FileChooser catalog = new FileChooser();
 		catalog.setTitle("Choose Catalog-File");
 		catalog.getExtensionFilters().add(
-				new FileChooser.ExtensionFilter("XML files", ".xml")
+				new FileChooser.ExtensionFilter("XML files", ".txt")
 		);
 		File file = catalog.showOpenDialog(new Stage());
 	}
