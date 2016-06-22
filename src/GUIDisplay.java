@@ -11,12 +11,15 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GUIDisplay extends Application {
     public GUIControll controller;
     private Stage main;
     private Scene scene;
     private int state;
+    private List<String> styles;
 
     public GUIDisplay() {
         main = new Stage();
@@ -34,7 +37,14 @@ public class GUIDisplay extends Application {
             scene = new Scene(root, 1280, 800);
 
             File f = new File("res/css/teststyle.css");
-            scene.getStylesheets().add(f.toURI().toString());
+            styles = new ArrayList<>();
+            styles.add(f.toURI().toString());
+            f = new File("res/css/codestyle.css");
+            styles.add(f.toURI().toString());
+            f = new File("res/css/refactorstyle.css");
+            styles.add(f.toURI().toString());
+            scene.getStylesheets().setAll(styles);
+            scene.getStylesheets().add(styles.get(0));
 
             main.setTitle("TDDT");
             main.setScene(scene);
@@ -73,8 +83,7 @@ public class GUIDisplay extends Application {
                 tests.setEditable(true);
                 console.setEditable(false);
 
-                File f = new File("res/css/teststyle.css"); //set style to teststyle
-                scene.getStylesheets().add(f.toURI().toString());
+                scene.getStylesheets().add(styles.get(0));
 
                 state = pState;
                 console.appendText("You are now in test-writing mode\n");
@@ -88,8 +97,7 @@ public class GUIDisplay extends Application {
                 tests.setEditable(false);
                 console.setEditable(false);
 
-                File f = new File("res/css/codestyle.css"); //set style to codestyle
-                scene.getStylesheets().add(f.toURI().toString());
+                scene.getStylesheets().add(styles.get(1));
 
                 state = pState;
                 console.appendText("You are now in code-writing mode\n");
@@ -103,8 +111,7 @@ public class GUIDisplay extends Application {
                 tests.setEditable(true);
                 console.setEditable(false);
 
-                File f = new File("res/css/refactorstyle.css"); //set style to refactorstyle
-                scene.getStylesheets().add(f.toURI().toString());
+                scene.getStylesheets().add(styles.get(2));
 
                 state = -1;
                 console.appendText("You are now in refactoring mode\n");
