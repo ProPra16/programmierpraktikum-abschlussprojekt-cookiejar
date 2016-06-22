@@ -5,3 +5,13 @@
      -fx-background-color: linear-gradient(#8b0000, #450000);
      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1);
 }
+
+#textConsole{
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+}
+
+#text{
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+}

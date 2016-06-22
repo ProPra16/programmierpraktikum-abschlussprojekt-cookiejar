@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.PrintStream;
-import java.net.URL;
 
 public class GUIDisplay extends Application {
     public GUIControll controller;
