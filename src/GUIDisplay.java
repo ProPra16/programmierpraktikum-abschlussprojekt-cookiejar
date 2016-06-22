@@ -43,7 +43,10 @@ public class GUIDisplay extends Application {
             styles.add(f.toURI().toString());
             f = new File("res/css/refactorstyle.css");
             styles.add(f.toURI().toString());
-            scene.getStylesheets().add(0, styles.get(0));
+            scene.getStylesheets().add(0, styles.get(0)); //Add stylesheets for phase recognition
+
+            f = new File("res/css/scenestyle.css");
+            scene.getStylesheets().add(f.toURI().toString());//Add stylesheet for scene style
 
             main.setTitle("TDDT");
             main.setScene(scene);

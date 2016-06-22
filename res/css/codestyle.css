@@ -6,16 +6,6 @@
      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1);
 }
 
-#textConsole{
-    -fx-text-fill: black;
-    -fx-font-family: "Monospaced";
-}
-
-#text{
-    -fx-text-fill: black;
-    -fx-font-family: "Arial";
-}
-
 .text-area{
     -fx-text-fill: Black;
     -fx-font-family: "Monospaced";

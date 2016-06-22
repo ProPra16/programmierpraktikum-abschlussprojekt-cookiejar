@@ -1,0 +1,9 @@
+#textConsole{
+    -fx-text-fill: black;
+    -fx-font-family: "Monospaced";
+}
+
+#text{
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+}
