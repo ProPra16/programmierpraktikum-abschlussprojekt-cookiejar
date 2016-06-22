@@ -8,9 +8,7 @@ import java.lang.reflect.Field;
 
 public class GUIControll{
 	
-	@FXML private Button buttonNew;
-	@FXML private Button buttonSave;
-	@FXML private Button buttonLoad;
+	@FXML private Button buttonFile;
 	@FXML private Button buttonRun;
 	@FXML private Button buttonTest;
 	@FXML private Button buttonSettings;
