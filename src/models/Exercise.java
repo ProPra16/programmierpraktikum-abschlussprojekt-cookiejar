@@ -5,10 +5,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Exercise {
-    String name;
+    public Classes classes;
+    public Tests tests;
+    @XmlElement
+    public Classes getClasses(){
+        return classes;
+    }
 
     @XmlElement
-    public String getEx(){
-        return name;
+    public Tests getTests(){
+        return tests;
     }
 }
