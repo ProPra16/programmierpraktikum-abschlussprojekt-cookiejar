@@ -49,9 +49,11 @@ public class GUIControll{
 		/*catalog.getExtensionFilters().add(
 				new FileChooser.ExtensionFilter("XML files (.xml)", ".xml")
 		);*/ //Something here does not work with Windows
-		File file = catalog.showOpenDialog(new Stage());
+		//File file = catalog.showOpenDialog(new Stage());
+		File file = new File("res/catalogs/test.xml");
 		System.out.println(file.getAbsoluteFile());
 		try {
+			System.out.println(file.length());
 			JAXBContext jaxbContext = JAXBContext.newInstance(Exercises.class);
 			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 			Exercises exercises = (Exercises) jaxbUnmarshaller.unmarshal(file);
@@ -66,11 +68,11 @@ public class GUIControll{
 
 	public void test(Exercises exercises){
 		for(Exercise e : exercises.getExercise()){
-			for(Class c : e.classes.getClasses()){
-				System.out.println(c.getClassEx());
+			for(Class c : e.getClasses().getClasses()){
+				System.out.println(c.getClassString());
 			}
-			for(Test t : e.tests.getTests()){
-				System.out.println(t.getTestEx());
+			for(Test t : e.getTests().getTests()){
+				System.out.println(t.getTextString());
 			}
 		}
 	}

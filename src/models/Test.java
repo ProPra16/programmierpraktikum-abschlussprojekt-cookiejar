@@ -6,9 +6,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Test {
     String name;
+    String textString;
 
     @XmlElement
-    public String getTestEx(){
+    public String getClassName(){
         return name;
+    }
+
+    @XmlElement
+    public String getTextString(){
+        return textString;
     }
 }
