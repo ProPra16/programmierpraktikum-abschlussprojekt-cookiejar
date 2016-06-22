@@ -44,7 +44,6 @@ public class GUIDisplay extends Application {
             f = new File("res/css/refactorstyle.css");
             styles.add(f.toURI().toString());
             scene.getStylesheets().setAll(styles);
-            scene.getStylesheets().add(styles.get(0));
 
             main.setTitle("TDDT");
             main.setScene(scene);
@@ -83,7 +82,6 @@ public class GUIDisplay extends Application {
                 tests.setEditable(true);
                 console.setEditable(false);
 
-                scene.getStylesheets().add(styles.get(0));
 
                 state = pState;
                 console.appendText("You are now in test-writing mode\n");
@@ -97,7 +95,6 @@ public class GUIDisplay extends Application {
                 tests.setEditable(false);
                 console.setEditable(false);
 
-                scene.getStylesheets().add(styles.get(1));
 
                 state = pState;
                 console.appendText("You are now in code-writing mode\n");
@@ -111,7 +108,6 @@ public class GUIDisplay extends Application {
                 tests.setEditable(true);
                 console.setEditable(false);
 
-                scene.getStylesheets().add(styles.get(2));
 
                 state = -1;
                 console.appendText("You are now in refactoring mode\n");
