@@ -3,7 +3,11 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
+import java.io.File;
 import java.lang.reflect.Field;
 
 public class GUIControll{
@@ -34,5 +38,12 @@ public class GUIControll{
 		return null;
 	}
 	
-	
+	public void handleFile(){
+		FileChooser catalog = new FileChooser();
+		catalog.setTitle("Choose Catalog-File");
+		catalog.getExtensionFilters().add(
+				new FileChooser.ExtensionFilter("XML files", ".xml")
+		);
+		File file = catalog.showOpenDialog(new Stage());
+	}
 }
