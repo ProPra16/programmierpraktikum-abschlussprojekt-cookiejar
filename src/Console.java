@@ -12,11 +12,11 @@ public class Console extends OutputStream {
 
     @Override
     public void write(int i) throws IOException {
-        output.appendText(String.valueOf((char)i));
+        output.appendText(String.valueOf((char) i));
     }
 
     public void write(String s) throws IOException {
-        for(char c: s.toCharArray())
+        for (char c : s.toCharArray())
             write(c);
     }
 }

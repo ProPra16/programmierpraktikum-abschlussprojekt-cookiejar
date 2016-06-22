@@ -13,7 +13,7 @@ import java.io.FileInputStream;
 import java.io.PrintStream;
 import java.net.URL;
 
-public class GUIDisplay extends Application{
+public class GUIDisplay extends Application {
     public GUIControll controller;
     private Stage main;
     private int state;
@@ -43,7 +43,7 @@ public class GUIDisplay extends Application{
             //Add EventHandler for Cycle-button
             Button cycle = controller.getElementById("buttonCycle");
             cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-                setState(state^1);
+                setState(state ^ 1);
             });
 
             //Redirect standart output to "console" TextArea
@@ -53,8 +53,7 @@ public class GUIDisplay extends Application{
             System.setOut(ps);
             System.setErr(ps);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("[GUID] Unhandled exception: " + e);
         }
     }
@@ -65,9 +64,9 @@ public class GUIDisplay extends Application{
         TextArea code = controller.getElementById("textCode");
         TextArea tests = controller.getElementById("textTest");
 
-        if(pState == 0) {    //enable writing tests
+        if (pState == 0) {    //enable writing tests
 
-            if(true) {  //add check if all tests pass
+            if (true) {  //add check if all tests pass
 
                 code.setEditable(false);
                 tests.setEditable(true);
@@ -77,9 +76,9 @@ public class GUIDisplay extends Application{
                 console.appendText("You are now in test-writing mode\n");
             }
         }
-        if(pState == 1) {    //enable writing code
+        if (pState == 1) {    //enable writing code
 
-            if(true) {  //add check if EXACTLY one test fails
+            if (true) {  //add check if EXACTLY one test fails
 
                 code.setEditable(true);
                 tests.setEditable(false);
