@@ -108,9 +108,9 @@ public class GUIDisplay extends Application {
                 console.appendText("You are now in test-writing mode\n");
             }
         }
-        if (pState == 1) {    //enable writing code
+        if (pState == 1 && tres != null) {    //enable writing code
 
-            if (tres != null && tres.getNumberOfFailedTests() == 1) {  //add check if EXACTLY one test fails
+            if (tres.getNumberOfFailedTests() == 1) {  //add check if EXACTLY one test fails
 
                 code.setEditable(true);
                 tests.setEditable(false);
@@ -124,9 +124,9 @@ public class GUIDisplay extends Application {
             else
                 System.out.println(tres.getNumberOfFailedTests() + " tests failed. Needs to be exactly 1");
         }
-        if (pState == 2) {    //enable writing code and tests
+        if (pState == 2 && tres != null) {    //enable writing code and tests
 
-            if (tres != null && tres.getNumberOfFailedTests() == 0) {  //add save and load for files; also if tests fail after refactoring, go back to test writing
+            if (tres.getNumberOfFailedTests() == 0) {  //add save and load for files; also if tests fail after refactoring, go back to test writing
 
                 code.setEditable(true);
                 tests.setEditable(true);
