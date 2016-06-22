@@ -43,7 +43,6 @@ public class GUIDisplay extends Application {
             styles.add(f.toURI().toString());
             f = new File("res/css/refactorstyle.css");
             styles.add(f.toURI().toString());
-            scene.getStylesheets().setAll(styles);
             scene.getStylesheets().add(0, styles.get(0));
 
             main.setTitle("TDDT");
