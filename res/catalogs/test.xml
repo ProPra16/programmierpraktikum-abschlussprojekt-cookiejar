@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exercises>
-    <exercise name="Roemische Zahlen">
+    <exercise>
         <description>Konvertiert arabische in roemische Zahlen.</description>
         <classes>
             <classString name="RomanNumberConverter">
@@ -9,7 +9,7 @@
             </classString>
         </classes>
         <tests>
-            <testString name="RomanNumberConverterTest">
+            <testString>
                 import static org.junit.Assert.*;
                 import org.junit.Test;
                 public class RomanNumbersTest {
@@ -24,8 +24,8 @@
             <timetracking value="True" />
         </config>
     </exercise>
-    <exercise name="Zaehle bis 10">
-        <description>Zählt von 1 bis 10 in einzelnen Methoden.</description>
+    <exercise>
+        <description>Zaehlt von 1 bis 10 in einzelnen Methoden.</description>
         <classes>
             <classString name="UsefulCounter">
                 public class UsefulCounter {
@@ -33,7 +33,7 @@
             </classString>
         </classes>
         <tests>
-            <testString name="UsefulCounterTest">
+            <testString>
                 import static org.junit.Assert.*;
                 import org.junit.Test;
                 public class UsefulCounterTest {
@@ -43,7 +43,7 @@
                 }
             </testString>
         </tests>
-        <config> <! no need to be set yet >
+        <config>
             <babysteps value="True" time="2:00" />
             <timetracking value="True" />
         </config>
