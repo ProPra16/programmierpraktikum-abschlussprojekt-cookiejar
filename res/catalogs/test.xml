@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exercises>
     <exercise name="Roemische Zahlen">
-        <!--<description>Konvertiert arabische in roemische Zahlen.</description>-->
+        <description>Konvertiert arabische in roemische Zahlen.</description>
         <classes>
             <classString name="RomanNumberConverter">
                 public class RomanNumberConverter {
@@ -19,13 +19,13 @@
                 }
             </testString>
         </tests>
-        <!--<config>
+        <config>
             <babysteps value="False" />
             <timetracking value="True" />
-        </config>-->
+        </config>
     </exercise>
     <exercise name="Zaehle bis 10">
-        <!--<description>Zählt von 1 bis 10 in einzelnen Methoden.</description>-->
+        <description>Zählt von 1 bis 10 in einzelnen Methoden.</description>
         <classes>
             <classString name="UsefulCounter">
                 public class UsefulCounter {
@@ -43,9 +43,9 @@
                 }
             </testString>
         </tests>
-        <!--<config> <! no need to be set yet >
+        <config> <! no need to be set yet >
             <babysteps value="True" time="2:00" />
             <timetracking value="True" />
-        </config>-->
+        </config>
     </exercise>
 </exercises>
