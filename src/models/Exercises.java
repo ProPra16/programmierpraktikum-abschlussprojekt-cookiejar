@@ -55,7 +55,7 @@ public class Exercises {
                         i++;
                     }
                 }
-                reader.next();
+                reader.next(); //delete whitespace!
             }
         } catch(FileNotFoundException fnfe){
             System.out.println("This file does not exist.");
