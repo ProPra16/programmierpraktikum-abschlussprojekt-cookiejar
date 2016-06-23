@@ -4,8 +4,17 @@ import java.util.List;
 
 public class Exercise {
     String description;
+    String name;
     List<String> classes;
     List<String> tests;
+
+    public Exercise(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
+    }
 
     public String getDescription() {
         return description;

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exercises>
-    <exercise>
+    <exercise name="Roemische Zahlen">
         <description>Konvertiert arabische in roemische Zahlen.</description>
         <classes>
-            <classString name="RomanNumberConverter">
+            <class name="RomanNumberConverter">
                 public class RomanNumberConverter {
                 }
-            </classString>
+            </class>
         </classes>
         <tests>
-            <testString>
+            <test name="RomanNumberConverterTest">
                 import static org.junit.Assert.*;
                 import org.junit.Test;
                 public class RomanNumbersTest {
@@ -17,23 +17,23 @@
                 public void testSomething() {
                 }
                 }
-            </testString>
+            </test>
         </tests>
         <config>
             <babysteps value="False" />
             <timetracking value="True" />
         </config>
     </exercise>
-    <exercise>
+    <exercise name="Zaehle bis 10">
         <description>Zaehlt von 1 bis 10 in einzelnen Methoden.</description>
         <classes>
-            <classString name="UsefulCounter">
+            <class name="UsefulCounter">
                 public class UsefulCounter {
                 }
-            </classString>
+            </class>
         </classes>
         <tests>
-            <testString>
+            <test name="UsefulCounterTest">
                 import static org.junit.Assert.*;
                 import org.junit.Test;
                 public class UsefulCounterTest {
@@ -41,7 +41,7 @@
                 public void testSomething() {
                 }
                 }
-            </testString>
+            </test>
         </tests>
         <config>
             <babysteps value="True" time="2:00" />
