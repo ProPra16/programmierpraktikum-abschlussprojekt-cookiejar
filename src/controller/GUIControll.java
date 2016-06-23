@@ -7,16 +7,8 @@ import javafx.stage.FileChooser;
 import models.Exercise;
 import models.Exercises;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GUIControll{
