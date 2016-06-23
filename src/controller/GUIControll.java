@@ -56,14 +56,12 @@ public class GUIControll{
 		//File file = catalog.showOpenDialog(new Stage());
 		File file = new File("res/catalogs/test.xml");
 
-		List<Exercise> exerciseList = new ArrayList<>();
 		System.out.println(file.getAbsoluteFile());
 
         Exercises exercises = new Exercises();
-        exerciseList = exercises.getExercises(file);
+        List<Exercise> exerciseList = exercises.getExercises(file);
         if (!exerciseList.isEmpty()){
             for (Exercise e : exerciseList) {
-                System.out.println("exercise");
                 System.out.println(""+e.getName());
                 System.out.println(e.getDescription());
                 for(String s : e.getClasses()){
@@ -77,6 +75,4 @@ public class GUIControll{
             }
         }
 	}
-
-
 }

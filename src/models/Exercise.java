@@ -32,11 +32,19 @@ public class Exercise {
         this.classes = classes;
     }
 
+    public void addClasses(String classString){
+        this.classes.add(classString);
+    }
+
     public List<String> getTests() {
         return tests;
     }
 
     public void setTests(List<String> tests) {
         this.tests = tests;
+    }
+
+    public void addTests(String testString){
+        this.tests.add(testString);
     }
 }
