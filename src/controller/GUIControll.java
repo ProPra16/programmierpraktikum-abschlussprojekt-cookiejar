@@ -5,7 +5,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 
 public class GUIControll{
@@ -44,8 +50,28 @@ public class GUIControll{
 		);*/ //Something here does not work with Windows
 		//File file = catalog.showOpenDialog(new Stage());
 		File file = new File("res/catalogs/test.xml");
-		System.out.println(file.getAbsoluteFile());
 
+		System.out.println(file.getAbsoluteFile());
+		String s = "";
+		try{
+			System.out.println(file.length());
+			InputStream is = new FileInputStream(file);
+			XMLInputFactory factory = XMLInputFactory.newInstance();
+			XMLStreamReader reader = factory.createXMLStreamReader(is);
+
+			while(reader.hasNext()){
+				if(reader.hasText()){
+					s += reader.getText();
+				}
+				reader.next();
+			}
+
+		} catch(FileNotFoundException fnfe){
+			System.out.println("This file does not exist.");
+		} catch(XMLStreamException xmlse){
+			System.out.println();
+		}
+		System.out.println(s);
 	}
 
 
