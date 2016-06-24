@@ -41,12 +41,14 @@ public class Exercises {
                 if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
                     if (reader.getLocalName().equals("class")) {
                         String temp = reader.getElementText();
+                        temp = temp.replace("                ", "");
                         exercises.get(i).addClasses(temp);
                     }
                 }
                 if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
                     if (reader.getLocalName().equals("test")) {
                         String temp = reader.getElementText();
+                        temp = temp.replace("                ", "");
                         exercises.get(i).addTests(temp);
                     }
                 }
