@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import models.Exercise;
 import models.Exercises;
 
@@ -45,8 +46,8 @@ public class GUIControll{
 		/*catalog.getExtensionFilters().add(
 				new FileChooser.ExtensionFilter("XML files (.xml)", ".xml")
 		);*/ //Something here does not work with Windows
-		//File file = catalog.showOpenDialog(new Stage());
-		File file = new File("res/catalogs/test.xml");
+		File file = catalog.showOpenDialog(new Stage()); 
+		//File file = new File("res/catalogs/test.xml"); //Only for testing, can be deleted after development
 
 		System.out.println(file.getAbsoluteFile());
 
