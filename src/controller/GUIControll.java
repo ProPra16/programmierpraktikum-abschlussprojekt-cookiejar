@@ -46,7 +46,7 @@ public class GUIControll{
 		/*catalog.getExtensionFilters().add(
 				new FileChooser.ExtensionFilter("XML files (.xml)", ".xml")
 		);*/ //Something here does not work with Windows
-		File file = catalog.showOpenDialog(new Stage()); 
+		File file = catalog.showOpenDialog(new Stage());
 		//File file = new File("res/catalogs/test.xml"); //Only for testing, can be deleted after development
 
 		System.out.println(file.getAbsoluteFile());
@@ -54,18 +54,14 @@ public class GUIControll{
         Exercises exercises = new Exercises();
         List<Exercise> exerciseList = exercises.getExercises(file);
         if (!exerciseList.isEmpty()){
-            for (Exercise e : exerciseList) {
-                System.out.println(""+e.getName());
-                System.out.println(e.getDescription());
-                for(String s : e.getClasses()){
-                    System.out.println("class");
-                    System.out.println(s);
-                }
-                for(String s : e.getTests()){
-                    System.out.println("test");
-                    System.out.println(s);
-                }
-            }
+         Exercise e = exerciseList.get(0); //make into ComboBox or Buttons
+			System.out.println(e.getDescription());
+			for(String s : e.getClasses()){
+				textCode.setText(s);
+			}
+			for(String s : e.getTests()){
+				textTest.setText(s);
+			}
         }
 	}
 }
