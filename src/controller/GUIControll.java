@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -22,6 +23,7 @@ public class GUIControll{
 	@FXML private TextArea textTest;
 	@FXML private TextArea textConsole;
 	@FXML private Button buttonCycle;
+	@FXML private ListView listView;
 
 	/*	Returns element from the field with the given name, as generic type.
 	* 	Usage: 	Type t = getElementById("FieldName");
