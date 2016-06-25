@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -55,8 +57,15 @@ public class GUIControll{
 
         Exercises exercises = new Exercises();
         List<Exercise> exerciseList = exercises.getExercises(file);
-        if (!exerciseList.isEmpty()){
-			Exercise e = exerciseList.get(0); //make into ListView
+
+		ObservableList<String> items = FXCollections.observableArrayList();
+		for(int i = 0; i < exerciseList.size(); i++){
+			items.add(exerciseList.get(i).getName());
+		}
+		listView.setItems(items);//Add Exercise "Start"-Button, for better time management and listView current state obtaining
+
+        if (!exerciseList.isEmpty()){ //Just for now, can be replaced/ deleted after development
+			Exercise e = exerciseList.get(0);
 			System.out.println(e.getName());
 			System.out.println(e.getDescription());
 			for(String s : e.getClasses()){
