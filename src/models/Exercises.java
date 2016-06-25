@@ -33,6 +33,12 @@ public class Exercises {
             int i = 0;
             while (reader.hasNext()) { //Then fill exercises with content
                 if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
+                    if (reader.getLocalName().equals("name")) {
+                        String temp = reader.getElementText();
+                        exercises.get(i).setName(temp);
+                    }
+                }
+                if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
                     if (reader.getLocalName().equals("description")) {
                         String temp = reader.getElementText();
                         exercises.get(i).setDescription(temp);
@@ -78,7 +84,7 @@ public class Exercises {
         while(reader.hasNext()){ //First check for all Exercises
             if(reader.getEventType() == XMLStreamConstants.START_ELEMENT){
                 if(reader.getLocalName().equals("exercise")){
-                    Exercise exercise = new Exercise(reader.getLocalName());
+                    Exercise exercise = new Exercise();
                     exercises.add(exercise);
                 }
             }

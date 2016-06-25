@@ -54,7 +54,8 @@ public class GUIControll{
         Exercises exercises = new Exercises();
         List<Exercise> exerciseList = exercises.getExercises(file);
         if (!exerciseList.isEmpty()){
-         Exercise e = exerciseList.get(0); //make into ComboBox or Buttons
+			Exercise e = exerciseList.get(0); //make into ListView
+			System.out.println(e.getName());
 			System.out.println(e.getDescription());
 			for(String s : e.getClasses()){
 				textCode.setText(s);

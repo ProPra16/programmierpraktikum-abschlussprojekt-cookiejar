@@ -8,7 +8,10 @@ public class Exercise {
     List<String> classes;
     List<String> tests;
 
-    public Exercise(String name){
+    public Exercise(){
+    }
+
+    public void setName(String name){
         this.name = name;
     }
 

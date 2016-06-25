@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exercises>
-    <exercise name="Roemische Zahlen">
+    <exercise>
+        <name>Roemische Zahlen</name>
         <description>Konvertiert arabische in roemische Zahlen.</description>
         <classes>
             <class name="RomanNumberConverter">
@@ -24,7 +25,8 @@
             <timetracking value="True" />
         </config>
     </exercise>
-    <exercise name="Zaehle bis 10">
+    <exercise>
+        <name>Zaehle bis 10</name>
         <description>Zaehlt von 1 bis 10 in einzelnen Methoden.</description>
         <classes>
             <class name="UsefulCounter">
