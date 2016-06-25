@@ -45,35 +45,34 @@ public class GUIControll{
 	}
 	@FXML
 	protected void handleFile(){ //loads File with catalog
-		FileChooser catalog = new FileChooser();
-		catalog.setTitle("Choose Catalog-File");
-		/*catalog.getExtensionFilters().add(
-				new FileChooser.ExtensionFilter("XML files (.xml)", ".xml")
-		);*/ //Something here does not work with Windows
-		File file = catalog.showOpenDialog(new Stage());
-		//File file = new File("res/catalogs/test.xml"); //Only for testing, can be deleted after development
+        try {
+            FileChooser catalog = new FileChooser();
+            catalog.setTitle("Choose Catalog-File");
+		            /*catalog.getExtensionFilters().add(
+				    new FileChooser.ExtensionFilter("XML files (.xml)", ".xml")
+		             );*/ //Something here does not work with Windows
+            File file = catalog.showOpenDialog(new Stage());
+		    System.out.println(file.getAbsoluteFile());
 
-		System.out.println(file.getAbsoluteFile());
+            Exercises exercises = new Exercises();
+            List<Exercise> exerciseList = exercises.getExercises(file);
+	    	ObservableList<String> items = FXCollections.observableArrayList();
+		    for(int i = 0; i < exerciseList.size(); i++){
+			    items.add(exerciseList.get(i).getName());
+		    }
+		    listView.setItems(items);//Add Exercise "Start"-Button, for better time management and listView current state obtaining
 
-        Exercises exercises = new Exercises();
-        List<Exercise> exerciseList = exercises.getExercises(file);
-
-		ObservableList<String> items = FXCollections.observableArrayList();
-		for(int i = 0; i < exerciseList.size(); i++){
-			items.add(exerciseList.get(i).getName());
-		}
-		listView.setItems(items);//Add Exercise "Start"-Button, for better time management and listView current state obtaining
-
-        if (!exerciseList.isEmpty()){ //Just for now, can be replaced/ deleted after development
-			Exercise e = exerciseList.get(0);
-			System.out.println(e.getName());
-			System.out.println(e.getDescription());
-			for(String s : e.getClasses()){
-				textCode.setText(s);
-			}
-			for(String s : e.getTests()){
-				textTest.setText(s);
-			}
-        }
+            if (!exerciseList.isEmpty()){ //Just for now, can be replaced/ deleted after development
+	    		Exercise e = exerciseList.get(0);
+		    	System.out.println(e.getName());
+			    System.out.println(e.getDescription());
+			    for(String s : e.getClasses()){
+			    	textCode.setText(s);
+		    	}
+		    	for(String s : e.getTests()){
+		    		    textTest.setText(s);
+		    	    }
+             }
+        } catch(NullPointerException e){}
 	}
 }

@@ -70,7 +70,7 @@ public class Exercises {
         } catch(XMLStreamException xmlse){
             System.out.println();
         } catch(NullPointerException npe){
-            System.out.println("The file is broken.");
+            System.out.println("The file is empty or broken.");
         }
         return exercises;
     }
