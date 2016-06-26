@@ -22,7 +22,7 @@ public class GUIControll{
  	* 	E.g.: 	TextArea console = getElementById("textConsole");
 	* 	Or: 	((Type)getElementById("FieldName")).someMethod();
 	* */
-	public <T> T getElementById(String id) {
+	public <T> T getElementById(String id) { //testcomment
 		try {
 			Field field = this.getClass().getDeclaredField(id);
 			field.setAccessible(true);
