@@ -19,4 +19,5 @@ public class Console extends OutputStream {
         for (char c : s.toCharArray())
             write(c);
     }
+    
 }

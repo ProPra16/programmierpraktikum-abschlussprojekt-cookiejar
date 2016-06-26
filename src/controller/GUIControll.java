@@ -33,6 +33,12 @@ public class GUIControll{
 		}
 		return null;
 	}
+
+	public void prepareExample() {
+		textCode.setText("public class MyCode{\npublic static int test1(){\nreturn 1;\n}\n}");
+		textTest.setText("import static org.junit.Assert.*;\nimport org.junit.Test;\n" +
+				"public class MyTest{\n@Test \npublic void testtest1(){\nassertEquals(1,MyCode.test1());\n}\n}");
+	}
 	
 	
 }

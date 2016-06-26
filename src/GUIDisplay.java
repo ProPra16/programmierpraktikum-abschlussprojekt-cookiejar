@@ -1,3 +1,5 @@
+import vk.core.api.*;
+
 import controller.GUIControll;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +27,7 @@ public class GUIDisplay extends Application {
         main = new Stage();
         start(main);
         setState(0);
+        controller.prepareExample();
     }
 
     public void start(Stage stage) {
@@ -55,8 +58,21 @@ public class GUIDisplay extends Application {
             //Add EventHandler for Cycle-button
             Button cycle = controller.getElementById("buttonCycle");
             cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-                state++;
-                setState(state);
+                setState(state+1<3?state+1:0);
+            });
+
+            Button run = controller.getElementById("buttonRun");
+            run.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+
+            });
+
+            Button test = controller.getElementById("buttonTest");
+            test.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+                TestResult tr = getTestResult();
+                if(tr != null) {
+                    System.out.println("Successful tests: " + tr.getNumberOfSuccessfulTests());
+                    System.out.println("Failed tests: " + tr.getNumberOfFailedTests());
+                }
             });
 
             //Redirect standart output to "console" TextArea
@@ -77,9 +93,10 @@ public class GUIDisplay extends Application {
         TextArea code = controller.getElementById("textCode");
         TextArea tests = controller.getElementById("textTest");
 
+        TestResult tres = getTestResult();
         if (pState == 0) {    //enable writing tests
 
-            if (true) {  //add check if all tests pass
+            if (tres == null || tres.getNumberOfFailedTests() == 0) {  //add check if all tests pass
 
                 code.setEditable(false);
                 tests.setEditable(true);
@@ -91,9 +108,9 @@ public class GUIDisplay extends Application {
                 console.appendText("You are now in test-writing mode\n");
             }
         }
-        if (pState == 1) {    //enable writing code
+        if (pState == 1 && tres != null) {    //enable writing code
 
-            if (true) {  //add check if EXACTLY one test fails
+            if (tres.getNumberOfFailedTests() == 1) {  //add check if EXACTLY one test fails
 
                 code.setEditable(true);
                 tests.setEditable(false);
@@ -104,10 +121,12 @@ public class GUIDisplay extends Application {
                 state = pState;
                 console.appendText("You are now in code-writing mode\n");
             }
+            else
+                System.out.println(tres.getNumberOfFailedTests() + " tests failed. Needs to be exactly 1");
         }
-        if (pState == 2) {    //enable writing code and tests
+        if (pState == 2 && tres != null) {    //enable writing code and tests
 
-            if (true) {  //add save and load for files; also if tests fail after refactoring, go back to test writing
+            if (tres.getNumberOfFailedTests() == 0) {  //add save and load for files; also if tests fail after refactoring, go back to test writing
 
                 code.setEditable(true);
                 tests.setEditable(true);
@@ -115,9 +134,37 @@ public class GUIDisplay extends Application {
 
                 scene.getStylesheets().set(0, styles.get(2));
 
-                state = -1;
+                state = 2;
                 console.appendText("You are now in refactoring mode\n");
             }
+            else
+                System.out.println(tres.getNumberOfFailedTests() + " tests failed. Needs to be exactly 0");
+        }
+    }
+
+    public TestResult getTestResult() {
+        try {
+            CompilationUnit t1 = new CompilationUnit("MyCode", ((TextArea) controller.getElementById("textCode")).getText(), false);
+            CompilationUnit t2 = new CompilationUnit("MyTest", ((TextArea) controller.getElementById("textTest")).getText(), true);
+            JavaStringCompiler cmp = CompilerFactory.getCompiler(t1,t2);
+            cmp.compileAndRunTests();
+            CompilerResult cmpres = cmp.getCompilerResult();
+            if (!cmpres.hasCompileErrors()) {
+                return cmp.getTestResult();
+            } else {
+                System.out.println("Could not compile!");
+                cmpres.getCompilerErrorsForCompilationUnit(t1).forEach((CompileError err)-> {
+                    System.out.println(err.getMessage());
+                });
+                cmpres.getCompilerErrorsForCompilationUnit(t2).forEach((CompileError err)-> {
+                    System.out.println(err.getMessage());
+                });
+                return null;
+            }
+        }
+        catch(Exception e){
+            System.out.println("[GUID] Exception: " + e);
+            return null;
         }
     }
 }
