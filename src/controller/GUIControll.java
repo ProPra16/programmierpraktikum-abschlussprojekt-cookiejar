@@ -61,6 +61,7 @@ public class GUIControll{
 			    items.add(exerciseList.get(i).getName());
 		    }
 		    listView.setItems(items);//Add Exercise "Start"-Button, for better time management and listView current state obtaining
+			//Add Tabs for classes
 
             if (!exerciseList.isEmpty()){ //Just for now, can be replaced/ deleted after development
 	    		Exercise e = exerciseList.get(0);
