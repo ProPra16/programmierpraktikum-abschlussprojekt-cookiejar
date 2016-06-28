@@ -78,7 +78,7 @@ public class GUIControll{
 
 	public void saveToFile(String className, String code, String identifier, boolean isTest) {
 		try {
-			File sf = new File("saves/identifier/"+ (isTest?"tests/":"src/") + className + ".java");
+			File sf = new File("saves/"+identifier+"/"+ (isTest?"tests/":"src/") + className + ".java");
 			sf.getParentFile().mkdirs();
 			sf.createNewFile();
 			BufferedWriter fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(sf)));
@@ -91,7 +91,7 @@ public class GUIControll{
 	public String loadFromFile(String className, String identifier, boolean isTest) {
 		String code = "";
 		try{
-			File sf = new File("saves/identifier/"+ (isTest?"tests/":"src/") + className + ".java");
+			File sf = new File("saves/"+identifier+"/"+ (isTest?"tests/":"src/") + className + ".java");
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(sf)));
 			for(Object t: br.lines().toArray()) {
 				code += (String)t + "\n";
