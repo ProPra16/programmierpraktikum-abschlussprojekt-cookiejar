@@ -3,6 +3,7 @@
     <exercise>
         <name>Roemische Zahlen</name>
         <description>Konvertiert arabische in roemische Zahlen.</description>
+		<identifier>numcon1</Identifier>
         <classes>
             <class name="RomanNumberConverter">
                 public class RomanNumberConverter {
@@ -28,6 +29,7 @@
     <exercise>
         <name>Zaehle bis 10</name>
         <description>Zaehlt von 1 bis 10 in einzelnen Methoden.</description>
+		<identifier>counter1</Identifier>
         <classes>
             <class name="UsefulCounter">
                 public class UsefulCounter {

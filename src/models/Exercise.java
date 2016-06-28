@@ -5,6 +5,7 @@ import java.util.List;
 public class Exercise {
     String description;
     String name;
+    String identifier;
     List<String> classes;
     List<String> tests;
 
@@ -50,4 +51,8 @@ public class Exercise {
     public void addTests(String testString){
         this.tests.add(testString);
     }
+
+    public void setIdentifier(String identifier) {this.identifier = identifier;}
+
+    public String getIdentifier() {return identifier;}
 }

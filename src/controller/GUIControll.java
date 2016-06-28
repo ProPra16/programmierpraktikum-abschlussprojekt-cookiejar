@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import models.Exercise;
 import models.Exercises;
 
-import java.io.File;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -74,5 +74,29 @@ public class GUIControll{
 		    	    }
              }
         } catch(NullPointerException e){}
+	}
+
+	public void saveToFile(String className, String code, String identifier, boolean isTest) {
+		try {
+			File sf = new File("saves/identifier/"+ (isTest?"tests/":"src/") + className + ".java");
+			sf.getParentFile().mkdirs();
+			sf.createNewFile();
+			BufferedWriter fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(sf)));
+			fw.write(code);
+			fw.flush();
+			fw.close();
+		}catch(IOException e) {}
+	}
+
+	public String loadFromFile(String className, String identifier, boolean isTest) {
+		String code = "";
+		try{
+			File sf = new File("saves/identifier/"+ (isTest?"tests/":"src/") + className + ".java");
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(sf)));
+			for(Object t: br.lines().toArray()) {
+				code += (String)t + "\n";
+			}
+		}catch(IOException e) {}
+		return code;
 	}
 }

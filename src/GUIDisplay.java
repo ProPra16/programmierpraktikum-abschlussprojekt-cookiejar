@@ -58,6 +58,17 @@ public class GUIDisplay extends Application {
                 state++;
                 setState(state);
             });
+            Button run = controller.getElementById("buttonRun");
+            run.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+                controller.saveToFile("MyCode","public class MyCode{\npublic static int test1(){\nreturn 1;\n}\n}","test123", false);
+                controller.saveToFile("MyTest","import org.junit.*;\npublic class MyTest{\n@Test public void test1(){\nassertEquals(1,MyCode.test());\n}\n}","test123", true);
+
+                TextArea textCode = controller.getElementById("textCode");
+                TextArea textTest = controller.getElementById("textTest");
+
+                textCode.setText(controller.loadFromFile("MyCode","test123", false));
+                textTest.setText(controller.loadFromFile("MyTest","test123", true));
+            });
 
             //Redirect standart output to "console" TextArea
             TextArea console = controller.getElementById("textConsole");
