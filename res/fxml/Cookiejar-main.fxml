@@ -18,7 +18,7 @@
             <children>
                 <Button mnemonicParsing="false" text="File" fx:id="buttonFile"
                         onAction="#handleFile"/>
-                <Button mnemonicParsing="false" text="Run" fx:id="buttonRun">
+                <Button mnemonicParsing="false" text="Save" fx:id="buttonSave">
                     <HBox.margin>
                         <Insets left="50.0"/>
                     </HBox.margin>

@@ -58,6 +58,13 @@ public class Exercises {
                         exercises.get(i).addTests(temp);
                     }
                 }
+                if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
+                    if (reader.getLocalName().equals("identifier")) {
+                        String temp = reader.getElementText();
+                        temp = temp.replace("                ", "");
+                        exercises.get(i).setIdentifier(temp);
+                    }
+                }
                 if(reader.getEventType() == XMLStreamConstants.END_ELEMENT){
                     if(reader.getLocalName().equals("exercise")){
                         i++;
