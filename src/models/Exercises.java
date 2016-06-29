@@ -53,6 +53,7 @@ public class Exercises {
                                 if (reader.getLocalName().equals("class")) {
                                     String temp = reader.getElementText();
                                     temp = temp.replace("  ", "");
+                                    temp = temp.trim();
                                     class1.setCode(temp);
                                     exercises.get(i).addClasses(class1);
                                     class1 = new Class();
@@ -78,6 +79,7 @@ public class Exercises {
                                 if (reader.getLocalName().equals("test")) {
                                     String temp = reader.getElementText();
                                     temp = temp.replace("  ", "");
+                                    temp = temp.trim();
                                     test.setTest(temp);
                                     exercises.get(i).addTests(test);
                                     test = new Test();
