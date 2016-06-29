@@ -8,6 +8,12 @@ public class ClassStruct {
     public ClassStruct() {
     }
 
+    public ClassStruct(String className, String code, boolean isTest) {
+        this.className = className;
+        this.code = code;
+        this.isTest = isTest;
+    }
+
     public void setName(String className) {
         this.className = className;
     }

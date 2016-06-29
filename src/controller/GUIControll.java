@@ -78,6 +78,7 @@ public class GUIControll{
 					TextArea textArea = new TextArea(class1.getCode());
 					tab.setContent(textArea);
 					tabPane.getTabs().add(tab);
+					tab.setUserData(false);
 				}
 				for (ClassStruct test : e.getTests()) {
 					Tab tab = new Tab();
@@ -85,6 +86,7 @@ public class GUIControll{
 					TextArea textArea = new TextArea(test.getCode());
 					tab.setContent(textArea);
 					tabPane.getTabs().add(tab);
+					tab.setUserData(true);
 				}
 			}
 	}

@@ -1,3 +1,5 @@
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import models.ClassStruct;
 import vk.core.api.*;
 
@@ -63,10 +65,21 @@ public class GUIDisplay extends Application {
 
             Button test = controller.getElementById("buttonTest");
             test.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-                TestResult tr = getTestResult();
-                if(tr != null) {
-                    System.out.println("Successful tests: " + tr.getNumberOfSuccessfulTests());
-                    System.out.println("Failed tests: " + tr.getNumberOfFailedTests());
+                try {
+                    TabPane tabPane = controller.getElementById("tabPane");
+                    ArrayList<ClassStruct> classes = new ArrayList();
+                    for (Tab tab : tabPane.getTabs()) {
+                        classes.add(new ClassStruct(tab.getText(), ((TextArea) tab.getContent()).getText(), (boolean) tab.getUserData()));
+                    }
+                    ClassStruct[] clarr = new ClassStruct[0];
+                    TestResult tr = getTestResult(classes.toArray(clarr));
+                    if(tr != null) {
+                        System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
+                        System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
+                    }
+
+                } catch(Exception e) {
+                    System.out.println("[GUID] Exception: " + e);
                 }
             });
 
@@ -159,23 +172,24 @@ public class GUIDisplay extends Application {
         }
     }
 
-    public TestResult getTestResult() {
+    public TestResult getTestResult(ClassStruct[] classes) {
         try {
-            CompilationUnit t1 = new CompilationUnit("MyCode", ((TextArea) controller.getElementById("textCode")).getText(), false);
-            CompilationUnit t2 = new CompilationUnit("MyTest", ((TextArea) controller.getElementById("textTest")).getText(), true);
-            JavaStringCompiler cmp = CompilerFactory.getCompiler(t1,t2);
+            ArrayList<CompilationUnit> cu = new ArrayList();
+            for(ClassStruct c: classes)
+                cu.add(new CompilationUnit(c.getName(),c.getCode(),c.isTest()));
+            CompilationUnit[] cuarr = new CompilationUnit[0];
+            JavaStringCompiler cmp = CompilerFactory.getCompiler(cu.toArray(cuarr));
+
             cmp.compileAndRunTests();
             CompilerResult cmpres = cmp.getCompilerResult();
             if (!cmpres.hasCompileErrors()) {
                 return cmp.getTestResult();
             } else {
                 System.out.println("Could not compile!");
-                cmpres.getCompilerErrorsForCompilationUnit(t1).forEach((CompileError err)-> {
-                    System.out.println(err.getMessage());
-                });
-                cmpres.getCompilerErrorsForCompilationUnit(t2).forEach((CompileError err)-> {
-                    System.out.println(err.getMessage());
-                });
+                for(CompilationUnit unit: cuarr)
+                    cmpres.getCompilerErrorsForCompilationUnit(unit).forEach((CompileError err)-> {
+                        System.out.println(err.getMessage());
+                    });
                 return null;
             }
         }
