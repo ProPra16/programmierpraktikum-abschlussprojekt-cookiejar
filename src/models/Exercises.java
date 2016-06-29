@@ -24,8 +24,8 @@ public class Exercises {
             if(exercises.isEmpty()) throw new NullPointerException();
 
             for(int j = 0; j < exercises.size(); j++){
-                List<Class> classes = new ArrayList<>();
-                List<Test> tests = new ArrayList<>();
+                List<ClassStruct> classes = new ArrayList<>();
+                List<ClassStruct> tests = new ArrayList<>();
                 exercises.get(j).setTests(tests);
                 exercises.get(j).setClasses(classes);
             }
@@ -41,9 +41,14 @@ public class Exercises {
                         String temp = reader.getElementText();
                         exercises.get(i).setDescription(temp);
                     }
+                    if (reader.getLocalName().equals("identifier")) {
+                        String temp = reader.getElementText();
+                        exercises.get(i).setDescription(temp);
+                    }
                     //GET CLASSES FOR ONE EXERCISE
                     if(reader.getLocalName().equals("classes")){
-                        Class class1 = new Class();
+                        ClassStruct class1 = new ClassStruct();
+                        class1.setTest(false);
                         while(reader.hasNext()){
                             if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
                                 if (reader.getLocalName().equals("className")) {
@@ -55,7 +60,8 @@ public class Exercises {
                                     temp = removeExcess(temp);
                                     class1.setCode(temp);
                                     exercises.get(i).addClasses(class1);
-                                    class1 = new Class();
+                                    class1 = new ClassStruct();
+                                    class1.setTest(false);
                                 }
                             }
                             if(reader.getEventType() == XMLStreamConstants.END_ELEMENT){
@@ -68,7 +74,8 @@ public class Exercises {
                     }
                     //GET TESTS FOR ONE EXERCISE
                     if(reader.getLocalName().equals("tests")){
-                        Test test = new Test();
+                        ClassStruct test = new ClassStruct();
+                        test.setTest(true);
                         while(reader.hasNext()){
                             if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
                                 if (reader.getLocalName().equals("testName")) {
@@ -78,9 +85,10 @@ public class Exercises {
                                 if (reader.getLocalName().equals("test")) {
                                     String temp = reader.getElementText();
                                     temp = removeExcess(temp);
-                                    test.setTest(temp);
+                                    test.setCode(temp);
                                     exercises.get(i).addTests(test);
-                                    test = new Test();
+                                    test = new ClassStruct();
+                                    test.setTest(true);
                                 }
                             }
                             if(reader.getEventType() == XMLStreamConstants.END_ELEMENT){
