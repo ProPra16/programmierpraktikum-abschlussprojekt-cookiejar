@@ -20,7 +20,7 @@ public class Exercises {
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader reader = factory.createXMLStreamReader(is);
 
-            exercises = getExerciseList(file);
+            exercises = getExerciseList(file);//CHECK FOR EXERCISES
             if(exercises.isEmpty()) throw new NullPointerException();
 
             for(int j = 0; j < exercises.size(); j++){
@@ -31,21 +31,17 @@ public class Exercises {
             }
 
             int i = 0;
-            while (reader.hasNext() && i < exercises.size()) { //Then fill exercises with content
+            while (reader.hasNext() && i < exercises.size()) { //FILL WITH CONTENT
                 if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
                     if (reader.getLocalName().equals("name")) {
                         String temp = reader.getElementText();
                         exercises.get(i).setName(temp);
                     }
-                }
-                if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
                     if (reader.getLocalName().equals("description")) {
                         String temp = reader.getElementText();
                         exercises.get(i).setDescription(temp);
                     }
-                }
-                //GET CLASS FOR ONE EXERCISE
-                if(reader.getEventType() == XMLStreamConstants.START_ELEMENT){
+                    //GET CLASSES FOR ONE EXERCISE
                     if(reader.getLocalName().equals("classes")){
                         Class class1 = new Class();
                         while(reader.hasNext()){
@@ -72,9 +68,7 @@ public class Exercises {
                             reader.next();
                         }
                     }
-                }
-                //GET TEST FOR ONE EXERCISE
-                if(reader.getEventType() == XMLStreamConstants.START_ELEMENT){
+                    //GET TESTS FOR ONE EXERCISE
                     if(reader.getLocalName().equals("tests")){
                         Test test = new Test();
                         while(reader.hasNext()){
@@ -125,7 +119,7 @@ public class Exercises {
         XMLStreamReader reader = factory.createXMLStreamReader(is);
         List<Exercise> exercises = new ArrayList<>();
 
-        while(reader.hasNext()){ //First check for all Exercises
+        while(reader.hasNext()){
             if(reader.getEventType() == XMLStreamConstants.START_ELEMENT){
                 if(reader.getLocalName().equals("exercise")){
                     Exercise exercise = new Exercise();
