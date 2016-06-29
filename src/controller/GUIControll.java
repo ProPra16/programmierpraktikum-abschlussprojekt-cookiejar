@@ -3,9 +3,7 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Exercise;
@@ -26,6 +24,9 @@ public class GUIControll{
 	@FXML private TextArea textConsole;
 	@FXML private Button buttonCycle;
 	@FXML private ListView listView;
+    @FXML private TabPane tabPane;
+
+	private List<Exercise> exerciseList;
 
 	/*	Returns element from the field with the given name, as generic type.
 	* 	Usage: 	Type t = getElementById("FieldName");
@@ -55,8 +56,8 @@ public class GUIControll{
 		    System.out.println(file.getAbsoluteFile());
 
             Exercises exercises = new Exercises();
-            List<Exercise> exerciseList = exercises.getExercises(file);
-	    	ObservableList<String> items = FXCollections.observableArrayList();
+            exerciseList = exercises.getExercises(file);
+            ObservableList<String> items = FXCollections.observableArrayList();
 		    for(int i = 0; i < exerciseList.size(); i++){
 			    items.add(exerciseList.get(i).getName());
 		    }
@@ -75,5 +76,22 @@ public class GUIControll{
 		    	    }
              }
         } catch(NullPointerException e){}
+	}
+
+	@FXML
+	protected void handleLoad(){
+		String selectedExercise = (String)listView.getSelectionModel().getSelectedItem();
+        System.out.println(selectedExercise);
+        tabPane.getTabs().clear();
+/*
+        for(Exercise e: exerciseList)
+            if(e.getName().equals(selectedExercise)){
+                for(String s: e.getClasses()){
+                    Tab tab = new Tab();
+                    tab.setText(e.getName());
+                    tabPane.getTabs().add(tab);
+                }
+            }
+            */
 	}
 }

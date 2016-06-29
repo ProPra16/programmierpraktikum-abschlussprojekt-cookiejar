@@ -18,7 +18,8 @@
             <children>
                 <Button mnemonicParsing="false" text="File" fx:id="buttonFile"
                         onAction="#handleFile"/>
-                <Button mnemonicParsing="false" text="Run" fx:id="buttonRun">
+                <Button mnemonicParsing="false" text="Load" fx:id="buttonLoad"
+                        onAction="#handleLoad">
                     <HBox.margin>
                         <Insets left="50.0"/>
                     </HBox.margin>
@@ -39,7 +40,7 @@
     <center>
         <SplitPane dividerPositions="0.783289817232376" orientation="VERTICAL" prefHeight="735.0" prefWidth="960.0">
             <items>
-                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
+                <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
                          BorderPane.alignment="CENTER">
                     <tabs>
                         <Tab text="Tests">
