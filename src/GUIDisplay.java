@@ -1,6 +1,7 @@
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import models.ClassStruct;
+import models.Exercise;
 import vk.core.api.*;
 
 import controller.GUIControll;
@@ -57,6 +58,12 @@ public class GUIDisplay extends Application {
             main.setScene(scene);
             main.show();
 
+            TextArea textCode = controller.getElementById("textCode");
+            TextArea textTest = controller.getElementById("textTest");
+            TabPane tp = controller.getElementById("tabPane");
+            for(Tab t: tp.getTabs())
+                    t.setUserData(t.getText().equals("Tests"));
+
             //Add EventHandler for Cycle-button
             Button cycle = controller.getElementById("buttonCycle");
             cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
@@ -81,9 +88,11 @@ public class GUIDisplay extends Application {
             save.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
                 try {
                     for (Tab tab : ((TabPane)controller.getElementById("tabPane")).getTabs()) {
-                        //ToDo: put correct identifier
-                        controller.saveToFile(tab.getText(), ((TextArea)tab.getContent()).getText(), "test123", (boolean)tab.getUserData());
+                        Exercise current = controller.getElementById("currentExercise");
+                        String identifier = current==null?"temp":current.getName();
+                        controller.saveToFile(tab.getText(), ((TextArea)tab.getContent()).getText(), identifier, (boolean)tab.getUserData());
                     }
+                    System.out.println("Code saved.");
 
                 /* load with:
                 textCode.setText(controller.loadFromFile("MyCode","test123", false));
@@ -97,14 +106,10 @@ public class GUIDisplay extends Application {
                     else
                         textCode.setText(c.getCode());
                 */
-                } catch(Exception e) {}
+                } catch(Exception e) {
+                    System.out.println("[GUID] Exception: " + e);
+                }
             });
-
-            TextArea textCode = controller.getElementById("textCode");
-            TextArea textTest = controller.getElementById("textTest");
-            textCode.setUserData(false);
-            textTest.setUserData(true);
-
 
             //Redirect standart output to "console" TextArea
             TextArea console = controller.getElementById("textConsole");

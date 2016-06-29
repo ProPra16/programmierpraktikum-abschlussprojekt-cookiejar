@@ -24,6 +24,7 @@ public class GUIControll{
 	@FXML private Button buttonCycle;
 	@FXML private ListView listView;
     @FXML private TabPane tabPane;
+	private Exercise currentExercise = null;
 
 	private List<Exercise> exerciseList;
 
@@ -73,6 +74,8 @@ public class GUIControll{
 
 			for (Exercise e : exerciseList)
 				if (e.getName().equals(selectedExercise)) {
+					currentExercise = e;
+
 					for (ClassStruct class1 : e.getClasses()) {
 						Tab tab = new Tab();
 						tab.setText(class1.getName());
