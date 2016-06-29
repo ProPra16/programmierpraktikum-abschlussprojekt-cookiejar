@@ -67,7 +67,7 @@ public class GUIControll{
 			//Add Tabs for classes
 
             if (!exerciseList.isEmpty()){ //Just for now, can be replaced/ deleted after development
-	    		Exercise e = exerciseList.get(1);
+	    		Exercise e = exerciseList.get(0);
 		    	System.out.println(e.getName());
 			    System.out.println(e.getDescription());
 			    for(Class class1 : e.getClasses()){
