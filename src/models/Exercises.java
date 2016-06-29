@@ -50,8 +50,6 @@ public class Exercises {
                                     String name = reader.getElementText();
                                     class1.setName(name);
                                 }
-                            }
-                            if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
                                 if (reader.getLocalName().equals("class")) {
                                     String temp = reader.getElementText();
                                     temp = temp.replace("  ", "");
@@ -77,8 +75,6 @@ public class Exercises {
                                     String name = reader.getElementText();
                                     test.setName(name);
                                 }
-                            }
-                            if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
                                 if (reader.getLocalName().equals("test")) {
                                     String temp = reader.getElementText();
                                     temp = temp.replace("  ", "");
