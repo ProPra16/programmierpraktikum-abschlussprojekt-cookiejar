@@ -52,8 +52,7 @@ public class Exercises {
                                 }
                                 if (reader.getLocalName().equals("class")) {
                                     String temp = reader.getElementText();
-                                    temp = temp.replace("  ", "");
-                                    temp = temp.trim();
+                                    temp = removeExcess(temp);
                                     class1.setCode(temp);
                                     exercises.get(i).addClasses(class1);
                                     class1 = new Class();
@@ -78,8 +77,7 @@ public class Exercises {
                                 }
                                 if (reader.getLocalName().equals("test")) {
                                     String temp = reader.getElementText();
-                                    temp = temp.replace("  ", "");
-                                    temp = temp.trim();
+                                    temp = removeExcess(temp);
                                     test.setTest(temp);
                                     exercises.get(i).addTests(test);
                                     test = new Test();
@@ -109,6 +107,12 @@ public class Exercises {
             System.out.println("The file is empty or broken.");
         }
         return exercises;
+    }
+
+    private String removeExcess(String string){
+        string = string.replace(" ", "");
+        string = string.trim();
+        return string;
     }
 
     private List<Exercise> getExerciseList(File file) throws FileNotFoundException, XMLStreamException{
