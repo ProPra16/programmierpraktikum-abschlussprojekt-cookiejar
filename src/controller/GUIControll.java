@@ -70,7 +70,7 @@ public class GUIControll{
 			String selectedExercise = (String) listView.getSelectionModel().getSelectedItem();
 			System.out.println(selectedExercise);
 			tabPane.getTabs().clear();
-			
+
 			for (Exercise e : exerciseList)
 				if (e.getName().equals(selectedExercise)) {
 					for (ClassStruct class1 : e.getClasses()) {
