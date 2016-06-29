@@ -57,8 +57,7 @@ public class Exercises {
                                 }
                                 if (reader.getLocalName().equals("class")) {
                                     String temp = reader.getElementText();
-                                    temp = removeExcess(temp);
-                                    class1.setCode(temp);
+                                    class1.setCode(removeExcess(temp));
                                     exercises.get(i).addClasses(class1);
                                     class1 = new ClassStruct();
                                     class1.setTest(false);
@@ -84,8 +83,7 @@ public class Exercises {
                                 }
                                 if (reader.getLocalName().equals("test")) {
                                     String temp = reader.getElementText();
-                                    temp = removeExcess(temp);
-                                    test.setCode(temp);
+                                    test.setCode(removeExcess(temp));
                                     exercises.get(i).addTests(test);
                                     test = new ClassStruct();
                                     test.setTest(true);

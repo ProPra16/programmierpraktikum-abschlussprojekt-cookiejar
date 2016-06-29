@@ -66,29 +66,33 @@ public class GUIControll{
 
 	@FXML
 	protected void handleLoad() {
-		String selectedExercise = (String) listView.getSelectionModel().getSelectedItem();
-		System.out.println(selectedExercise);
-		tabPane.getTabs().clear();
-
-		for (Exercise e : exerciseList)
-			if (e.getName().equals(selectedExercise)) {
-				for (ClassStruct class1 : e.getClasses()) {
-					Tab tab = new Tab();
-					tab.setText(class1.getName());
-					TextArea textArea = new TextArea(class1.getCode());
-					tab.setContent(textArea);
-					tabPane.getTabs().add(tab);
-					tab.setUserData(false);
+		try {
+			String selectedExercise = (String) listView.getSelectionModel().getSelectedItem();
+			System.out.println(selectedExercise);
+			tabPane.getTabs().clear();
+			
+			for (Exercise e : exerciseList)
+				if (e.getName().equals(selectedExercise)) {
+					for (ClassStruct class1 : e.getClasses()) {
+						Tab tab = new Tab();
+						tab.setText(class1.getName());
+						TextArea textArea = new TextArea(class1.getCode());
+						tab.setContent(textArea);
+						tabPane.getTabs().add(tab);
+						tab.setUserData(false);
+					}
+					for (ClassStruct test : e.getTests()) {
+						Tab tab = new Tab();
+						tab.setText(test.getName());
+						TextArea textArea = new TextArea(test.getCode());
+						tab.setContent(textArea);
+						tabPane.getTabs().add(tab);
+						tab.setUserData(true);
+					}
 				}
-				for (ClassStruct test : e.getTests()) {
-					Tab tab = new Tab();
-					tab.setText(test.getName());
-					TextArea textArea = new TextArea(test.getCode());
-					tab.setContent(textArea);
-					tabPane.getTabs().add(tab);
-					tab.setUserData(true);
-				}
-			}
+		} catch(NullPointerException npe){
+			System.out.print("Please load a catalog first."); //NULL printed before ERROR
+		}
 	}
 
 	public void saveToFile(String className, String code, String identifier, boolean isTest) {
