@@ -63,24 +63,7 @@ public class GUIControll{
 		    for(int i = 0; i < exerciseList.size(); i++){
 			    items.add(exerciseList.get(i).getName());
 		    }
-		    listView.setItems(items);//Add Exercise "Start"-Button, for better time management and listView current state obtaining
-			//Add Tabs for classes
-
-            if (!exerciseList.isEmpty()){ //Just for now, can be replaced/ deleted after development
-	    		Exercise e = exerciseList.get(0);
-		    	System.out.println(e.getName());
-			    System.out.println(e.getDescription());
-			    for(Class class1 : e.getClasses()){
-			    	textCode.setText(class1.getCode());
-					System.out.println(class1.getName());
-					System.out.println(class1.getCode());
-		    	}
-				for(Test test : e.getTests()){
-					textTest.setText(test.getTest());
-					System.out.println(test.getName());
-					System.out.println(test.getTest());
-				}
-             }
+		    listView.setItems(items);
         } catch(NullPointerException e){}
 	}
 
@@ -89,15 +72,23 @@ public class GUIControll{
 		String selectedExercise = (String)listView.getSelectionModel().getSelectedItem();
         System.out.println(selectedExercise);
         tabPane.getTabs().clear();
-/*
+
         for(Exercise e: exerciseList)
             if(e.getName().equals(selectedExercise)){
-                for(String s: e.getClasses()){
+                for(Class class1: e.getClasses()){
                     Tab tab = new Tab();
-                    tab.setText(e.getName());
+                    tab.setText(class1.getName());
+                    TextArea textArea = new TextArea(class1.getCode());
+                    tab.setContent(textArea);
+                    tabPane.getTabs().add(tab);
+                }
+                for(Test test: e.getTests()){
+                    Tab tab = new Tab();
+                    tab.setText(test.getName());;
+                    TextArea textArea = new TextArea(test.getTest());
+                    tab.setContent(textArea);
                     tabPane.getTabs().add(tab);
                 }
             }
-            */
 	}
 }
