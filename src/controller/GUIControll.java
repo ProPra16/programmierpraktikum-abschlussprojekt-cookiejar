@@ -89,7 +89,7 @@ public class GUIControll{
 					}
 				}
 		} catch(NullPointerException npe){
-			System.out.print("Please load a catalog first.");
+			System.out.print("Please load a catalog first."); //NULL printed before ERROR
 		}
 	}
 
