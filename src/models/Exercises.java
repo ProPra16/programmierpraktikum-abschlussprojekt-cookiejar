@@ -110,7 +110,7 @@ public class Exercises {
     }
 
     private String removeExcess(String string){
-        string = string.replace(" ", "");
+        string = string.replace("  ", "");
         string = string.trim();
         return string;
     }
