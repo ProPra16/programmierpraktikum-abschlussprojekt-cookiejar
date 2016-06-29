@@ -5,8 +5,8 @@ import java.util.List;
 public class Exercise {
     String description;
     String name;
-    List<String> classes;
-    List<String> tests;
+    List<Class> classes;
+    List<Test> tests;
 
     public Exercise(){
     }
@@ -27,27 +27,27 @@ public class Exercise {
         this.description = description;
     }
 
-    public List<String> getClasses() {
+    public List<Class> getClasses() {
         return classes;
     }
 
-    public void setClasses(List<String> classes) {
+    public void setClasses(List<Class> classes) {
         this.classes = classes;
     }
 
-    public void addClasses(String classString){
+    public void addClasses(Class classString){
         this.classes.add(classString);
     }
 
-    public List<String> getTests() {
+    public List<Test> getTests() {
         return tests;
     }
 
-    public void setTests(List<String> tests) {
+    public void setTests(List<Test> tests) {
         this.tests = tests;
     }
 
-    public void addTests(String testString){
+    public void addTests(Test testString){
         this.tests.add(testString);
     }
 }

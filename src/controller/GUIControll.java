@@ -6,8 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.Class;
 import models.Exercise;
 import models.Exercises;
+import models.Test;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -65,15 +67,19 @@ public class GUIControll{
 			//Add Tabs for classes
 
             if (!exerciseList.isEmpty()){ //Just for now, can be replaced/ deleted after development
-	    		Exercise e = exerciseList.get(0);
+	    		Exercise e = exerciseList.get(1);
 		    	System.out.println(e.getName());
 			    System.out.println(e.getDescription());
-			    for(String s : e.getClasses()){
-			    	textCode.setText(s);
+			    for(Class class1 : e.getClasses()){
+			    	textCode.setText(class1.getCode());
+					System.out.println(class1.getName());
+					System.out.println(class1.getCode());
 		    	}
-		    	for(String s : e.getTests()){
-		    		    textTest.setText(s);
-		    	    }
+				for(Test test : e.getTests()){
+					textTest.setText(test.getTest());
+					System.out.println(test.getName());
+					System.out.println(test.getTest());
+				}
              }
         } catch(NullPointerException e){}
 	}

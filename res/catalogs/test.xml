@@ -4,13 +4,20 @@
         <name>Roemische Zahlen</name>
         <description>Konvertiert arabische in roemische Zahlen.</description>
         <classes>
-            <class name="RomanNumberConverter">
+            <className>RomanNumberConverter</className>
+            <class>
                 public class RomanNumberConverter {
+                }
+            </class>
+            <className>Class2</className>
+            <class>
+                public class Class2 {
                 }
             </class>
         </classes>
         <tests>
-            <test name="RomanNumberConverterTest">
+            <testName>RomanNumberConverterTest</testName>
+            <test>
                 import static org.junit.Assert.*;
                 import org.junit.Test;
                 public class RomanNumbersTest {
@@ -29,13 +36,15 @@
         <name>Zaehle bis 10</name>
         <description>Zaehlt von 1 bis 10 in einzelnen Methoden.</description>
         <classes>
-            <class name="UsefulCounter">
+            <className>UsefulCounter</className>
+            <class>
                 public class UsefulCounter {
                 }
             </class>
         </classes>
         <tests>
-            <test name="UsefulCounterTest">
+            <testName>UsefulCounterTest</testName>
+            <test>
                 import static org.junit.Assert.*;
                 import org.junit.Test;
                 public class UsefulCounterTest {
