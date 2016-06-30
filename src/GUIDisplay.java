@@ -141,7 +141,7 @@ public class GUIDisplay extends Application {
 
                     scene.getStylesheets().set(0, styles.get(0));
                     state = pState;
-                    console.appendText("You are now in test-writing mode\n");
+                    System.out.println("You are now in test-writing mode\n");
                 }
             } catch(Exception e) {}
         }
@@ -160,7 +160,7 @@ public class GUIDisplay extends Application {
                     scene.getStylesheets().set(0, styles.get(1));
 
                     state = pState;
-                    console.appendText("You are now in code-writing mode\n");
+                    System.out.println("You are now in code-writing mode\n");
                 } else
                     System.out.println(tres.getNumberOfFailedTests() + " tests failed. Needs to be exactly 1");
             } catch(Exception e) {}
@@ -179,7 +179,7 @@ public class GUIDisplay extends Application {
                     scene.getStylesheets().set(0, styles.get(2));
 
                     state = 2;
-                    console.appendText("You are now in refactoring mode\n");
+                    System.out.println("You are now in refactoring mode\n");
                 } else
                     System.out.println(tres.getNumberOfFailedTests() + " tests failed. Needs to be exactly 0");
             }catch(Exception e) {}
