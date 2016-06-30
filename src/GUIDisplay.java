@@ -1,7 +1,9 @@
+import controller.ExerciseHandling;
 import controller.FileHandling;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import models.ClassStruct;
+import models.CodeTab;
 import models.Exercise;
 import vk.core.api.*;
 
@@ -27,10 +29,13 @@ public class GUIDisplay extends Application {
     private Scene scene;
     private int state;
     private List<String> styles;
+    private ExerciseHandling exerciseHanler;
 
     public GUIDisplay() {
         main = new Stage();
         start(main);
+        exerciseHanler = new ExerciseHandling();
+        controller.showExerciseList(exerciseHanler.getExerciseList());
         setState(0, null);
     }
 
@@ -84,10 +89,10 @@ public class GUIDisplay extends Application {
             Button save = controller.getElementById("buttonSave");
             save.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
                 try {
-                    for (Tab tab : ((TabPane)controller.getElementById("tabPane")).getTabs()) {
-                        Exercise current = controller.getElementById("currentExercise");
+                    for (CodeTab tab : controller.getCodeTabs()) {
+                        Exercise current = exerciseHanler.getCurrentExercise();
                         String identifier = current==null?"temp":current.getName();
-                        FileHandling.saveToFile(tab.getText(), ((TextArea)tab.getContent()).getText(), identifier, (boolean)tab.getUserData());
+                        FileHandling.saveToFile(tab.getText(), tab.getCode(), current.getIdentifier(), tab.isTest());
                     }
                     System.out.println("Code saved.");
 
@@ -107,6 +112,20 @@ public class GUIDisplay extends Application {
                     System.out.println("[GUID] Exception: " + e);
                 }
             });
+
+            Button file = controller.getElementById("buttonFile");
+            file.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+                exerciseHanler = new ExerciseHandling();
+                controller.showExerciseList(exerciseHanler.getExerciseList());
+            });
+
+            Button load = controller.getElementById("buttonLoad");
+            load.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+                Exercise selected = controller.getSelectedExercise(exerciseHanler.getExerciseList());
+                exerciseHanler.setCurrentExercise(selected);
+                controller.loadExercise(selected);
+            });
+
 
             //Redirect standart output to "console" TextArea
             TextArea console = controller.getElementById("textConsole");
@@ -129,12 +148,8 @@ public class GUIDisplay extends Application {
             try{
                 if (tres == null || tres.getNumberOfFailedTests() == 0) {  //add check if all tests pass
 
-                    for (Tab t : ((TabPane) controller.getElementById("tabPane")).getTabs()) {
-                        if ((boolean) t.getUserData())
-                            ((TextArea) t.getContent()).setEditable(true);
-                        else
-                            ((TextArea) t.getContent()).setEditable(false);
-                    }
+                    for (CodeTab t : controller.getCodeTabs())
+                        t.setEditable(t.isTest());
 
                     scene.getStylesheets().set(0, styles.get(0));
                     state = pState;
@@ -146,12 +161,8 @@ public class GUIDisplay extends Application {
             try {
                 if (tres.getNumberOfFailedTests() == 1) {  //add check if EXACTLY one test fails
 
-                    for (Tab t : ((TabPane) controller.getElementById("tabPane")).getTabs()) {
-                        if ((boolean) t.getUserData())
-                            ((TextArea) t.getContent()).setEditable(false);
-                        else
-                            ((TextArea) t.getContent()).setEditable(true);
-                    }
+                    for (CodeTab t : controller.getCodeTabs())
+                        t.setEditable(!t.isTest());
 
 
                     scene.getStylesheets().set(0, styles.get(1));
@@ -166,12 +177,8 @@ public class GUIDisplay extends Application {
             try {
                 if (tres.getNumberOfFailedTests() == 0) {  //add save and load for files; also if tests fail after refactoring, go back to test writing
 
-                    for (Tab t : ((TabPane) controller.getElementById("tabPane")).getTabs()) {
-                        if ((boolean) t.getUserData())
-                            ((TextArea) t.getContent()).setEditable(false);
-                        else
-                            ((TextArea) t.getContent()).setEditable(true);
-                    }
+                    for (CodeTab t : controller.getCodeTabs())
+                        t.setEditable(!t.isTest());
 
                     scene.getStylesheets().set(0, styles.get(2));
 
@@ -187,8 +194,8 @@ public class GUIDisplay extends Application {
         try {
 			TabPane tabPane = controller.getElementById("tabPane");
 			ArrayList<CompilationUnit> cu = new ArrayList();
-			for (Tab tab : tabPane.getTabs()) {
-				cu.add(new CompilationUnit(tab.getText(), ((TextArea) tab.getContent()).getText(), (boolean) tab.getUserData()));
+			for (CodeTab tab : controller.getCodeTabs()) {
+				cu.add(new CompilationUnit(tab.getText(), tab.getCode(), tab.isTest()));
 			}
 			CompilationUnit[] cuarr = new CompilationUnit[0];
 			cuarr = cu.toArray(cuarr);

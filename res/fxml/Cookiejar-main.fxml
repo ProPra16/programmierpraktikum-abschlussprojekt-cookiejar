@@ -16,10 +16,8 @@
     <top>
         <HBox prefHeight="32.0" prefWidth="600.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-                <Button mnemonicParsing="false" text="File" fx:id="buttonFile"
-                        onAction="#handleFile"/>
-                <Button mnemonicParsing="false" text="Load" fx:id="buttonLoad"
-                        onAction="#handleLoad"/>
+                <Button mnemonicParsing="false" text="File" fx:id="buttonFile"/>
+                <Button mnemonicParsing="false" text="Load" fx:id="buttonLoad"/>
                 <Button mnemonicParsing="false" text="Save" fx:id="buttonSave">
                     <HBox.margin>
                         <Insets left="50.0"/>

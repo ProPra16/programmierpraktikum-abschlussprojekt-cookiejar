@@ -10,11 +10,13 @@ import models.*;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GUIControll{
 
 	@FXML private Button buttonFile;
+	@FXML private Button buttonLoad;
 	@FXML private Button buttonSave;
 	@FXML private Button buttonTest;
 	@FXML private Button buttonSettings;
@@ -22,9 +24,6 @@ public class GUIControll{
 	@FXML private Button buttonCycle;
 	@FXML private ListView listView;
     @FXML private TabPane tabPane;
-	private Exercise currentExercise = null;
-
-	private List<Exercise> exerciseList;
 
 	/*	Returns element from the field with the given name, as generic type.
 	* 	Usage: 	Type t = getElementById("FieldName");
@@ -42,48 +41,42 @@ public class GUIControll{
 		}
 		return null;
 	}
-	@FXML
-	protected void handleFile(){ //loads File with catalog
+
+	public void showExerciseList(List<Exercise> exerciseList){ //loads File with catalog
         try {
-            exerciseList = FileHandling.loadCatalog();
-            ObservableList<String> items = FXCollections.observableArrayList();
-		    for(int i = 0; i < exerciseList.size(); i++){
-			    items.add(exerciseList.get(i).getName());
-		    }
-		    listView.setItems(items);
+		    listView.setItems(ExerciseHandling.toObservableList(exerciseList));
         } catch(NullPointerException e){}
 	}
 
-	@FXML
-	protected void handleLoad() {
+	public void loadExercise(Exercise e) {
 		try {
-			String selectedExercise = (String) listView.getSelectionModel().getSelectedItem();
-			System.out.println(selectedExercise);
+			System.out.println(e.getName());
 			tabPane.getTabs().clear();
 
-			for (Exercise e : exerciseList)
-				if (e.getName().equals(selectedExercise)) {
-					currentExercise = e;
-
-					for (ClassStruct class1 : e.getClasses()) {
-						tabPane.getTabs().add(createTab(class1));
-					}
-					for (ClassStruct test : e.getTests()) {
-						tabPane.getTabs().add(createTab(test));
-					}
-				}
+			tabPane.getTabs().addAll(ExerciseHandling.createTabView(e));
+			
 		} catch(NullPointerException npe){
 			System.out.print("Please load a catalog first."); //NULL printed before ERROR
 		}
 	}
 
-	public static Tab createTab(ClassStruct struct){
-		Tab tab = new Tab();
-		tab.setText(struct.getName());
-		TextArea textArea = new TextArea(struct.getCode());
-		tab.setContent(textArea);
-		tab.setUserData(struct.isTest());
-		return tab;
+	public CodeTab[] getCodeTabs() {
+		ArrayList<CodeTab> ct = new ArrayList();
+		for(Tab t: tabPane.getTabs()) {
+			if(t instanceof CodeTab)
+				ct.add((CodeTab)t);
+		}
+		CodeTab[] codeTabs = new CodeTab[0];
+		return ct.toArray(codeTabs);
 	}
+
+	public Exercise getSelectedExercise(List<Exercise> exerciseList) {
+		String selectedExercise = (String) listView.getSelectionModel().getSelectedItem();
+		for(Exercise ex: exerciseList)
+			if(ex.getName().equals(selectedExercise))
+				return ex;
+		return null;
+	}
+
 
 }
