@@ -43,18 +43,6 @@
             <items>
                 <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
                          BorderPane.alignment="CENTER">
-                    <tabs>
-                        <Tab text="Tests">
-                            <content>
-                                <TextArea prefHeight="200.0" prefWidth="200.0" fx:id="textTest"/>
-                            </content>
-                        </Tab>
-                        <Tab text="Code">
-                            <content>
-                                <TextArea prefHeight="200.0" prefWidth="200.0" fx:id="textCode"/>
-                            </content>
-                        </Tab>
-                    </tabs>
                 </TabPane>
                 <TextArea prefHeight="26.0" prefWidth="958.0" fx:id="textConsole"/>
             </items>

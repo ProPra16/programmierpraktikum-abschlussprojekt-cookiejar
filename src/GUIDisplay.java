@@ -58,11 +58,7 @@ public class GUIDisplay extends Application {
             main.setScene(scene);
             main.show();
 
-            TextArea textCode = controller.getElementById("textCode");
-            TextArea textTest = controller.getElementById("textTest");
             TabPane tp = controller.getElementById("tabPane");
-            for(Tab t: tp.getTabs())
-                    t.setUserData(t.getText().equals("Tests"));
 
             //Add EventHandler for Cycle-button
             Button cycle = controller.getElementById("buttonCycle");
@@ -116,7 +112,7 @@ public class GUIDisplay extends Application {
             Console outStr = new Console(console);
             PrintStream ps = new PrintStream(outStr, true);
             System.setOut(ps);
-            //System.setErr(ps);
+            System.setErr(ps);
             console.setEditable(false);
 
         } catch (Exception e) {
