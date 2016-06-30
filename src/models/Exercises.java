@@ -43,7 +43,7 @@ public class Exercises {
                     }
                     if (reader.getLocalName().equals("identifier")) {
                         String temp = reader.getElementText();
-                        exercises.get(i).setDescription(temp);
+                        exercises.get(i).setIdentifier(temp);
                     }
                     //GET CLASSES FOR ONE EXERCISE
                     if(reader.getLocalName().equals("classes")){
