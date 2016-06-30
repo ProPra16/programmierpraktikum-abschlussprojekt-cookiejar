@@ -1,9 +1,7 @@
 import controller.ExerciseHandling;
 import controller.FileHandling;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import models.ClassStruct;
 import models.CodeTab;
+import models.Console;
 import models.Exercise;
 import vk.core.api.*;
 
@@ -64,68 +62,7 @@ public class GUIDisplay extends Application {
             main.setScene(scene);
             main.show();
 
-            TabPane tp = controller.getElementById("tabPane");
-
-            //Add EventHandler for Cycle-button
-            Button cycle = controller.getElementById("buttonCycle");
-            cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-                TestResult tr = getTestResult();
-                if(tr != null) {
-                    System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
-                    System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
-                }
-                setState(state+1<3?state+1:0, tr);
-            });
-
-            Button test = controller.getElementById("buttonTest");
-            test.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-                TestResult tr = getTestResult();
-                if(tr != null) {
-                    System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
-                    System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
-                }
-            });
-
-            Button save = controller.getElementById("buttonSave");
-            save.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-                try {
-                    for (CodeTab tab : controller.getCodeTabs()) {
-                        Exercise current = exerciseHanler.getCurrentExercise();
-                        String identifier = current==null?"temp":current.getName();
-                        FileHandling.saveToFile(tab.getText(), tab.getCode(), current.getIdentifier(), tab.isTest());
-                    }
-                    System.out.println("Code saved.");
-
-                /* load with:
-                textCode.setText(controller.loadFromFile("MyCode","test123", false));
-                textTest.setText(controller.loadFromFile("MyTest","test123", true));
-
-                or:
-                ClassStruct[] clstr = controller.loadAllFiles("test123");
-                for(ClassStruct c: clstr)
-                    if(c.isTest())
-                        textTest.setText(c.getCode());
-                    else
-                        textCode.setText(c.getCode());
-                */
-                } catch(Exception e) {
-                    System.out.println("[GUID] Exception: " + e);
-                }
-            });
-
-            Button file = controller.getElementById("buttonFile");
-            file.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-                exerciseHanler = new ExerciseHandling();
-                controller.showExerciseList(exerciseHanler.getExerciseList());
-            });
-
-            Button load = controller.getElementById("buttonLoad");
-            load.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-                Exercise selected = controller.getSelectedExercise(exerciseHanler.getExerciseList());
-                exerciseHanler.setCurrentExercise(selected);
-                controller.loadExercise(selected);
-            });
-
+            placeEventHandlers();
 
             //Redirect standart output to "console" TextArea
             TextArea console = controller.getElementById("textConsole");
@@ -219,5 +156,67 @@ public class GUIDisplay extends Application {
             System.out.println("[GUID] Exception: " + e);
         }
         return null;
+    }
+
+    private void placeEventHandlers() {
+        //Add EventHandler for Cycle-button
+        Button cycle = controller.getElementById("buttonCycle");
+        cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            TestResult tr = getTestResult();
+            if(tr != null) {
+                System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
+                System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
+            }
+            setState(state+1<3?state+1:0, tr);
+        });
+
+        Button test = controller.getElementById("buttonTest");
+        test.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            TestResult tr = getTestResult();
+            if(tr != null) {
+                System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
+                System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
+            }
+        });
+
+        Button save = controller.getElementById("buttonSave");
+        save.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            try {
+                for (CodeTab tab : controller.getCodeTabs()) {
+                    Exercise current = exerciseHanler.getCurrentExercise();
+                    String identifier = current==null?"temp":current.getName();
+                    FileHandling.saveToFile(tab.getText(), tab.getCode(), current.getIdentifier(), tab.isTest());
+                }
+                System.out.println("Code saved.");
+
+                /* load with:
+                textCode.setText(controller.loadFromFile("MyCode","test123", false));
+                textTest.setText(controller.loadFromFile("MyTest","test123", true));
+
+                or:
+                ClassStruct[] clstr = controller.loadAllFiles("test123");
+                for(ClassStruct c: clstr)
+                    if(c.isTest())
+                        textTest.setText(c.getCode());
+                    else
+                        textCode.setText(c.getCode());
+                */
+            } catch(Exception e) {
+                System.out.println("[GUID] Exception: " + e);
+            }
+        });
+
+        Button file = controller.getElementById("buttonFile");
+        file.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            exerciseHanler = new ExerciseHandling();
+            controller.showExerciseList(exerciseHanler.getExerciseList());
+        });
+
+        Button load = controller.getElementById("buttonLoad");
+        load.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            Exercise selected = controller.getSelectedExercise(exerciseHanler.getExerciseList());
+            exerciseHanler.setCurrentExercise(selected);
+            controller.loadExercise(selected);
+        });
     }
 }
