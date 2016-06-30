@@ -77,25 +77,24 @@ public class GUIControll{
 					currentExercise = e;
 
 					for (ClassStruct class1 : e.getClasses()) {
-						Tab tab = new Tab();
-						tab.setText(class1.getName());
-						TextArea textArea = new TextArea(class1.getCode());
-						tab.setContent(textArea);
-						tabPane.getTabs().add(tab);
-						tab.setUserData(false);
+						createTab(class1);
 					}
 					for (ClassStruct test : e.getTests()) {
-						Tab tab = new Tab();
-						tab.setText(test.getName());
-						TextArea textArea = new TextArea(test.getCode());
-						tab.setContent(textArea);
-						tabPane.getTabs().add(tab);
-						tab.setUserData(true);
+						createTab(test);
 					}
 				}
 		} catch(NullPointerException npe){
 			System.out.print("Please load a catalog first."); //NULL printed before ERROR
 		}
+	}
+
+	public void createTab(ClassStruct struct){
+		Tab tab = new Tab();
+		tab.setText(struct.getName());
+		TextArea textArea = new TextArea(struct.getCode());
+		tab.setContent(textArea);
+		tabPane.getTabs().add(tab);
+		tab.setUserData(struct.isTest());
 	}
 
 	public void saveToFile(String className, String code, String identifier, boolean isTest) {
