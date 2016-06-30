@@ -45,16 +45,7 @@ public class GUIControll{
 	@FXML
 	protected void handleFile(){ //loads File with catalog
         try {
-            FileChooser catalog = new FileChooser();
-            catalog.setTitle("Choose Catalog-File");
-		            /*catalog.getExtensionFilters().add(
-				    new FileChooser.ExtensionFilter("XML files (.xml)", ".xml")
-		             );*/ //Something here does not work with Windows
-            File file = catalog.showOpenDialog(new Stage());
-		    System.out.println(file.getAbsoluteFile());
-
-            Exercises exercises = new Exercises();
-            exerciseList = exercises.getExercises(file);
+            exerciseList = FileHandling.loadCatalog();
             ObservableList<String> items = FXCollections.observableArrayList();
 		    for(int i = 0; i < exerciseList.size(); i++){
 			    items.add(exerciseList.get(i).getName());
@@ -75,10 +66,10 @@ public class GUIControll{
 					currentExercise = e;
 
 					for (ClassStruct class1 : e.getClasses()) {
-						createTab(class1);
+						tabPane.getTabs().add(createTab(class1));
 					}
 					for (ClassStruct test : e.getTests()) {
-						createTab(test);
+						tabPane.getTabs().add(createTab(test));
 					}
 				}
 		} catch(NullPointerException npe){
@@ -86,36 +77,13 @@ public class GUIControll{
 		}
 	}
 
-	public void createTab(ClassStruct struct){
+	public static Tab createTab(ClassStruct struct){
 		Tab tab = new Tab();
 		tab.setText(struct.getName());
 		TextArea textArea = new TextArea(struct.getCode());
 		tab.setContent(textArea);
-		tabPane.getTabs().add(tab);
 		tab.setUserData(struct.isTest());
+		return tab;
 	}
 
-	public void saveToFile(String className, String code, String identifier, boolean isTest) {
-		try {
-			File sf = new File("saves/"+identifier+"/"+ (isTest?"tests/":"src/") + className + ".java");
-			sf.getParentFile().mkdirs();
-			sf.createNewFile();
-			BufferedWriter fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(sf)));
-			fw.write(code);
-			fw.flush();
-			fw.close();
-		}catch(IOException e) {}
-	}
-
-	public String loadFromFile(String className, String identifier, boolean isTest) {
-		String code = "";
-		try{
-			File sf = new File("saves/"+identifier+"/"+ (isTest?"tests/":"src/") + className + ".java");
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(sf)));
-			for(Object t: br.lines().toArray()) {
-				code += (String)t + "\n";
-			}
-		}catch(IOException e) {}
-		return code;
-	}
 }

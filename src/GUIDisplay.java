@@ -1,3 +1,4 @@
+import controller.FileHandling;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import models.ClassStruct;
@@ -86,7 +87,7 @@ public class GUIDisplay extends Application {
                     for (Tab tab : ((TabPane)controller.getElementById("tabPane")).getTabs()) {
                         Exercise current = controller.getElementById("currentExercise");
                         String identifier = current==null?"temp":current.getName();
-                        controller.saveToFile(tab.getText(), ((TextArea)tab.getContent()).getText(), identifier, (boolean)tab.getUserData());
+                        FileHandling.saveToFile(tab.getText(), ((TextArea)tab.getContent()).getText(), identifier, (boolean)tab.getUserData());
                     }
                     System.out.println("Code saved.");
 
