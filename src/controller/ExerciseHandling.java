@@ -53,8 +53,7 @@ public class ExerciseHandling {
         for (ClassStruct test : e.getTests()) {
             tabs.add(new CodeTab(test));
         }
-        CodeTab[] tabOutput = new CodeTab[0];
-        return tabs.toArray(tabOutput);
+        return tabs.toArray(new CodeTab[0]);
     }
 
 }

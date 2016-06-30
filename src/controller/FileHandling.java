@@ -42,8 +42,9 @@ public class FileHandling {
 				    new FileChooser.ExtensionFilter("XML files (.xml)", ".xml")
 		             );*/ //Something here does not work with Windows
         File file = catalog.showOpenDialog(new Stage());
-        System.out.println(file.getAbsoluteFile());
-        if(file.getName().endsWith(".xml")) {
+
+        if(file != null && file.getName().endsWith(".xml")) {
+            System.out.println(file.getAbsoluteFile());
             Exercises exercises = new Exercises();
             return exercises.getExercises(file);
         }

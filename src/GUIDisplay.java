@@ -192,13 +192,11 @@ public class GUIDisplay extends Application {
 
     public TestResult getTestResult() {
         try {
-			TabPane tabPane = controller.getElementById("tabPane");
 			ArrayList<CompilationUnit> cu = new ArrayList();
 			for (CodeTab tab : controller.getCodeTabs()) {
 				cu.add(new CompilationUnit(tab.getText(), tab.getCode(), tab.isTest()));
 			}
-			CompilationUnit[] cuarr = new CompilationUnit[0];
-			cuarr = cu.toArray(cuarr);
+			CompilationUnit[] cuarr = cu.toArray(new CompilationUnit[0]);
             JavaStringCompiler cmp = CompilerFactory.getCompiler(cuarr);
 
             cmp.compileAndRunTests();

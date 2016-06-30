@@ -66,8 +66,7 @@ public class GUIControll{
 			if(t instanceof CodeTab)
 				ct.add((CodeTab)t);
 		}
-		CodeTab[] codeTabs = new CodeTab[0];
-		return ct.toArray(codeTabs);
+		return ct.toArray(new CodeTab[0]);
 	}
 
 	public Exercise getSelectedExercise(List<Exercise> exerciseList) {
