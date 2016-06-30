@@ -62,7 +62,7 @@ public class GUIDisplay extends Application {
             main.setScene(scene);
             main.show();
 
-            placeEventHandlers();
+            initializeEventHandlers();
 
             //Redirect standart output to "console" TextArea
             TextArea console = controller.getElementById("textConsole");
@@ -158,7 +158,7 @@ public class GUIDisplay extends Application {
         return null;
     }
 
-    private void placeEventHandlers() {
+    private void initializeEventHandlers() {
         //Add EventHandler for Cycle-button
         Button cycle = controller.getElementById("buttonCycle");
         cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
