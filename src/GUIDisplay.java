@@ -83,6 +83,8 @@ public class GUIDisplay extends Application {
     public void setState(int pState, TestResult tres) {
 
         TextArea console = controller.getElementById("textConsole");
+        TextArea description = controller.getElementById("description");
+        description.setEditable(false);
 
         if (pState == 0) {    //enable writing tests
             try{
