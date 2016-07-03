@@ -14,24 +14,17 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 public class XMLLoader {
+    XMLStreamReader reader;
+    List<Exercise> exercises = new ArrayList<>();
 
     public List<Exercise> getExercises(File file){
-        List<Exercise> exercises = new ArrayList<>();
-
         try {
             InputStream is = new FileInputStream(file);
             XMLInputFactory factory = XMLInputFactory.newInstance();
-            XMLStreamReader reader = factory.createXMLStreamReader(is);
+            reader = factory.createXMLStreamReader(is);
 
             exercises = getExerciseList(file);//CHECK FOR EXERCISES
             if(exercises.isEmpty()) throw new NullPointerException();
-
-            for(int j = 0; j < exercises.size(); j++){
-                List<ClassStruct> classes = new ArrayList<>();
-                List<ClassStruct> tests = new ArrayList<>();
-                exercises.get(j).setTests(tests);
-                exercises.get(j).setClasses(classes);
-            }
 
             int i = 0;
             while (reader.hasNext() && i < exercises.size()) { //FILL WITH CONTENT
@@ -48,57 +41,13 @@ public class XMLLoader {
                         String temp = reader.getElementText();
                         exercises.get(i).setIdentifier(temp);
                     }
-                    //GET CLASSES FOR ONE EXERCISE
+                    //GET CLASSES FOR THIS EXERCISE
                     if(reader.getLocalName().equals("classes")){
-                        ClassStruct class1 = new ClassStruct();
-                        class1.setTest(false);
-                        while(reader.hasNext()){
-                            if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
-                                if (reader.getLocalName().equals("className")) {
-                                    String name = reader.getElementText();
-                                    class1.setName(name);
-                                }
-                                if (reader.getLocalName().equals("class")) {
-                                    String temp = reader.getElementText();
-                                    class1.setCode(removeExcess(temp));
-                                    exercises.get(i).addClasses(class1);
-                                    class1 = new ClassStruct();
-                                    class1.setTest(false);
-                                }
-                            }
-                            if(reader.getEventType() == XMLStreamConstants.END_ELEMENT){
-                                if(reader.getLocalName().equals("classes")){
-                                    break;
-                                }
-                            }
-                            reader.next();
-                        }
+                        exercises.get(i).setClasses(getClassStructList(false));
                     }
-                    //GET TESTS FOR ONE EXERCISE
-                    if(reader.getLocalName().equals("tests")){
-                        ClassStruct test = new ClassStruct();
-                        test.setTest(true);
-                        while(reader.hasNext()){
-                            if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
-                                if (reader.getLocalName().equals("testName")) {
-                                    String name = reader.getElementText();
-                                    test.setName(name);
-                                }
-                                if (reader.getLocalName().equals("test")) {
-                                    String temp = reader.getElementText();
-                                    test.setCode(removeExcess(temp));
-                                    exercises.get(i).addTests(test);
-                                    test = new ClassStruct();
-                                    test.setTest(true);
-                                }
-                            }
-                            if(reader.getEventType() == XMLStreamConstants.END_ELEMENT){
-                                if(reader.getLocalName().equals("tests")){
-                                    break;
-                                }
-                            }
-                            reader.next();
-                        }
+                    //GET TESTS FOR THIS EXERCISE
+                    if(reader.getLocalName().equals("tests")) {
+                        exercises.get(i).setTests(getClassStructList(true));
                     }
                 }
                 if(reader.getEventType() == XMLStreamConstants.END_ELEMENT){
@@ -116,6 +65,35 @@ public class XMLLoader {
             System.out.println("The file is empty or broken.");
         }
         return exercises;
+    }
+
+    public List<ClassStruct> getClassStructList(boolean isTest) throws XMLStreamException{
+        List<ClassStruct> classStructs = new ArrayList<>();
+        ClassStruct classStruct = new ClassStruct();
+        classStruct.setTest(isTest);
+        while(reader.hasNext()) {
+            if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
+                if (reader.getLocalName().equals("testName") || reader.getLocalName().equals("className")) {
+                    String name = reader.getElementText();
+                    classStruct.setName(name);
+                }
+                if (reader.getLocalName().equals("test") || reader.getLocalName().equals("class")) {
+                    String temp = reader.getElementText();
+                    classStruct.setCode(removeExcess(temp));
+                    classStructs.add(classStruct);
+
+                    classStruct = new ClassStruct();
+                    classStruct.setTest(isTest);
+                }
+            }
+            if (reader.getEventType() == XMLStreamConstants.END_ELEMENT) {//write classstruct in xml ?
+                if (reader.getLocalName().equals("tests") || reader.getLocalName().equals("classes")) {
+                    return classStructs;
+                }
+            }
+            reader.next();
+        }
+        return classStructs;
     }
 
     private String removeExcess(String string){
