@@ -4,7 +4,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.ClassStruct;
 import models.Exercise;
-import models.Exercises;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -60,8 +59,8 @@ public class FileHandling {
 
         if(file != null && file.getName().endsWith(".xml")) {
             System.out.println(file.getAbsoluteFile());
-            Exercises exercises = new Exercises();
-            return exercises.getExercises(file);
+            XMLLoader xmlLoader = new XMLLoader();
+            return xmlLoader.getExercises(file);
         }
         System.out.println("The file you selected is not a valid catalog.");
         return null;

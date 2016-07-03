@@ -1,4 +1,7 @@
-package models;
+package controller;
+
+import models.ClassStruct;
+import models.Exercise;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -10,7 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-public class Exercises {
+public class XMLLoader {
 
     public List<Exercise> getExercises(File file){
         List<Exercise> exercises = new ArrayList<>();
