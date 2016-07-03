@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exercises>
     <exercise>
-        <name>Roemische Zahlen</name>
-        <description>Konvertiert arabische in roemische Zahlen.</description>
-        <identifier>numcon1</identifier>
+        <name>TestExercise</name>
+        <description>description</description>
+        <identifier>ident123</identifier>
         <classes>
-            <className>RomanNumberConverter</className>
+            <className>TestClass1</className>
             <class>
-                public class RomanNumberConverter {
+                public class TestClass1 {
                 }
             </class>
-            <className>Class2</className>
+            <className>TestClass2</className>
             <class>
-                public class Class2 {
+                public class TestClass2 {
                 }
             </class>
         </classes>
         <tests>
-            <testName>RomanNumberConverterTest</testName>
+            <testName>Test1</testName>
             <test>
                 import static org.junit.Assert.*;
                 import org.junit.Test;
-                public class RomanNumberConverterTest {
+                public class Test1 {
                 @Test
                 public void testSomething() {
                 }
                 }
             </test>
         </tests>
-        <config>
-            <babysteps value="False" />
-            <timetracking value="True" />
-        </config>
     </exercise>
 </exercises>
