@@ -20,7 +20,7 @@ public class Exercises {
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader reader = factory.createXMLStreamReader(is);
 
-            exercises = getExerciseList(file);//CHECK FOR EXERCISES
+            exercises = getExerciseList(file);  //check for exercises
             if(exercises.isEmpty()) throw new NullPointerException();
 
             for(int j = 0; j < exercises.size(); j++){
@@ -31,7 +31,7 @@ public class Exercises {
             }
 
             int i = 0;
-            while (reader.hasNext() && i < exercises.size()) { //FILL WITH CONTENT
+            while (reader.hasNext() && i < exercises.size()) {  //read informations about exercise
                 if (reader.getEventType() == XMLStreamConstants.START_ELEMENT) {
                     if (reader.getLocalName().equals("name")) {
                         String temp = reader.getElementText();
@@ -45,7 +45,8 @@ public class Exercises {
                         String temp = reader.getElementText();
                         exercises.get(i).setIdentifier(temp);
                     }
-                    //GET CLASSES FOR ONE EXERCISE
+
+                    //get classes for one exercise
                     if(reader.getLocalName().equals("classes")){
                         ClassStruct class1 = new ClassStruct();
                         class1.setTest(false);
@@ -71,7 +72,8 @@ public class Exercises {
                             reader.next();
                         }
                     }
-                    //GET TESTS FOR ONE EXERCISE
+
+                    //get tests for one exercise
                     if(reader.getLocalName().equals("tests")){
                         ClassStruct test = new ClassStruct();
                         test.setTest(true);
@@ -108,13 +110,14 @@ public class Exercises {
         } catch(FileNotFoundException fnfe){
             System.out.println("This file does not exist.");
         } catch(XMLStreamException xmlse){
-            System.out.println();
+            System.out.println(""+xmlse);
         } catch(NullPointerException npe){
             System.out.println("The file is empty or broken.");
         }
         return exercises;
     }
 
+    //remove whitespace
     private String removeExcess(String string){
         string = string.replace("  ", "");
         string = string.trim();

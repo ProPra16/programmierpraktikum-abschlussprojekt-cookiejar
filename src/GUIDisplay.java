@@ -34,7 +34,6 @@ public class GUIDisplay extends Application {
         start(main);
         exerciseHanler = new ExerciseHandling();
         controller.showExerciseList(exerciseHanler.getExerciseList());
-        setState(0, null);
     }
 
     public void start(Stage stage) {
@@ -53,10 +52,14 @@ public class GUIDisplay extends Application {
             styles.add(f.toURI().toString());
             f = new File("res/css/refactorstyle.css");
             styles.add(f.toURI().toString());
-            scene.getStylesheets().add(0, styles.get(0)); //Add stylesheets for phase recognition
+
+            //add stylesheets for phase recognition
+            scene.getStylesheets().add(0, styles.get(0));
 
             f = new File("res/css/scenestyle.css");
-            scene.getStylesheets().add(f.toURI().toString());//Add stylesheet for scene style
+
+            //add stylesheet for scene style
+            scene.getStylesheets().add(f.toURI().toString());
 
             main.setTitle("TDDT");
             main.setScene(scene);
@@ -64,7 +67,7 @@ public class GUIDisplay extends Application {
 
             initializeEventHandlers();
 
-            //Redirect standart output to "console" TextArea
+            //redirect standard output to "console" TextArea
             TextArea console = controller.getElementById("textConsole");
             Console outStr = new Console(console);
             PrintStream ps = new PrintStream(outStr, true);
@@ -96,7 +99,7 @@ public class GUIDisplay extends Application {
         }
         if (pState == 1 && tres != null) {    //enable writing code
             try {
-                if (tres.getNumberOfFailedTests() == 1) {  //add check if EXACTLY one test fails
+                if (tres.getNumberOfFailedTests() == 1) {    //check if EXACTLY one test fails
 
                     for (CodeTab t : controller.getCodeTabs())
                         t.setEditable(!t.isTest());
@@ -110,7 +113,7 @@ public class GUIDisplay extends Application {
                     System.out.println(tres.getNumberOfFailedTests() + " tests failed. Needs to be exactly 1");
             } catch(Exception e) {}
         }
-        if (pState == 2 && tres != null) {    //enable writing code and tests
+        if (pState == 2 && tres != null) {  //enable writing code and tests
             try {
                 if (tres.getNumberOfFailedTests() == 0) {  //add save and load for files; also if tests fail after refactoring, go back to test writing
 
@@ -133,27 +136,27 @@ public class GUIDisplay extends Application {
 			for (CodeTab tab : controller.getCodeTabs()) {
 				cu.add(new CompilationUnit(tab.getText(), tab.getCode(), tab.isTest()));
 			}
-			CompilationUnit[] cuarr = cu.toArray(new CompilationUnit[0]);
-            JavaStringCompiler cmp = CompilerFactory.getCompiler(cuarr);
+			CompilationUnit[] compilationUnitArray = cu.toArray(new CompilationUnit[0]);
+            JavaStringCompiler cmp = CompilerFactory.getCompiler(compilationUnitArray);
 
             cmp.compileAndRunTests();
-            CompilerResult cmpres = cmp.getCompilerResult();
-            if (!cmpres.hasCompileErrors()) {
+            CompilerResult compilerResult = cmp.getCompilerResult();
+            if (!compilerResult.hasCompileErrors()) {
                 return cmp.getTestResult();
             } else {
-                System.out.println("Could not compile!");
-                for(CompilationUnit unit: cuarr)
-                    cmpres.getCompilerErrorsForCompilationUnit(unit).forEach((CompileError err)-> {
+                System.out.println("An error occurred compiling your tests!");
+                for(CompilationUnit unit: compilationUnitArray)
+                    compilerResult.getCompilerErrorsForCompilationUnit(unit).forEach((CompileError err)-> {
                         System.out.println(err.getMessage());
                     });
                 return null;
             }
         }
-        catch (NullPointerException nptr) {
-            System.out.println("Could not compile!");
+        catch (NullPointerException nullPtr) {
+            System.out.println("An error occurred compiling your tests!");
         }
         catch(Exception e){
-            System.out.println("[GUID] Exception: " + e);
+            System.out.println("An error occurred compiling your tests! [GUID] Exception: " + e);
         }
         return null;
     }
@@ -217,6 +220,7 @@ public class GUIDisplay extends Application {
             Exercise selected = controller.getSelectedExercise(exerciseHanler.getExerciseList());
             exerciseHanler.setCurrentExercise(selected);
             controller.loadExercise(selected);
+            setState(0, null);
         });
     }
 }

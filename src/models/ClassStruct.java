@@ -3,7 +3,7 @@ package models;
 public class ClassStruct {
     private String className;
     private String code;
-    private boolean isTest;
+    private boolean isTest;     //used to differ between class and test instead of using an interface
 
     public ClassStruct() {
     }
