@@ -1,14 +1,9 @@
 package controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import models.*;
 
-import java.io.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;

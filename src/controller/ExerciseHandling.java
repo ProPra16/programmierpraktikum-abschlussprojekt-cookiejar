@@ -3,7 +3,6 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TextArea;
 import models.ClassStruct;
 import models.CodeTab;
 import models.Exercise;
