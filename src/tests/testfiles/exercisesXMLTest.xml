@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exercises>
+    <exercise>
+        <name>TestExercise</name>
+        <description>description</description>
+        <identifier>ident123</identifier>
+        <classes>
+            <className>TestClass1</className>
+            <class>
+                public class TestClass1 {
+                }
+            </class>
+            <className>TestClass2</className>
+            <class>
+                public class TestClass2 {
+                }
+            </class>
+        </classes>
+        <tests>
+            <testName>Test1</testName>
+            <test>
+                import static org.junit.Assert.*;
+                import org.junit.Test;
+                public class Test1 {
+                @Test
+                public void testSomething() {
+                }
+                }
+            </test>
+        </tests>
+    </exercise>
+</exercises>
