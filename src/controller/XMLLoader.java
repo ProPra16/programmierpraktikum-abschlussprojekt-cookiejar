@@ -19,6 +19,7 @@ public class XMLLoader {
 
     public List<Exercise> getExercises(File file){
         try {
+            if(file.length() == 0) throw new NullPointerException();
             InputStream is = new FileInputStream(file);
             XMLInputFactory factory = XMLInputFactory.newInstance();
             reader = factory.createXMLStreamReader(is);
@@ -67,7 +68,7 @@ public class XMLLoader {
         return exercises;
     }
 
-    public List<ClassStruct> getClassStructList(boolean isTest) throws XMLStreamException{
+    private List<ClassStruct> getClassStructList(boolean isTest) throws XMLStreamException{
         List<ClassStruct> classStructs = new ArrayList<>();
         ClassStruct classStruct = new ClassStruct();
         classStruct.setTest(isTest);
