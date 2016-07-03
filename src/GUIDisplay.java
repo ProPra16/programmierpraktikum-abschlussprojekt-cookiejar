@@ -1,5 +1,6 @@
 import controller.ExerciseHandling;
 import controller.FileHandling;
+import controller.Settings;
 import models.CodeTab;
 import models.Console;
 import models.Exercise;
@@ -28,12 +29,14 @@ public class GUIDisplay extends Application {
     private int state;
     private List<String> styles;
     private ExerciseHandling exerciseHanler;
+    private Settings settings;
 
     public GUIDisplay() {
         main = new Stage();
         start(main);
         exerciseHanler = new ExerciseHandling();
         controller.showExerciseList(exerciseHanler.getExerciseList());
+        settings = new Settings();
     }
 
     public void start(Stage stage) {
