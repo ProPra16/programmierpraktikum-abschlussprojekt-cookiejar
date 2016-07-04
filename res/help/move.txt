@@ -24,10 +24,10 @@ you can always switch between them simply by clicking at them and have a look at
 if you're not sure what to do next or what you did last. 
 
 TextField upper left corner: 
-That is the textfield in which your description appears, after you loaded an exercise. 
+That is the TextField in which your description appears, after you loaded an exercise.
 
-TextFiels upper right corner: 
-In this textfield a list of exercises will appear, after you load it from a XML-file. 
+TextField upper right corner:
+In this TextField a list of exercises will appear, after you load it from a XML-file.
 
 TextField bottom center: 
-This is your consol. You cannot write in it. Use your tests to try out your methods. 
+This is your console. You cannot write in it. Use your tests to try out your methods.
