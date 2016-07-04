@@ -28,10 +28,6 @@
                 }
             </test>
         </tests>
-        <config>
-            <babysteps value="False" />
-            <timetracking value="True" />
-        </config>
     </exercise>
     <exercise>
         <name>Zaehle bis 10</name>
@@ -56,9 +52,5 @@
                 }
             </test>
         </tests>
-        <config>
-            <babysteps value="True" time="2:00" />
-            <timetracking value="True" />
-        </config>
     </exercise>
 </exercises>
