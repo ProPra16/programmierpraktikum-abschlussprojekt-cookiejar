@@ -4,11 +4,11 @@ File:
 Choose a catalog to load exercises from, remember that catalog has to be XML and right formatted.
 Load:
 After you chose a catalog, chose an exercise and load it. 
-After that the settings-window appeares, chose your settings and move on.
+After that the settings-window appears, chose your settings and move on.
 Now you can start working on your exercise.
 
 Test:
-You can test your programm before moving on. 
+You can test your program before moving on.
 We highly recommend testing your methods for compiler errors!
 Cycle:
 After you tested everything and made sure that's right, 
