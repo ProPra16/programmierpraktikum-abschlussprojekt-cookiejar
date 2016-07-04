@@ -1,0 +1,33 @@
+How to move around:
+BUTTONS: 
+File:
+Choose a catalog to load exercises from, remember that catalog has to be XML and right formatted.
+Load:
+After you chose a catalog, chose an exercise and load it. 
+After that the settings-window appeares, chose your settings and move on.
+Now you can start working on your exercise.
+
+Test:
+You can test your programm before moving on. 
+We highly recommend testing your methods for compiler errors!
+Cycle:
+After you tested everything and made sure that's right, 
+you can move on to the next phase by pressing that button.
+
+Settings: 
+You can chose a different design probably... some time... not there yet :D
+
+FIELDS:
+Tabs:
+When you loaded your exercise, you can see all the classes in different tabs, 
+you can always switch between them simply by clicking at them and have a look at your other classes, 
+if you're not sure what to do next or what you did last. 
+
+TextField upper left corner: 
+That is the textfield in which your description appears, after you loaded an exercise. 
+
+TextFiels upper right corner: 
+In this textfield a list of exercises will appear, after you load it from a XML-file. 
+
+TextField bottom center: 
+This is your consol. You cannot write in it. Use your tests to try out your methods. 

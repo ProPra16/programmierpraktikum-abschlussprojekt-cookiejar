@@ -1,0 +1,43 @@
+How to do your exercises properly: 
+TDDT:
+
+Failing Test:
+There are three different states in which you can be in. 
+The first one is "write a test that fails", that means, that you have to write a test, of which you think 
+it's a good start for your methods. Keep your tests small. 
+For example: 
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+public class RomanNumberConverterTest {
+    @Test
+    public void testSomething() {
+        RomanNumberConverter rnc = new RomanNumberConverter();
+        assertEquals("I", rnc.convert(1));
+    }
+}
+
+Non existing methods can cause compilation errors, be aware of typos.
+Write a very easy test to start with and slowly increase the difficulty of your tests.
+After that test cannot compile, or fails you can move forward. 
+You need exactly ONE test to fail to enter code-writing mode.
+
+Make it pass: 
+After you wrote that test, you want it to pass. So any compilation error has to be fixed and 
+the test may not fail anymore. 
+So now you write your method in the class you wrote that test for:
+
+public class RomanNumberConverter {
+    public String convert(int n){
+        return "I";
+    }
+}
+
+Start simple! You only need this one test to pass, don't you?
+After that you enter the refactoring mode.
+
+Refactor:
+Now you can refactor your code, make it look pretty!
+Rework duplications (write other methods for that probably), delete unused code, just tidy up.
+BUT keep in mind, that all your test still have to pass, otherwise you cannot enter the test-writing mode. 
+If you are good with your code as it is, just go to the next step.
