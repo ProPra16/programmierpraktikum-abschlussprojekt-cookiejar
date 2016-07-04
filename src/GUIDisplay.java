@@ -36,6 +36,7 @@ public class GUIDisplay extends Application {
         controller.showExerciseList(exerciseHanler.getExerciseList());
     }
 
+    //GUI setup
     public void start(Stage stage) {
         try {
             main = stage;
@@ -80,6 +81,8 @@ public class GUIDisplay extends Application {
         }
     }
 
+
+    //setting state; each state is equal to one part of the TDD-programming
     public void setState(int pState, TestResult tres) {
 
         TextArea console = controller.getElementById("textConsole");
@@ -132,6 +135,7 @@ public class GUIDisplay extends Application {
         }
     }
 
+    //return results for all test-classes/-tabs combined
     public TestResult getTestResult() {
         try {
 			ArrayList<CompilationUnit> cu = new ArrayList();
@@ -163,8 +167,9 @@ public class GUIDisplay extends Application {
         return null;
     }
 
+    //initializing buttons and their functions
     private void initializeEventHandlers() {
-        //Add EventHandler for Cycle-button
+        //Cycle-button
         Button cycle = controller.getElementById("buttonCycle");
         cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             TestResult tr = getTestResult();
@@ -175,6 +180,7 @@ public class GUIDisplay extends Application {
             setState(state+1<3?state+1:0, tr);
         });
 
+        //Test-button
         Button test = controller.getElementById("buttonTest");
         test.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             TestResult tr = getTestResult();
@@ -184,6 +190,7 @@ public class GUIDisplay extends Application {
             }
         });
 
+        //Save-button
         Button save = controller.getElementById("buttonSave");
         save.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             try {
@@ -211,12 +218,14 @@ public class GUIDisplay extends Application {
             }
         });
 
+        //File-button
         Button file = controller.getElementById("buttonFile");
         file.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             exerciseHanler = new ExerciseHandling();
             controller.showExerciseList(exerciseHanler.getExerciseList());
         });
 
+        //Load-button
         Button load = controller.getElementById("buttonLoad");
         load.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             Exercise selected = controller.getSelectedExercise(exerciseHanler.getExerciseList());
