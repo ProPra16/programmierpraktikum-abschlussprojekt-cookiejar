@@ -231,6 +231,8 @@ public class GUIDisplay extends Application {
             Exercise selected = controller.getSelectedExercise(exerciseHanler.getExerciseList());
             exerciseHanler.setCurrentExercise(selected);
             controller.loadExercise(selected);
+            settings.start();
+
             setState(0, null);
         });
 
