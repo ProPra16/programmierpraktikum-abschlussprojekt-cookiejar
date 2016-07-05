@@ -1,6 +1,9 @@
 import controller.ExerciseHandling;
+import controller.ExerciseSettings;
 import controller.FileHandling;
-import controller.Settings;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import models.CodeTab;
 import models.Console;
 import models.Exercise;
@@ -29,14 +32,20 @@ public class GUIDisplay extends Application {
     private int state;
     private List<String> styles;
     private ExerciseHandling exerciseHanler;
-    private Settings settings;
+    private ExerciseSettings settings;
 
     public GUIDisplay() {
         main = new Stage();
         start(main);
         exerciseHanler = new ExerciseHandling();
         controller.showExerciseList(exerciseHanler.getExerciseList());
-        settings = new Settings();
+        Stage settingsStage = new Stage();
+        settings = new ExerciseSettings(settingsStage);
+        settingsStage.initOwner(main);
+        settingsStage.initModality(Modality.WINDOW_MODAL);
+        settingsStage.setOnCloseRequest((WindowEvent event) -> {
+            event.consume();
+        });
     }
 
     public void start(Stage stage) {
@@ -224,6 +233,12 @@ public class GUIDisplay extends Application {
             exerciseHanler.setCurrentExercise(selected);
             controller.loadExercise(selected);
             setState(0, null);
+        });
+
+        Button settingsButton = controller.getElementById("buttonSettings");
+        settingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            System.out.println("test");
+            settings.start();
         });
     }
 }
