@@ -2,7 +2,6 @@ import controller.ExerciseHandling;
 import controller.ExerciseSettings;
 import controller.FileHandling;
 import javafx.stage.Modality;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import models.CodeTab;
 import models.Console;
@@ -237,7 +236,6 @@ public class GUIDisplay extends Application {
 
         Button settingsButton = controller.getElementById("buttonSettings");
         settingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            System.out.println("test");
             settings.start();
         });
     }
