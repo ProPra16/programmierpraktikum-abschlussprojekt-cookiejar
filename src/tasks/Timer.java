@@ -9,7 +9,6 @@ public class Timer extends Label{
     Timeline timer;
     private long start;
     private long time;
-    private int stop;
 
     public Timer() {
         super("00:00");
@@ -17,19 +16,22 @@ public class Timer extends Label{
     }
 
     public void start(int stop) {
-        this.stop = stop/60;
+        reset();
         start = System.currentTimeMillis();
-        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.setCycleCount(stop);
         timer.play();
     }
 
     public void update() {
         time = System.currentTimeMillis() - start;
-        int minutes = (int)time/60000;
-        if(minutes == stop) stop();
-        int seconds = (int)(time/1000)%60;
-        String timeFormat = String.format("%02d:%02d", minutes,seconds);
-        setText(""+timeFormat);
+        setText(getTime());
+    }
+
+    public void reset() {
+        timer.stop();
+        this.setText("00:00");
+        timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
+        time = 0l;
     }
 
     public String getTime(){

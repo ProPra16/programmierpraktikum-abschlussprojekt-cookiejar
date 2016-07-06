@@ -50,6 +50,8 @@ public class ExerciseSettings {
 
     public void start() {
         try {
+            started = new SimpleBooleanProperty(false);
+
             BorderPane root = new BorderPane();
             GridPane center = new GridPane();
             center.setAlignment(Pos.CENTER);
@@ -57,6 +59,7 @@ public class ExerciseSettings {
             center.setVgap(50.0);
 
             bsteps = new CheckBox("Babysteps");
+            bsteps.setSelected(babysteps);
             bsteps.setAlignment(Pos.CENTER);
             center.add(bsteps,0,0);
 
@@ -69,6 +72,7 @@ public class ExerciseSettings {
             center.add(bstime,1,0);
 
             acceptance = new CheckBox("Acceptance Test");
+            acceptance.setSelected(acceptanceTest);
             acceptance.setAlignment(Pos.CENTER);
             center.add(acceptance,0,1);
 
