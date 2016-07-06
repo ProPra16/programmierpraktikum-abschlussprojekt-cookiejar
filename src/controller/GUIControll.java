@@ -21,6 +21,8 @@ public class GUIControll{
 	@FXML private ListView listView;
     @FXML private TabPane tabPane;
 	@FXML private Timer timer;
+	@FXML private Label timerLabel;
+	@FXML private Label maxTimer;
 
 	/*	Returns element from the field with the given name, as generic type.
 	* 	Usage: 	Type t = getElementById("FieldName");
@@ -75,6 +77,10 @@ public class GUIControll{
 
 	public void handleSettings(boolean babysteps, boolean acceptance, int stop){
 		if(babysteps){
+			timerLabel.setVisible(true);
+			timer.setVisible(true);
+			maxTimer.setVisible(true);
+			maxTimer.setText("/"+ String.format("%02d",stop/60) +":00");
 			timer.start(stop);
 		}
 		if(acceptance){

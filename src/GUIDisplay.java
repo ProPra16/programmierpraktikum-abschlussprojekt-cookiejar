@@ -6,6 +6,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
 import models.CodeTab;
@@ -83,6 +84,13 @@ public class GUIDisplay extends Application {
             main.show();
 
             initializeEventHandlers();
+
+            Timer timer = controller.getElementById("timer");
+            timer.setVisible(false);
+            Label timerLabel = controller.getElementById("timerLabel");
+            timerLabel.setVisible(false);
+            Label maxTimer = controller.getElementById("maxTimer");
+            maxTimer.setVisible(false);
 
             //redirect standard output to "console" TextArea
             TextArea console = controller.getElementById("textConsole");

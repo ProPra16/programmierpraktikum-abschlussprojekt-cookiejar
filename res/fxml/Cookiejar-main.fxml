@@ -60,17 +60,20 @@
         </SplitPane>
     </right>
     <left>
-        <SplitPane dividerPositions="0.27046997389033943, 0.783289817232376" orientation="VERTICAL" prefHeight="200.0"
+        <SplitPane dividerPositions="0.27046997389033943, 0.783289817232376" orientation="VERTICAL" prefHeight="100.0"
                    prefWidth="160.0" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="4.0" prefWidth="158.0"/>
                 <TreeView prefHeight="478.0" prefWidth="158.0"/>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                <AnchorPane prefHeight="100.0" prefWidth="200.0">
                     <HBox prefHeight="50.0" prefWidth="150.0" Alignment="CENTER">
-                        <Label text="Timer"/>
+                        <Label fx:id="timerLabel" text="Timer:"/>
+                    </HBox>
+                    <HBox prefHeight="100.0" prefWidth="150.0" Alignment="CENTER">
+                        <Timer fx:id="timer"/>
                     </HBox>
                     <HBox prefHeight="150.0" prefWidth="150.0" Alignment="CENTER">
-                        <Timer fx:id="timer"/>
+                        <Label fx:id="maxTimer"/>
                     </HBox>
                 </AnchorPane>
             </items>
