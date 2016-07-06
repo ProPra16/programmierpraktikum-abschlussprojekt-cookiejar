@@ -226,19 +226,21 @@ public class GUIDisplay extends Application {
             controller.showExerciseList(exerciseHanler.getExerciseList());
         });
 
+        Button settingsButton = controller.getElementById("buttonSettings");
+        settingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            settings.start(); //Timer does not work yet
+            controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration());
+        });
+
         Button load = controller.getElementById("buttonLoad");
         load.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             Exercise selected = controller.getSelectedExercise(exerciseHanler.getExerciseList());
             exerciseHanler.setCurrentExercise(selected);
             controller.loadExercise(selected);
             settings.start();
-
+            controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration()); //needs Thread.sleep() or wait() until settings are set
             setState(0, null);
         });
 
-        Button settingsButton = controller.getElementById("buttonSettings");
-        settingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            settings.start();
-        });
     }
 }

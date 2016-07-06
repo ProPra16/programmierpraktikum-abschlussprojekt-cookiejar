@@ -3,6 +3,7 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import models.*;
+import tasks.Timer;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class GUIControll{
 	@FXML private Button buttonCycle;
 	@FXML private ListView listView;
     @FXML private TabPane tabPane;
+	@FXML private Timer timer;
 
 	/*	Returns element from the field with the given name, as generic type.
 	* 	Usage: 	Type t = getElementById("FieldName");
@@ -47,7 +49,6 @@ public class GUIControll{
 		try {
 			System.out.println(e.getName());
 			tabPane.getTabs().clear();
-
 			tabPane.getTabs().addAll(ExerciseHandling.createTabView(e));
 			
 		} catch(NullPointerException npe){
@@ -72,5 +73,15 @@ public class GUIControll{
 		return null;
 	}
 
+	public void handleSettings(boolean babysteps, boolean acceptance, int stop){
+		if(babysteps){
+			timer.stop();
+			timer = new Timer();
+			timer.start(stop);
+		}
+		if(acceptance){
+
+		}
+	}
 
 }
