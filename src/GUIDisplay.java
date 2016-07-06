@@ -236,16 +236,9 @@ public class GUIDisplay extends Application {
             controller.showExerciseList(exerciseHanler.getExerciseList());
         });
 
-        Button settingsButton = controller.getElementById("buttonSettings");
-        settingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            timer.stop();
-            settings.start();
-            BooleanProperty isStarted = settings.isStarted();
-            isStarted.addListener((value) -> {
-                if (true) {
-                    controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration());
-                }
-            });
+        Button helpButton = controller.getElementById("buttonHelp");
+        helpButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            System.out.println("Help!");
         });
 
         Button load = controller.getElementById("buttonLoad");

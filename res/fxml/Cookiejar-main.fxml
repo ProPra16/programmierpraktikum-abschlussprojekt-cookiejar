@@ -25,7 +25,7 @@
                 </Button>
                 <Button mnemonicParsing="false" text="Test" fx:id="buttonTest"/>
                 <Button mnemonicParsing="false" text="Cycle" fx:id="buttonCycle"/>
-                <Button mnemonicParsing="false" text="Settings" fx:id="buttonSettings">
+                <Button mnemonicParsing="false" text="Help" fx:id="buttonHelp">
                     <HBox.margin>
                         <Insets left="870.0"/>
                     </HBox.margin>

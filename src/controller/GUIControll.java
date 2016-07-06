@@ -15,7 +15,7 @@ public class GUIControll{
 	@FXML private Button buttonLoad;
 	@FXML private Button buttonSave;
 	@FXML private Button buttonTest;
-	@FXML private Button buttonSettings;
+	@FXML private Button buttonHelp;
 	@FXML private TextArea textConsole;
 	@FXML private Button buttonCycle;
 	@FXML private ListView listView;
