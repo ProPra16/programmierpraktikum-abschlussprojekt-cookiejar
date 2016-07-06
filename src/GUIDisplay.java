@@ -1,6 +1,11 @@
 import controller.ExerciseHandling;
 import controller.ExerciseSettings;
 import controller.FileHandling;
+import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
 import models.CodeTab;
@@ -238,8 +243,13 @@ public class GUIDisplay extends Application {
             exerciseHanler.setCurrentExercise(selected);
             controller.loadExercise(selected);
             settings.start();
-            controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration()); //needs Thread.sleep() or wait() until settings are set
-            setState(0, null);
+            BooleanProperty isStarted = settings.isStarted();
+            isStarted.addListener((value) -> {
+                if(value.equals(true)) {
+                    controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration());
+                    setState(0, null);
+                }
+            });
         });
 
     }

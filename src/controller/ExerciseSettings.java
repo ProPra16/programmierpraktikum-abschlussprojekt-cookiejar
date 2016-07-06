@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,6 +18,8 @@ public class ExerciseSettings {
     private boolean acceptanceTest;
     private int babysteps_time;
 
+    private BooleanProperty started;
+
     private ComboBox<String> bstime;
     private CheckBox bsteps;
     private CheckBox acceptance;
@@ -25,6 +29,7 @@ public class ExerciseSettings {
 
     public ExerciseSettings(Stage stage) {
         main = stage;
+        started = new SimpleBooleanProperty(false);
     }
 
     public boolean isBabysteps() {
@@ -37,6 +42,10 @@ public class ExerciseSettings {
 
     public int babystepsDuration() {
         return babysteps_time;
+    }
+
+    public BooleanProperty isStarted() {
+        return  started;
     }
 
     public void start() {
@@ -81,6 +90,7 @@ public class ExerciseSettings {
                     System.out.println("Babysteps are enabled, " + babysteps_time/60 + " minute steps");
                 if(acceptanceTest)
                     System.out.println("Acceptance test enabled.");
+                started.setValue(true);
             });
 
 
