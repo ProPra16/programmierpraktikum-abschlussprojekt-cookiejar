@@ -239,8 +239,13 @@ public class GUIDisplay extends Application {
         Button settingsButton = controller.getElementById("buttonSettings");
         settingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             timer.stop();
-            settings.start(); //Timer does not work yet
-            controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration());
+            settings.start();
+            BooleanProperty isStarted = settings.isStarted();
+            isStarted.addListener((value) -> {
+                if (true) {
+                    controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration());
+                }
+            });
         });
 
         Button load = controller.getElementById("buttonLoad");
@@ -253,7 +258,7 @@ public class GUIDisplay extends Application {
                 settings.start();
                 BooleanProperty isStarted = settings.isStarted();
                 isStarted.addListener((value) -> {
-                    if (value.equals(true)) {
+                    if (true) {
                         controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration());
                         setState(0, null);
                     }
