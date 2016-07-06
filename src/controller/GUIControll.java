@@ -75,8 +75,6 @@ public class GUIControll{
 
 	public void handleSettings(boolean babysteps, boolean acceptance, int stop){
 		if(babysteps){
-			timer.stop();
-			timer = new Timer();
 			timer.start(stop);
 		}
 		if(acceptance){

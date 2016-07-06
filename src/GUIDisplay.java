@@ -11,6 +11,7 @@ import javafx.stage.WindowEvent;
 import models.CodeTab;
 import models.Console;
 import models.Exercise;
+import tasks.Timer;
 import vk.core.api.*;
 
 import controller.GUIControll;
@@ -178,9 +179,11 @@ public class GUIDisplay extends Application {
     }
 
     private void initializeEventHandlers() {
+        Timer timer = controller.getElementById("timer");
         //Add EventHandler for Cycle-button
         Button cycle = controller.getElementById("buttonCycle");
         cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            timer.stop();
             TestResult tr = getTestResult();
             if(tr != null) {
                 System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
@@ -200,6 +203,7 @@ public class GUIDisplay extends Application {
 
         Button save = controller.getElementById("buttonSave");
         save.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            timer.stop();
             try {
                 for (CodeTab tab : controller.getCodeTabs()) {
                     Exercise current = exerciseHanler.getCurrentExercise();
@@ -227,29 +231,36 @@ public class GUIDisplay extends Application {
 
         Button file = controller.getElementById("buttonFile");
         file.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            timer.stop();
             exerciseHanler = new ExerciseHandling();
             controller.showExerciseList(exerciseHanler.getExerciseList());
         });
 
         Button settingsButton = controller.getElementById("buttonSettings");
         settingsButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            timer.stop();
             settings.start(); //Timer does not work yet
             controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration());
         });
 
         Button load = controller.getElementById("buttonLoad");
         load.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            timer.stop();
             Exercise selected = controller.getSelectedExercise(exerciseHanler.getExerciseList());
-            exerciseHanler.setCurrentExercise(selected);
-            controller.loadExercise(selected);
-            settings.start();
-            BooleanProperty isStarted = settings.isStarted();
-            isStarted.addListener((value) -> {
-                if(value.equals(true)) {
-                    controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration());
-                    setState(0, null);
-                }
-            });
+            if(selected != null) {
+                exerciseHanler.setCurrentExercise(selected);
+                controller.loadExercise(selected);
+                settings.start();
+                BooleanProperty isStarted = settings.isStarted();
+                isStarted.addListener((value) -> {
+                    if (value.equals(true)) {
+                        controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration());
+                        setState(0, null);
+                    }
+                });
+            } else {
+                System.out.println("Please select an exercise.");
+            }
         });
 
     }
