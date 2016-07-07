@@ -21,7 +21,7 @@ public class Timer extends Label{
     }
 
     public void start(int stop) {
-        this.stop = stop/60;
+        this.stop = stop;
         reset();
         start = System.currentTimeMillis();
         timer.setCycleCount(stop);
@@ -33,9 +33,12 @@ public class Timer extends Label{
     }
 
     public void update() {
+        if ((int)(time/1000)+1 == stop){
+            System.out.println("Time ran out.");
+            stop();
+        }
         time = System.currentTimeMillis() - start;
         setText(getTime());
-        if(getTime().equals(String.format("%02d:%02d", stop ,00))) stop();
     }
 
     public void reset() {
