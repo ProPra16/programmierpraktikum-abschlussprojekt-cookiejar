@@ -2,13 +2,17 @@ package tasks;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 public class Timer extends Label{
-    Timeline timer;
+    private Timeline timer;
     private long start;
     private long time;
+
+    private BooleanProperty stopped;
 
     public Timer() {
         super("00:00");
@@ -16,10 +20,15 @@ public class Timer extends Label{
     }
 
     public void start(int stop) {
+        stopped = new SimpleBooleanProperty(false);
         reset();
         start = System.currentTimeMillis();
         timer.setCycleCount(stop);
         timer.play();
+    }
+
+    public BooleanProperty isStopped(){
+        return stopped;
     }
 
     public void update() {
@@ -28,6 +37,7 @@ public class Timer extends Label{
     }
 
     public void reset() {
+        stopped.setValue(true);
         timer.stop();
         this.setText("00:00");
         timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
