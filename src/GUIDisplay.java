@@ -41,7 +41,8 @@ public class GUIDisplay extends Application {
     private ExerciseSettings settings;
     private boolean babysteps, acceptance;
     private int babystepDuration;
-    private CodeTab[] save;
+    private String saveTest, saveCode;
+    private int shallSave;
 
     public GUIDisplay() {
         main = new Stage();
@@ -186,13 +187,16 @@ public class GUIDisplay extends Application {
 
     public void compileBabysteps() {
         try {
+            if(shallSave%2 == 0){
+                saveTabs();
+            }
             ArrayList<CompilationUnit> cu = new ArrayList();
             for (CodeTab tab : controller.getCodeTabs()) {
                 cu.add(new CompilationUnit(tab.getText(), tab.getCode(), tab.isTest()));
             }
             CompilationUnit[] compilationUnitArray = cu.toArray(new CompilationUnit[0]);
             JavaStringCompiler cmp = CompilerFactory.getCompiler(compilationUnitArray);
-            
+
             cmp.compileAndRunTests();
             CompilerResult compilerResult = cmp.getCompilerResult();
             if (!compilerResult.hasCompileErrors()) {
@@ -201,18 +205,25 @@ public class GUIDisplay extends Application {
                 System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
                 if(tr.getNumberOfFailedTests() == 1 && state == 0){
                     Timer timer = controller.getElementById("timer");
-                    //timer.stop();
+                    System.out.println("Timer stopped by : "+timer.getTime());
                     timer.start(babystepDuration);
+                    setStopHandler();
                     setState(1);
                 } else if(tr.getNumberOfFailedTests() != 1 && state == 0){
                     System.out.println("Number of failed tests must be EXACTLY one!");
                 }
                 if(tr.getNumberOfFailedTests() == 0 && (state == 1 || state == 2)){
                     Timer timer = controller.getElementById("timer");
-                    //timer.stop();
+                    System.out.println("Timer stopped by : "+timer.getTime());
                     timer.start(babystepDuration);
+                    setStopHandler();
                     setState(state+1);
                 } else if(tr.getNumberOfFailedTests() != 0 && (state == 1 || state == 2)){
+                    System.out.println("All tests need to pass!");
+                }
+                if(tr.getNumberOfFailedTests() == 0 &&  state == 2){
+                    setState(state+1);
+                } else if(tr.getNumberOfFailedTests() != 0 && state == 2){
                     System.out.println("All tests need to pass!");
                 }
             } else {
@@ -223,8 +234,9 @@ public class GUIDisplay extends Application {
                     });
                 if(state == 0) {
                     Timer timer = controller.getElementById("timer");
-                    //timer.stop();
+                    System.out.println("Timer stopped by : "+timer.getTime());
                     timer.start(babystepDuration);
+                    setStopHandler();
                     setState(1);
                 }
             }
@@ -317,7 +329,6 @@ public class GUIDisplay extends Application {
                     acceptance = settings.isAcceptanceTest();
                     babystepDuration = settings.babystepsDuration();
                     handleSettings();
-                    setState(0);
                 });
             } else {
                 System.out.println("Please select an exercise.");
@@ -327,32 +338,44 @@ public class GUIDisplay extends Application {
 
     public void handleSettings(){
         if(babysteps){
+            shallSave = 0;
             handleBabysteps();
         }
-        if(acceptance){}
+        if(acceptance){
+            setState(0);
+        }
     }
 
     public void setStopHandler(){
         Timer timer = controller.getElementById("timer");
         BooleanProperty isStopped = timer.isStopped();
-        isStopped.addListener(e -> {
-            System.out.println("Timer stopped by: "+timer.getTime());
-            if(timer.getTime().equals(String.format("%02d:%02d", (babystepDuration/60)-1, 59))) {
-                System.out.println("Go back.");
-            }
+        isStopped.addListener((value) -> {
+            resetTabs();
+            setState(state-1);
+            System.out.println("Go back.");
         });
     }
 
+    public void resetTabs(){
+        System.out.println("resetTabs");
+    }
+
+    public void saveTabs(){
+        System.out.println("saveTabs");
+    }
+
     public void handleBabysteps(){
-        save = controller.getCodeTabs();
         Timer timer = controller.getElementById("timer");
         Label timerLabel = controller.getElementById("timerLabel");
         Label maxTimer = controller.getElementById("maxTimer");
 
         timer.start(babystepDuration);
+        setStopHandler();
         timer.setVisible(true);
         timerLabel.setVisible(true);
         maxTimer.setText("/"+String.format("%02d:%02d", babystepDuration/60,0));
         maxTimer.setVisible(true); //Initialize timer and labels
+        setState(2);
+        compileBabysteps();
     }
 }
