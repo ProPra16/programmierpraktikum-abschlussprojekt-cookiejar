@@ -13,7 +13,7 @@ public class GUIControll{
 
 	@FXML private Button buttonFile;
 	@FXML private Button buttonLoad;
-	@FXML private Button buttonSave;
+	@FXML private Button buttonBack;
 	@FXML private Button buttonTest;
 	@FXML private Button buttonHelp;
 	@FXML private TextArea textConsole;

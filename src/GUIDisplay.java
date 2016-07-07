@@ -110,35 +110,33 @@ public class GUIDisplay extends Application {
 
     public void setState(int pState) {
         if(pState == 3) pState = 0;
-        if(pState == -1) pState = 3;
-        Timer timer = controller.getElementById("timer");
+        if(pState == -1) pState = 2;
         if (pState == 0) {    //enable writing tests
             try{
-                    for (CodeTab t : controller.getCodeTabs())
-                        t.setEditable(t.isTest());
-
-                    scene.getStylesheets().set(0, styles.get(0));
-                    state = pState;
-                    System.out.println("You are now in test-writing mode\n");
+                for (CodeTab t : controller.getCodeTabs())
+                    t.setEditable(t.isTest());
+                scene.getStylesheets().set(0, styles.get(0));
+                state = pState;
+                System.out.println("You are now in test-writing mode\n");
             } catch(Exception e) {}
         }
         if (pState == 1) {    //enable writing code
             try {
-                    for (CodeTab t : controller.getCodeTabs())
-                        t.setEditable(!t.isTest());
-                    scene.getStylesheets().set(0, styles.get(1));
-                    state = pState;
-                    System.out.println("You are now in code-writing mode\n");
+                for (CodeTab t : controller.getCodeTabs())
+                    t.setEditable(!t.isTest());
+                scene.getStylesheets().set(0, styles.get(1));
+                state = pState;
+                System.out.println("You are now in code-writing mode\n");
             } catch(Exception e) {}
         }
         if (pState == 2) {  //enable writing code and tests
             try {
-                    for (CodeTab t : controller.getCodeTabs())
-                        t.setEditable(!t.isTest());
+                for (CodeTab t : controller.getCodeTabs())
+                    t.setEditable(!t.isTest());
 
-                    scene.getStylesheets().set(0, styles.get(2));
-                    state = 2;
-                    System.out.println("You are now in refactoring mode\n");
+                scene.getStylesheets().set(0, styles.get(2));
+                state = 2;
+                System.out.println("You are now in refactoring mode\n");
             }catch(Exception e) {}
         }
     }
@@ -186,6 +184,59 @@ public class GUIDisplay extends Application {
         }
     }
 
+    public void compileBabysteps() {
+        try {
+            ArrayList<CompilationUnit> cu = new ArrayList();
+            for (CodeTab tab : controller.getCodeTabs()) {
+                cu.add(new CompilationUnit(tab.getText(), tab.getCode(), tab.isTest()));
+            }
+            CompilationUnit[] compilationUnitArray = cu.toArray(new CompilationUnit[0]);
+            JavaStringCompiler cmp = CompilerFactory.getCompiler(compilationUnitArray);
+            
+            cmp.compileAndRunTests();
+            CompilerResult compilerResult = cmp.getCompilerResult();
+            if (!compilerResult.hasCompileErrors()) {
+                TestResult tr = cmp.getTestResult();
+                System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
+                System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
+                if(tr.getNumberOfFailedTests() == 1 && state == 0){
+                    Timer timer = controller.getElementById("timer");
+                    //timer.stop();
+                    timer.start(babystepDuration);
+                    setState(1);
+                } else if(tr.getNumberOfFailedTests() != 1 && state == 0){
+                    System.out.println("Number of failed tests must be EXACTLY one!");
+                }
+                if(tr.getNumberOfFailedTests() == 0 && (state == 1 || state == 2)){
+                    Timer timer = controller.getElementById("timer");
+                    //timer.stop();
+                    timer.start(babystepDuration);
+                    setState(state+1);
+                } else if(tr.getNumberOfFailedTests() != 0 && (state == 1 || state == 2)){
+                    System.out.println("All tests need to pass!");
+                }
+            } else {
+                System.out.println("An error occurred compiling your tests!");
+                for(CompilationUnit unit: compilationUnitArray)
+                    compilerResult.getCompilerErrorsForCompilationUnit(unit).forEach((CompileError err)-> {
+                        System.out.println(err.getMessage());
+                    });
+                if(state == 0) {
+                    Timer timer = controller.getElementById("timer");
+                    //timer.stop();
+                    timer.start(babystepDuration);
+                    setState(1);
+                }
+            }
+        }
+        catch (NullPointerException nullPtr) {
+            System.out.println("An error occurred compiling your tests!");
+        }
+        catch(Exception e){
+            System.out.println("An error occurred compiling your tests! [GUID] Exception: " + e);
+        }
+    }
+
     public TestResult getTestResult(){
         try {
             ArrayList<CompilationUnit> cu = new ArrayList();
@@ -222,7 +273,10 @@ public class GUIDisplay extends Application {
         //Add EventHandler for Cycle-button
         Button cycle = controller.getElementById("buttonCycle");
         cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            compile();
+            if(!babysteps)
+                compile();
+            else
+                compileBabysteps();
         });
 
         Button test = controller.getElementById("buttonTest");
@@ -234,37 +288,15 @@ public class GUIDisplay extends Application {
             }
         });
 
-        Button save = controller.getElementById("buttonSave");
-        save.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            try {
-                for (CodeTab tab : controller.getCodeTabs()) {
-                    Exercise current = exerciseHanler.getCurrentExercise();
-                    String identifier = current==null?"temp":current.getName();
-                    FileHandling.saveToFile(tab.getText(), tab.getCode(), current.getIdentifier(), tab.isTest());
-                }
-                System.out.println("Code saved.");
-
-                /* load with:
-                textCode.setText(controller.loadFromFile("MyCode","test123", false));
-                textTest.setText(controller.loadFromFile("MyTest","test123", true));
-
-                or:
-                ClassStruct[] clstr = controller.loadAllFiles("test123");
-                for(ClassStruct c: clstr)
-                    if(c.isTest())
-                        textTest.setText(c.getCode());
-                    else
-                        textCode.setText(c.getCode());
-                */
-            } catch(Exception e) {
-                System.out.println("[GUID] Exception: " + e);
-            }
-        });
-
         Button file = controller.getElementById("buttonFile");
         file.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             exerciseHanler = new ExerciseHandling();
             controller.showExerciseList(exerciseHanler.getExerciseList());
+        });
+
+        Button back = controller.getElementById("buttonBack");
+        back.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            System.out.println("Go back!");
         });
 
         Button helpButton = controller.getElementById("buttonHelp");
