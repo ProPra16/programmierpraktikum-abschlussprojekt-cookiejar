@@ -74,18 +74,4 @@ public class GUIControll{
 				return ex;
 		return null;
 	}
-
-	public void handleSettings(boolean babysteps, boolean acceptance, int stop){
-		if(babysteps){
-			timerLabel.setVisible(true);
-			timer.setVisible(true);
-			maxTimer.setVisible(true);
-			maxTimer.setText("/"+ String.format("%02d",stop/60) +":00");
-			timer.start(stop);
-		}
-		if(acceptance){
-
-		}
-	}
-
 }

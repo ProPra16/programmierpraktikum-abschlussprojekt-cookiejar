@@ -11,6 +11,7 @@ public class Timer extends Label{
     private Timeline timer;
     private long start;
     private long time;
+    private int stop;
 
     private BooleanProperty stopped;
 
@@ -20,7 +21,7 @@ public class Timer extends Label{
     }
 
     public void start(int stop) {
-        stopped = new SimpleBooleanProperty(false);
+        this.stop = stop/60;
         reset();
         start = System.currentTimeMillis();
         timer.setCycleCount(stop);
@@ -34,10 +35,11 @@ public class Timer extends Label{
     public void update() {
         time = System.currentTimeMillis() - start;
         setText(getTime());
+        if(getTime().equals(String.format("%02d:%02d", stop ,00))) stop();
     }
 
     public void reset() {
-        stopped.setValue(true);
+        stopped = new SimpleBooleanProperty(false);
         timer.stop();
         this.setText("00:00");
         timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> update()));
@@ -51,6 +53,7 @@ public class Timer extends Label{
     }
 
     public void stop() {
+        stopped.setValue(true);
         timer.stop();
     }
 }

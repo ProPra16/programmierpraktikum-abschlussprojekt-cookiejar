@@ -39,6 +39,8 @@ public class GUIDisplay extends Application {
     private List<String> styles;
     private ExerciseHandling exerciseHanler;
     private ExerciseSettings settings;
+    private boolean babysteps, acceptance;
+    private int babystepDuration;
 
     public GUIDisplay() {
         main = new Stage();
@@ -106,9 +108,7 @@ public class GUIDisplay extends Application {
     }
 
     public void setState(int pState, TestResult tres) {
-
-        TextArea console = controller.getElementById("textConsole");
-
+        Timer timer = controller.getElementById("timer");
         if (pState == 0) {    //enable writing tests
             try{
                 if (tres == null || tres.getNumberOfFailedTests() == 0) {  //add check if all tests pass
@@ -125,13 +125,13 @@ public class GUIDisplay extends Application {
         if (pState == 1 && tres != null) {    //enable writing code
             try {
                 if (tres.getNumberOfFailedTests() == 1) {    //check if EXACTLY one test fails
-
+                    if(babysteps) {
+                        timer.stop();
+                        timer.start(babystepDuration);
+                    }
                     for (CodeTab t : controller.getCodeTabs())
                         t.setEditable(!t.isTest());
-
-
                     scene.getStylesheets().set(0, styles.get(1));
-
                     state = pState;
                     System.out.println("You are now in code-writing mode\n");
                 } else
@@ -187,11 +187,10 @@ public class GUIDisplay extends Application {
     }
 
     private void initializeEventHandlers() {
-        Timer timer = controller.getElementById("timer");
+        TextArea console = controller.getElementById("textConsole");
         //Add EventHandler for Cycle-button
         Button cycle = controller.getElementById("buttonCycle");
         cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            timer.stop();
             TestResult tr = getTestResult();
             if(tr != null) {
                 System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
@@ -211,7 +210,6 @@ public class GUIDisplay extends Application {
 
         Button save = controller.getElementById("buttonSave");
         save.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            timer.stop();
             try {
                 for (CodeTab tab : controller.getCodeTabs()) {
                     Exercise current = exerciseHanler.getCurrentExercise();
@@ -239,7 +237,6 @@ public class GUIDisplay extends Application {
 
         Button file = controller.getElementById("buttonFile");
         file.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            timer.stop();
             exerciseHanler = new ExerciseHandling();
             controller.showExerciseList(exerciseHanler.getExerciseList());
         });
@@ -251,7 +248,6 @@ public class GUIDisplay extends Application {
 
         Button load = controller.getElementById("buttonLoad");
         load.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            timer.stop();
             Exercise selected = controller.getSelectedExercise(exerciseHanler.getExerciseList());
             if(selected != null) {
                 exerciseHanler.setCurrentExercise(selected);
@@ -260,7 +256,10 @@ public class GUIDisplay extends Application {
                 BooleanProperty isStarted = settings.isStarted();
                 isStarted.addListener((value) -> {
                     if (true) {
-                        controller.handleSettings(settings.isBabysteps(), settings.isAcceptanceTest(), settings.babystepsDuration());
+                        babysteps = settings.isBabysteps();
+                        acceptance = settings.isAcceptanceTest();
+                        babystepDuration = settings.babystepsDuration();
+                        handleSettings();
                         setState(0, null);
                     }
                 });
@@ -268,6 +267,23 @@ public class GUIDisplay extends Application {
                 System.out.println("Please select an exercise.");
             }
         });
+    }
 
+    public void handleSettings(){
+        if(babysteps){
+            Timer timer = controller.getElementById("timer");
+            Label timerLabel = controller.getElementById("timerLabel");
+            Label maxTimer = controller.getElementById("maxTimer");
+            timer.start(babystepDuration);
+            timer.setVisible(true);
+            timerLabel.setVisible(true);
+            maxTimer.setText("/"+String.format("%02d:%02d", babystepDuration/60,0));
+            maxTimer.setVisible(true); //Initalize timer and labels
+
+            BooleanProperty isStopped = timer.isStopped();
+            isStopped.addListener(e -> {
+                System.out.println("Time stopped by: "+timer.getText());
+            });
+        }
     }
 }
