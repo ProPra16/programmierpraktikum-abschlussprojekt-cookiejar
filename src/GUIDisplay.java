@@ -301,8 +301,11 @@ public class GUIDisplay extends Application {
 
         Button back = controller.getElementById("buttonBack");
         back.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            System.out.println("Go back!");
-            setState(state-1);
+            if(state == 1) {
+                System.out.println("Go back!");
+                resetTabs();
+                setState(state - 1);
+            }
         });
 
         Button helpButton = controller.getElementById("buttonHelp");
