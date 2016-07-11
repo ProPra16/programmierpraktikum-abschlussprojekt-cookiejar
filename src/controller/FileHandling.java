@@ -81,9 +81,16 @@ public class FileHandling {
             while(scanner.hasNextLine()){
                 tddt += scanner.nextLine()+"\n";
             }
+            file = new File("res/help/xmlguide.txt");
+            String xmlguide = "";
+            scanner = new Scanner(file);
+            while(scanner.hasNextLine()){
+                xmlguide += scanner.nextLine()+"\n";
+            }
             List<String> list = new ArrayList<>();
             list.add(move);
             list.add(tddt);
+            list.add(xmlguide);
             return list;
         } catch (Exception e){
             return new ArrayList<>();

@@ -1,0 +1,34 @@
+GUIDE FOR WRITING THE CATALOGS:
+To correctly parse a catalog, it should have the following format:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<exercises>
+    <exercise>
+        <name>ExerciseName</name>
+        <description>Description the user sees after loading the exercise.</description>
+		<identifier>identifier(intern)</identifier>
+        <classes>
+            <className>ClassNameExample</className>
+            <class>
+                public class ClassNameExample {
+                }
+            </class>
+        </classes>
+        <tests>
+            <testName>ClassNameExampleTest</testName>
+            <test>
+                import static org.junit.Assert.*;
+                import org.junit.Test;
+                public class ClassNameExampleTest {
+                @Test
+                public void testSomething() {
+                }
+                }
+            </test>
+        </tests>
+    </exercise>
+</exercises>
+
+You can modify the catalog with additional classes and tests
+and the description for the exercise should be understandable
+enough for the user to know what is to do.
