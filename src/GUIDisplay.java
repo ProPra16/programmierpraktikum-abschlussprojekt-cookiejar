@@ -3,6 +3,7 @@ import controller.ExerciseSettings;
 import controller.FileHandling;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
 import models.ClassStruct;
@@ -36,8 +37,6 @@ public class GUIDisplay extends Application {
     private ExerciseSettings settings;
     private boolean babysteps, acceptance;
     private int babystepDuration;
-    private String saveTest, saveCode;
-    private int shallSave;
     private CodeTab[] save;
 
     public GUIDisplay() {
@@ -305,7 +304,6 @@ public class GUIDisplay extends Application {
 
         Button helpButton = controller.getElementById("buttonHelp");
         helpButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            System.out.println("Help!");
             TabPane tabPane = controller.getElementById("tabPane");
             List<String> help = FileHandling.getHelpFiles();
             for(String s : help){
