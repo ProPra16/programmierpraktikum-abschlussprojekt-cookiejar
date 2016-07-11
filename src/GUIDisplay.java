@@ -126,6 +126,7 @@ public class GUIDisplay extends Application {
                 scene.getStylesheets().set(0, styles.get(1));
                 state = 1;
                 System.out.println("You are now in code-writing mode\n");
+                saveTabs();
             } catch(Exception e) {}
         }
         if (pState == 2) {  //enable writing code
@@ -347,6 +348,7 @@ public class GUIDisplay extends Application {
             timerLabel.setVisible(false);
             maxTimer.setText("/"+String.format("%02d:%02d", babystepDuration/60,0));
             maxTimer.setVisible(false); //Shut down timer after using
+            saveTabs();
             setState(0);
         }
         if(acceptance){
