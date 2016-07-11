@@ -360,7 +360,7 @@ public class GUIDisplay extends Application {
         isStopped.addListener((value) -> {
             resetTabs();
             setState(state - 1);
-            if(state != 0)
+            if(state != 2)
                 timer.start(babystepDuration);
         });
     }
