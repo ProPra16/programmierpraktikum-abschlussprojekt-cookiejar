@@ -185,9 +185,6 @@ public class GUIDisplay extends Application {
 
     public void compileBabysteps() {
         try {
-            if(shallSave%2 == 0){
-                saveTabs();
-            }
             ArrayList<CompilationUnit> cu = new ArrayList();
             for (CodeTab tab : controller.getCodeTabs()) {
                 cu.add(new CompilationUnit(tab.getText(), tab.getCode(), tab.isTest()));
@@ -202,20 +199,12 @@ public class GUIDisplay extends Application {
                 System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
                 System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
                 if(tr.getNumberOfFailedTests() == 1 && state == 0){
-                    Timer timer = controller.getElementById("timer");
-                    System.out.println("Timer stopped by : "+timer.getTime());
-                    timer.start(babystepDuration);
-                    setStopHandler();
-                    setState(1);
+                    goOnBabysteps();
                 } else if(tr.getNumberOfFailedTests() != 1 && state == 0){
                     System.out.println("Number of failed tests must be EXACTLY one!");
                 }
                 if(tr.getNumberOfFailedTests() == 0 && (state == 1 || state == 2)){
-                    Timer timer = controller.getElementById("timer");
-                    System.out.println("Timer stopped by : "+timer.getTime());
-                    timer.start(babystepDuration);
-                    setStopHandler();
-                    setState(state+1);
+                    goOnBabysteps();
                 } else if(tr.getNumberOfFailedTests() != 0 && (state == 1 || state == 2)){
                     System.out.println("All tests need to pass!");
                 }
@@ -231,11 +220,7 @@ public class GUIDisplay extends Application {
                         System.out.println(err.getMessage());
                     });
                 if(state == 0) {
-                    Timer timer = controller.getElementById("timer");
-                    System.out.println("Timer stopped by : "+timer.getTime());
-                    timer.start(babystepDuration);
-                    setStopHandler();
-                    setState(1);
+                    goOnBabysteps();
                 }
             }
         }
@@ -245,6 +230,15 @@ public class GUIDisplay extends Application {
         catch(Exception e){
             System.out.println("An error occurred compiling your tests! [GUID] Exception: " + e);
         }
+    }
+
+    private void goOnBabysteps(){
+        Timer timer = controller.getElementById("timer");
+        System.out.println("Timer stopped by : "+timer.getTime());
+        timer.start(babystepDuration);
+        setStopHandler();
+        saveTabs();
+        setState(state+1);
     }
 
     public TestResult getTestResult(){
@@ -307,6 +301,7 @@ public class GUIDisplay extends Application {
         Button back = controller.getElementById("buttonBack");
         back.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             System.out.println("Go back!");
+            setState(state-1);
         });
 
         Button helpButton = controller.getElementById("buttonHelp");
@@ -336,8 +331,18 @@ public class GUIDisplay extends Application {
 
     public void handleSettings(){
         if(babysteps){
-            shallSave = 0;
             handleBabysteps();
+        } else{
+            Timer timer = controller.getElementById("timer");
+            Label timerLabel = controller.getElementById("timerLabel");
+            Label maxTimer = controller.getElementById("maxTimer");
+
+            timer.stop();
+            timer.setVisible(false);
+            timerLabel.setVisible(false);
+            maxTimer.setText("/"+String.format("%02d:%02d", babystepDuration/60,0));
+            maxTimer.setVisible(false); //Shut down timer after using
+            setState(0);
         }
         if(acceptance){
             setState(0);
@@ -348,10 +353,10 @@ public class GUIDisplay extends Application {
         Timer timer = controller.getElementById("timer");
         BooleanProperty isStopped = timer.isStopped();
         isStopped.addListener((value) -> {
-            System.out.println("Timer stopped by : "+timer.getTime());
-            resetTabs();
-            timer.start(babystepDuration);
-            setState(state-1);
+            if(babysteps) {
+                resetTabs();
+                setState(state - 1);
+            }
         });
     }
 
@@ -380,7 +385,6 @@ public class GUIDisplay extends Application {
     public void saveTabs(){
         System.out.println("Save code.");
         save = controller.getCodeTabs();
-        TabPane tabPane = controller.getElementById("tabPane");
         Exercise exercise = exerciseHandler.getCurrentExercise();
         for(ClassStruct classStruct : exercise.getClasses()){
             for(CodeTab codeTab : save){
@@ -396,8 +400,6 @@ public class GUIDisplay extends Application {
                 }
             }
         }
-        tabPane.getTabs().clear();
-        tabPane.getTabs().addAll(exerciseHandler.createTabView(exercise));
     }
 
     public void handleBabysteps(){
