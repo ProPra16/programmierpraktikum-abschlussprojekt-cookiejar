@@ -8,6 +8,7 @@ import models.Exercise;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class FileHandling {
 
@@ -64,5 +65,28 @@ public class FileHandling {
         }
         System.out.println("The file you selected is not a valid catalog.");
         return null;
+    }
+
+    public static List<String> getHelpFiles(){
+        try{
+            File file = new File("res/help/move.txt");
+            String move = "";
+            Scanner scanner = new Scanner(file);
+            while(scanner.hasNextLine()){
+                move += scanner.nextLine()+"\n";
+            }
+            file = new File("res/help/tddt.txt");
+            String tddt = "";
+            scanner = new Scanner(file);
+            while(scanner.hasNextLine()){
+                tddt += scanner.nextLine()+"\n";
+            }
+            List<String> list = new ArrayList<>();
+            list.add(move);
+            list.add(tddt);
+            return list;
+        } catch (Exception e){
+            return new ArrayList<>();
+        }
     }
 }

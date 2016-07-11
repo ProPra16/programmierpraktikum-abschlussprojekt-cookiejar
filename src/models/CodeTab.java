@@ -12,6 +12,7 @@ public class CodeTab extends Tab {
         code = new TextArea();
         this.setContent(code);
         isTest = false;
+        setClosable(false);
     }
 
     public CodeTab(ClassStruct cs) {
@@ -21,6 +22,7 @@ public class CodeTab extends Tab {
         this.setText(cs.getName());
         code.setText(cs.getCode());
         isTest = cs.isTest();
+        setClosable(false);
     }
 
     public void setCode(String code){

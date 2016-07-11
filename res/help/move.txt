@@ -7,6 +7,9 @@ After you chose a catalog, chose an exercise and load it.
 After that the settings-window appears, chose your settings and move on.
 Now you can start working on your exercise.
 
+Back:
+If you notice a mistake in your tests, while writing your code you can
+simply click this button and go back.
 Test:
 You can test your program before moving on.
 We highly recommend testing your methods for compiler errors!

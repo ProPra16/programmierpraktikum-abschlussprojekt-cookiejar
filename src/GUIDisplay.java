@@ -1,8 +1,8 @@
 import controller.ExerciseHandling;
 import controller.ExerciseSettings;
+import controller.FileHandling;
 import javafx.beans.property.BooleanProperty;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
 import models.ClassStruct;
@@ -16,8 +16,6 @@ import controller.GUIControll;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -308,6 +306,18 @@ public class GUIDisplay extends Application {
         Button helpButton = controller.getElementById("buttonHelp");
         helpButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             System.out.println("Help!");
+            TabPane tabPane = controller.getElementById("tabPane");
+            List<String> help = FileHandling.getHelpFiles();
+            for(String s : help){
+                Tab tab = new Tab();
+                TextArea textArea = new TextArea();
+                textArea.setText(s);
+                textArea.setEditable(false);
+                tab.setContent(textArea);
+                tab.setText("Help");
+                tab.setClosable(true);
+                tabPane.getTabs().add(tab);
+            }
         });
 
         //Load-button

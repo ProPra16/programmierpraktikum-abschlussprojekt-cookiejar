@@ -50,6 +50,7 @@ public class GUIControll{
 
 	public void loadExercise(Exercise e) {
 		try {
+            tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.SELECTED_TAB);
 			System.out.println(e.getName());
 			tabPane.getTabs().clear();
 			tabPane.getTabs().addAll(ExerciseHandling.createTabView(e));
