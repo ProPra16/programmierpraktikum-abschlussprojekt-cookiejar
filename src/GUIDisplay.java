@@ -332,7 +332,7 @@ public class GUIDisplay extends Application {
     public void handleSettings(){
         if(babysteps){
             handleBabysteps();
-        } else{
+        } else if(!acceptance){
             Timer timer = controller.getElementById("timer");
             Label timerLabel = controller.getElementById("timerLabel");
             Label maxTimer = controller.getElementById("maxTimer");
