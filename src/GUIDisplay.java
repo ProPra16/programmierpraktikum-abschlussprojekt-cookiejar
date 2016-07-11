@@ -160,8 +160,7 @@ public class GUIDisplay extends Application {
                     setState(1);
                 } else if( tr.getNumberOfFailedTests() != 1 && state == 0){
                     System.out.println("Number of failed tests must be EXACTLY one!");
-                }
-                if(tr.getNumberOfFailedTests() == 0 && (state == 1 || state == 2)){
+                } else if(tr.getNumberOfFailedTests() == 0 && (state == 1 || state == 2)){
                     setState(state+1);
                 } else if(tr.getNumberOfFailedTests() != 0 && (state == 1 || state == 2)){
                     System.out.println("All tests need to pass!");
@@ -203,13 +202,9 @@ public class GUIDisplay extends Application {
                     goOnBabysteps();
                 } else if(tr.getNumberOfFailedTests() != 1 && state == 0){
                     System.out.println("Number of failed tests must be EXACTLY one!");
-                } else if(tr.getNumberOfFailedTests() == 0 && state == 1){
+                } else if(tr.getNumberOfFailedTests() == 0 && (state == 1 || state == 2)){
                     goOnBabysteps();
-                } else if(tr.getNumberOfFailedTests() != 0 && state == 1){
-                    System.out.println("All tests need to pass!");
-                } else if(tr.getNumberOfFailedTests() == 0 && state == 2){
-                    goOnBabysteps();
-                } else if(tr.getNumberOfFailedTests() != 0 && state == 2){
+                } else if(tr.getNumberOfFailedTests() != 0 && (state == 1 || state == 2)){
                     System.out.println("All tests need to pass!");
                 }
             } else {
@@ -342,7 +337,7 @@ public class GUIDisplay extends Application {
             Label timerLabel = controller.getElementById("timerLabel");
             Label maxTimer = controller.getElementById("maxTimer");
             try {
-                timer.stop();
+                timer.reset();
             } catch (NullPointerException e){}
             timer.setVisible(false);
             timerLabel.setVisible(false);
@@ -360,10 +355,8 @@ public class GUIDisplay extends Application {
         Timer timer = controller.getElementById("timer");
         BooleanProperty isStopped = timer.isStopped();
         isStopped.addListener((value) -> {
-            if(babysteps) {
-                resetTabs();
-                setState(state - 1);
-            }
+            resetTabs();
+            setState(state - 1);
         });
     }
 
