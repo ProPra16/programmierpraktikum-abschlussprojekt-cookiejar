@@ -32,3 +32,7 @@ To correctly parse a catalog, it should have the following format:
 You can modify the catalog with additional classes and tests
 and the description for the exercise should be understandable
 enough for the user to know what is to do.
+
+Also:
+<?xml version="1.0" encoding="UTF-8"?>
+This has to be the first line in the file! No whitespace before it!
