@@ -3,6 +3,7 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import models.*;
+import tasks.Timer;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -12,14 +13,17 @@ public class GUIControll{
 
 	@FXML private Button buttonFile;
 	@FXML private Button buttonLoad;
-	@FXML private Button buttonSave;
+	@FXML private Button buttonBack;
 	@FXML private Button buttonTest;
-	@FXML private Button buttonSettings;
+	@FXML private Button buttonHelp;
 	@FXML private TextArea textConsole;
 	@FXML private Button buttonCycle;
 	@FXML private ListView listView;
     @FXML private TabPane tabPane;
 	@FXML private TextArea description;
+	@FXML private Timer timer;
+	@FXML private Label timerLabel;
+	@FXML private Label maxTimer;
 
 	/*	Returns element from the field with the given name, as generic type.
 	* 	Usage: 	Type t = getElementById("FieldName");
@@ -71,6 +75,4 @@ public class GUIControll{
 				return ex;
 		return null;
 	}
-
-
 }

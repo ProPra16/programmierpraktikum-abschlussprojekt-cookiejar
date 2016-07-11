@@ -7,3 +7,9 @@
     -fx-text-fill: black;
     -fx-font-family: "Arial";
 }
+
+.label{
+    -fx-text-fill: black;
+    -fx-font-family: "Monospaced";
+    -fx-font-size: 24px;
+}

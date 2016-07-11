@@ -3,7 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<?import tasks.Timer?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity"
@@ -18,14 +18,14 @@
             <children>
                 <Button mnemonicParsing="false" text="File" fx:id="buttonFile"/>
                 <Button mnemonicParsing="false" text="Load" fx:id="buttonLoad"/>
-                <Button mnemonicParsing="false" text="Save" fx:id="buttonSave">
+                <Button mnemonicParsing="false" text="Back" fx:id="buttonBack">
                     <HBox.margin>
                         <Insets left="50.0"/>
                     </HBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" text="Test" fx:id="buttonTest"/>
                 <Button mnemonicParsing="false" text="Cycle" fx:id="buttonCycle"/>
-                <Button mnemonicParsing="false" text="Settings" fx:id="buttonSettings">
+                <Button mnemonicParsing="false" text="Help" fx:id="buttonHelp">
                     <HBox.margin>
                         <Insets left="870.0"/>
                     </HBox.margin>
@@ -60,14 +60,22 @@
         </SplitPane>
     </right>
     <left>
-        <SplitPane dividerPositions="0.27046997389033943, 0.8065274151436031" orientation="VERTICAL" prefHeight="200.0"
+        <SplitPane dividerPositions="0.27046997389033943, 0.783289817232376" orientation="VERTICAL" prefHeight="100.0"
                    prefWidth="160.0" BorderPane.alignment="CENTER">
             <items>
-                <Pane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="158.0">
-                    <TextArea prefHeight="300.0" prefWidth="158.0" fx:id="description"/>
-                </Pane>
-                <TreeView prefHeight="200.0" prefWidth="158.0"/>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0"/>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="4.0" prefWidth="158.0"/>
+                <TreeView prefHeight="478.0" prefWidth="158.0"/>
+                <AnchorPane prefHeight="100.0" prefWidth="200.0">
+                    <HBox prefHeight="50.0" prefWidth="150.0" Alignment="CENTER">
+                        <Label fx:id="timerLabel" text="Timer:" visible="false"/>
+                    </HBox>
+                    <HBox prefHeight="100.0" prefWidth="150.0" Alignment="CENTER">
+                        <Timer fx:id="timer" visible="false"/>
+                    </HBox>
+                    <HBox prefHeight="150.0" prefWidth="150.0" Alignment="CENTER">
+                        <Label fx:id="maxTimer" visible="false"/>
+                    </HBox>
+                </AnchorPane>
             </items>
         </SplitPane>
     </left>
