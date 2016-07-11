@@ -202,14 +202,12 @@ public class GUIDisplay extends Application {
                     goOnBabysteps();
                 } else if(tr.getNumberOfFailedTests() != 1 && state == 0){
                     System.out.println("Number of failed tests must be EXACTLY one!");
-                }
-                if(tr.getNumberOfFailedTests() == 0 && (state == 1 || state == 2)){
+                } else if(tr.getNumberOfFailedTests() == 0 && state == 1){
                     goOnBabysteps();
-                } else if(tr.getNumberOfFailedTests() != 0 && (state == 1 || state == 2)){
+                } else if(tr.getNumberOfFailedTests() != 0 && state == 1){
                     System.out.println("All tests need to pass!");
-                }
-                if(tr.getNumberOfFailedTests() == 0 &&  state == 2){
-                    setState(state+1);
+                } else if(tr.getNumberOfFailedTests() == 0 && state == 2){
+                    goOnBabysteps();
                 } else if(tr.getNumberOfFailedTests() != 0 && state == 2){
                     System.out.println("All tests need to pass!");
                 }
@@ -235,7 +233,10 @@ public class GUIDisplay extends Application {
     private void goOnBabysteps(){
         Timer timer = controller.getElementById("timer");
         System.out.println("Timer stopped by : "+timer.getTime());
-        timer.start(babystepDuration);
+        timer.reset();
+        if(state != 1) {
+            timer.start(babystepDuration);
+        }
         setStopHandler();
         saveTabs();
         setState(state+1);
