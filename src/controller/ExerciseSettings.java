@@ -97,8 +97,6 @@ public class ExerciseSettings {
                 started.setValue(true);
             });
 
-            main.setOnCloseRequest(e -> start.fire());
-
             root.setAlignment(start, Pos.CENTER);
             root.setMargin(start, new Insets(0,0,10,0));
 
