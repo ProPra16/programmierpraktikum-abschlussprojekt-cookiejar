@@ -1,14 +1,11 @@
 import controller.ExerciseHandling;
 import controller.ExerciseSettings;
-import controller.FileHandling;
-import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.stage.Modality;
 import javafx.stage.WindowEvent;
+import models.ClassStruct;
 import models.CodeTab;
 import models.Console;
 import models.Exercise;
@@ -37,18 +34,19 @@ public class GUIDisplay extends Application {
     private Scene scene;
     private int state;
     private List<String> styles;
-    private ExerciseHandling exerciseHanler;
+    private ExerciseHandling exerciseHandler;
     private ExerciseSettings settings;
     private boolean babysteps, acceptance;
     private int babystepDuration;
     private String saveTest, saveCode;
     private int shallSave;
+    private CodeTab[] save;
 
     public GUIDisplay() {
         main = new Stage();
         start(main);
-        exerciseHanler = new ExerciseHandling();
-        controller.showExerciseList(exerciseHanler.getExerciseList());
+        exerciseHandler = new ExerciseHandling();
+        controller.showExerciseList(exerciseHandler.getExerciseList());
         Stage settingsStage = new Stage();
         settings = new ExerciseSettings(settingsStage);
         settingsStage.initOwner(main);
@@ -302,8 +300,8 @@ public class GUIDisplay extends Application {
 
         Button file = controller.getElementById("buttonFile");
         file.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            exerciseHanler = new ExerciseHandling();
-            controller.showExerciseList(exerciseHanler.getExerciseList());
+            exerciseHandler = new ExerciseHandling();
+            controller.showExerciseList(exerciseHandler.getExerciseList());
         });
 
         Button back = controller.getElementById("buttonBack");
@@ -318,9 +316,9 @@ public class GUIDisplay extends Application {
 
         Button load = controller.getElementById("buttonLoad");
         load.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            Exercise selected = controller.getSelectedExercise(exerciseHanler.getExerciseList());
+            Exercise selected = controller.getSelectedExercise(exerciseHandler.getExerciseList());
             if(selected != null) {
-                exerciseHanler.setCurrentExercise(selected);
+                exerciseHandler.setCurrentExercise(selected);
                 controller.loadExercise(selected);
                 settings.start();
                 BooleanProperty isStarted = settings.isStarted();
@@ -350,18 +348,56 @@ public class GUIDisplay extends Application {
         Timer timer = controller.getElementById("timer");
         BooleanProperty isStopped = timer.isStopped();
         isStopped.addListener((value) -> {
+            System.out.println("Timer stopped by : "+timer.getTime());
             resetTabs();
+            timer.start(babystepDuration);
             setState(state-1);
-            System.out.println("Go back.");
         });
     }
 
     public void resetTabs(){
-        System.out.println("resetTabs");
+        System.out.println("Reset code.");
+        TabPane tabPane = controller.getElementById("tabPane");
+        Exercise exercise = exerciseHandler.getCurrentExercise();
+        for(ClassStruct classStruct : exercise.getClasses()){
+            for(CodeTab codeTab : save){
+                if(codeTab.isTest() == classStruct.isTest() && codeTab.getText().equals(classStruct.getName())){
+                    codeTab.setCode(classStruct.getCode());
+                }
+            }
+        }
+        for(ClassStruct classStruct : exercise.getTests()){
+            for(CodeTab codeTab : save){
+                if(codeTab.isTest() == classStruct.isTest() && codeTab.getText().equals(classStruct.getName())){
+                    codeTab.setCode(classStruct.getCode());
+                }
+            }
+        }
+        tabPane.getTabs().clear();
+        tabPane.getTabs().addAll(exerciseHandler.createTabView(exercise));
     }
 
     public void saveTabs(){
-        System.out.println("saveTabs");
+        System.out.println("Save code.");
+        save = controller.getCodeTabs();
+        TabPane tabPane = controller.getElementById("tabPane");
+        Exercise exercise = exerciseHandler.getCurrentExercise();
+        for(ClassStruct classStruct : exercise.getClasses()){
+            for(CodeTab codeTab : save){
+                if(codeTab.isTest() == classStruct.isTest() && codeTab.getText().equals(classStruct.getName())){
+                    classStruct.setCode(codeTab.getCode());
+                }
+            }
+        }
+        for(ClassStruct classStruct : exercise.getTests()){
+            for(CodeTab codeTab : save){
+                if(codeTab.isTest() == classStruct.isTest() && codeTab.getText().equals(classStruct.getName())){
+                    classStruct.setCode(codeTab.getCode());
+                }
+            }
+        }
+        tabPane.getTabs().clear();
+        tabPane.getTabs().addAll(exerciseHandler.createTabView(exercise));
     }
 
     public void handleBabysteps(){
@@ -375,7 +411,7 @@ public class GUIDisplay extends Application {
         timerLabel.setVisible(true);
         maxTimer.setText("/"+String.format("%02d:%02d", babystepDuration/60,0));
         maxTimer.setVisible(true); //Initialize timer and labels
-        setState(2);
-        compileBabysteps();
+        setState(0);
+        saveTabs();
     }
 }

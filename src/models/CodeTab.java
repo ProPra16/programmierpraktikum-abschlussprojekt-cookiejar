@@ -23,6 +23,11 @@ public class CodeTab extends Tab {
         isTest = cs.isTest();
     }
 
+    public void setCode(String code){
+        this.code = new TextArea();
+        this.setContent(this.code);
+    }
+
     public String getCode() {
         return code.getText();
     }
