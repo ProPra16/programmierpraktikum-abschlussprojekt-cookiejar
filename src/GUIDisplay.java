@@ -115,7 +115,7 @@ public class GUIDisplay extends Application {
                 for (CodeTab t : controller.getCodeTabs())
                     t.setEditable(t.isTest());
                 scene.getStylesheets().set(0, styles.get(0));
-                state = pState;
+                state = 0;
                 System.out.println("You are now in test-writing mode\n");
             } catch(Exception e) {}
         }
@@ -124,11 +124,11 @@ public class GUIDisplay extends Application {
                 for (CodeTab t : controller.getCodeTabs())
                     t.setEditable(!t.isTest());
                 scene.getStylesheets().set(0, styles.get(1));
-                state = pState;
+                state = 1;
                 System.out.println("You are now in code-writing mode\n");
             } catch(Exception e) {}
         }
-        if (pState == 2) {  //enable writing code and tests
+        if (pState == 2) {  //enable writing code
             try {
                 for (CodeTab t : controller.getCodeTabs())
                     t.setEditable(!t.isTest());
@@ -336,8 +336,9 @@ public class GUIDisplay extends Application {
             Timer timer = controller.getElementById("timer");
             Label timerLabel = controller.getElementById("timerLabel");
             Label maxTimer = controller.getElementById("maxTimer");
-
-            timer.stop();
+            try {
+                timer.stop();
+            } catch (NullPointerException e){}
             timer.setVisible(false);
             timerLabel.setVisible(false);
             maxTimer.setText("/"+String.format("%02d:%02d", babystepDuration/60,0));
