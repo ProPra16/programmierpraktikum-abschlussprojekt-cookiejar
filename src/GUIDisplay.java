@@ -357,6 +357,7 @@ public class GUIDisplay extends Application {
         isStopped.addListener((value) -> {
             resetTabs();
             setState(state - 1);
+            timer.start(babystepDuration);
         });
     }
 

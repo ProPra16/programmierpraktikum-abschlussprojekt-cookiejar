@@ -56,7 +56,7 @@ public class Timer extends Label{
     }
 
     public void stop() {
-        stopped.setValue(true);
         timer.stop();
+        stopped.setValue(true);
     }
 }
