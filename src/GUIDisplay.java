@@ -300,7 +300,6 @@ public class GUIDisplay extends Application {
         Button back = controller.getElementById("buttonBack");
         back.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             if (state == 1) {
-                System.out.println("Go back!");
                 resetTabs();
                 setState(state - 1);
             }
@@ -367,7 +366,6 @@ public class GUIDisplay extends Application {
     }
 
     public void resetTabs() {
-        System.out.println("Reset code.");
         TabPane tabPane = controller.getElementById("tabPane");
         Exercise exercise = exerciseHandler.getCurrentExercise();
         for (ClassStruct classStruct : exercise.getClasses()) {
@@ -389,7 +387,6 @@ public class GUIDisplay extends Application {
     }
 
     public void saveTabs() {
-        System.out.println("Save code.");
         save = controller.getCodeTabs();
         Exercise exercise = exerciseHandler.getCurrentExercise();
         for (ClassStruct classStruct : exercise.getClasses()) {
