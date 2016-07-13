@@ -290,6 +290,7 @@ public class GUIDisplay extends Application {
 
         Button file = controller.getElementById("buttonFile");
         file.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            closeTimer();
             exerciseHandler = new ExerciseHandling();
             controller.showExerciseList(exerciseHandler.getExerciseList());
         });
@@ -321,6 +322,7 @@ public class GUIDisplay extends Application {
         //Load-button
         Button load = controller.getElementById("buttonLoad");
         load.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            closeTimer();
             Exercise selected = controller.getSelectedExercise(exerciseHandler.getExerciseList());
             if (selected != null) {
                 exerciseHandler.setCurrentExercise(selected);
@@ -343,17 +345,7 @@ public class GUIDisplay extends Application {
         if (babysteps) {
             handleBabysteps();
         } else if (!acceptance) {
-            Timer timer = controller.getElementById("timer");
-            Label timerLabel = controller.getElementById("timerLabel");
-            Label maxTimer = controller.getElementById("maxTimer");
-            try {
-                timer.reset();
-            } catch (NullPointerException e) {
-            }
-            timer.setVisible(false);
-            timerLabel.setVisible(false);
-            maxTimer.setText("/" + String.format("%02d:%02d", babystepDuration / 60, 0));
-            maxTimer.setVisible(false); //Shut down timer after using
+            closeTimer();
             saveTabs();
             setState(0);
         }
@@ -371,6 +363,22 @@ public class GUIDisplay extends Application {
             if(state != 2)
                 timer.start(babystepDuration);
         });
+    }
+
+    public void closeTimer(){
+        try {
+            Timer timer = controller.getElementById("timer");
+            Label timerLabel = controller.getElementById("timerLabel");
+            Label maxTimer = controller.getElementById("maxTimer");
+            try {
+                timer.reset();
+            } catch (NullPointerException e) {
+            }
+            timer.setVisible(false);
+            timerLabel.setVisible(false);
+            maxTimer.setText("/" + String.format("%02d:%02d", babystepDuration / 60, 0));
+            maxTimer.setVisible(false); //Shut down timer after using
+        } catch (Exception e){}
     }
 
     public void resetTabs() {
