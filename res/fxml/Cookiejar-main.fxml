@@ -47,7 +47,7 @@
         </SplitPane>
     </center>
     <right>
-        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="366.0" prefWidth="160.0"
+        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="366.0" prefWidth="180.0"
                    BorderPane.alignment="CENTER">
             <items>
                 <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0"/>
