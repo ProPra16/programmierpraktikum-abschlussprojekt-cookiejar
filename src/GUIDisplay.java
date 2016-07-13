@@ -42,8 +42,19 @@ public class GUIDisplay extends Application {
     public GUIDisplay() {
         main = new Stage();
         start(main);
-        exerciseHandler = new ExerciseHandling();
-        controller.showExerciseList(exerciseHandler.getExerciseList());
+        TabPane tabPane = controller.getElementById("tabPane");
+        List<String> help = FileHandling.getHelpFiles();
+        for(String s : help){
+            Tab tab = new Tab();
+            TextArea textArea = new TextArea();
+            textArea.setText(s);
+            textArea.setEditable(false);
+            tab.setContent(textArea);
+            tab.setText("Help");
+            tab.setClosable(true);
+            tabPane.getTabs().add(tab);
+        }
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.SELECTED_TAB);
         Stage settingsStage = new Stage();
         settings = new ExerciseSettings(settingsStage);
         settingsStage.initOwner(main);
@@ -70,9 +81,11 @@ public class GUIDisplay extends Application {
             styles.add(f.toURI().toString());
             f = new File("res/css/refactorstyle.css");
             styles.add(f.toURI().toString());
+            f = new File("res/css/startstyle.css");
+            styles.add(f.toURI().toString());
 
             //add stylesheets for phase recognition
-            scene.getStylesheets().add(0, styles.get(0));
+            scene.getStylesheets().add(0, styles.get(3));
 
             f = new File("res/css/scenestyle.css");
 
