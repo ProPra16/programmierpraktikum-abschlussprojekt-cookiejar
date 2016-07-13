@@ -1,7 +1,9 @@
 How to do your exercises properly: 
-TDDT:
+TDD Trainer:
 
-Failing Test:
+                            The Test Driven Development:
+
+Failing Test RED:
 There are three different states in which you can be in. 
 The first one is "write a test that fails", that means, that you have to write a test, of which you think 
 it's a good start for your methods. Keep your tests small. 
@@ -22,7 +24,7 @@ Write a very easy test to start with and slowly increase the difficulty of your 
 After that test cannot compile, or fails you can move forward. 
 You need exactly ONE test to fail to enter code-writing mode.
 
-Make it pass: 
+Make it pass GREEN:
 After you wrote that test, you want it to pass. So any compilation error has to be fixed and 
 the test may not fail anymore. 
 So now you write your method in the class you wrote that test for:
@@ -36,8 +38,22 @@ public class RomanNumberConverter {
 Start simple! You only need this one test to pass, don't you?
 After that you enter the refactoring mode.
 
-Refactor:
+Refactor BLACK:
 Now you can refactor your code, make it look pretty!
 Rework duplications (write other methods for that probably), delete unused code, just tidy up.
 BUT keep in mind, that all your test still have to pass, otherwise you cannot enter the test-writing mode. 
 If you are good with your code as it is, just go to the next step.
+
+                            Additional settings:
+
+Babysteps (WITH TIMER):
+While using babysteps a timer will be enabled, so that you have a limited amount of time to write
+your tests or codes.
+If you fail writing your test in this amount of time, you'll be send back to the state before that.
+You should try and write less code if that happens.
+
+Acceptance tests ORANGE:
+Before even entering the TDD test mode, you have to write a test for the feature you want to implement.
+First you write an acceptance test, this tests will fail until you fully implemented your feature.
+Then you enter the TDD mode until this acceptance test passes. After that you can write other acceptance
+tests if you need to.
