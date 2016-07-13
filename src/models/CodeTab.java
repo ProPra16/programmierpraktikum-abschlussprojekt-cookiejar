@@ -5,6 +5,7 @@ import javafx.scene.control.TextArea;
 
 public class CodeTab extends Tab {
     private boolean isTest;
+    private boolean isAcceptance;
     private TextArea code;
 
     public CodeTab() {
@@ -12,6 +13,7 @@ public class CodeTab extends Tab {
         code = new TextArea();
         this.setContent(code);
         isTest = false;
+        isAcceptance = false;
         setClosable(false);
     }
 
@@ -38,7 +40,13 @@ public class CodeTab extends Tab {
         return isTest;
     }
 
+    public boolean isAcceptance() {return isAcceptance;}
+
     public void setEditable(boolean editable) {
         code.setEditable(editable);
+    }
+
+    public void setAcceptance(boolean acceptance) {
+        isAcceptance = acceptance;
     }
 }
