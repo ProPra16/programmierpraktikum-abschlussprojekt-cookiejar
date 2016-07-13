@@ -234,7 +234,7 @@ public class GUIDisplay extends Application {
                 System.out.println("All tests need to pass!");
             }
         } else {
-            if (state == 0 && !babysteps)
+            if (state == 0)
                 setState(1);
         }
     }
