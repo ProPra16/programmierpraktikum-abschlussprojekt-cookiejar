@@ -54,7 +54,6 @@ public class GUIControll{
 			System.out.println(e.getName());
 			tabPane.getTabs().clear();
 			tabPane.getTabs().addAll(ExerciseHandling.createTabView(e));
-			description.setText("Description: \n"+e.getDescription());
 		} catch(NullPointerException npe){
 			System.out.print("Please load a catalog first."); //NULL printed before ERROR
 		}

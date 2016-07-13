@@ -272,19 +272,27 @@ public class GUIDisplay extends Application {
         //Add EventHandler for Cycle-button
         Button cycle = controller.getElementById("buttonCycle");
         cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            if (!babysteps)
-                compile();
-            else
-                compileBabysteps();
+            if(exerciseHandler.getCurrentExercise() != null) {
+                if (!babysteps)
+                    compile();
+                else
+                    compileBabysteps();
+            } else {
+                System.out.println("Please select an exercise first.");
+            }
         });
 
         //Test-button
         Button test = controller.getElementById("buttonTest");
         test.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-            TestResult tr = getTestResult();
-            if (tr != null) {
-                System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
-                System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
+            if(exerciseHandler.getCurrentExercise() != null) {
+                TestResult tr = getTestResult();
+                if (tr != null) {
+                    System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
+                    System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
+                }
+            } else {
+                System.out.println("Please select an exercise first.");
             }
         });
 
