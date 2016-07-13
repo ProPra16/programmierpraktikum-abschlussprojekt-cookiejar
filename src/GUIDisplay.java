@@ -81,11 +81,13 @@ public class GUIDisplay extends Application {
             styles.add(f.toURI().toString());
             f = new File("res/css/refactorstyle.css");
             styles.add(f.toURI().toString());
+            f = new File("res/css/acceptancestyle.css");
+            styles.add(f.toURI().toString());
             f = new File("res/css/startstyle.css");
             styles.add(f.toURI().toString());
 
             //add stylesheets for phase recognition
-            scene.getStylesheets().add(0, styles.get(3));
+            scene.getStylesheets().add(0, styles.get(4));
 
             f = new File("res/css/scenestyle.css");
 
@@ -120,12 +122,12 @@ public class GUIDisplay extends Application {
 
 
     public void setState(int pState) {
-        if (pState == 3) pState = 0;
+        if (pState == 3 || pState == 5 || (pState == 4 && !acceptance)) pState = 0;
         if (pState == -1) pState = 2;
         if (pState == 0) {    //enable writing tests
             try {
                 for (CodeTab t : controller.getCodeTabs())
-                    t.setEditable(t.isTest());
+                    t.setEditable(t.isTest() && !t.isAcceptance());
                 scene.getStylesheets().set(0, styles.get(0));
                 state = 0;
                 System.out.println("You are now in test-writing mode\n");
@@ -154,111 +156,40 @@ public class GUIDisplay extends Application {
             } catch (Exception e) {
             }
         }
-    }
 
-    public void compile() {
-        try {
-            ArrayList<CompilationUnit> cu = new ArrayList();
-            for (CodeTab tab : controller.getCodeTabs()) {
-                cu.add(new CompilationUnit(tab.getText(), tab.getCode(), tab.isTest()));
-            }
-            CompilationUnit[] compilationUnitArray = cu.toArray(new CompilationUnit[0]);
-            JavaStringCompiler cmp = CompilerFactory.getCompiler(compilationUnitArray);
+        if(pState == 4 && acceptance){
+            try {
+                for (CodeTab t : controller.getCodeTabs())
+                    t.setEditable(t.isTest() && t.isAcceptance());
 
-            cmp.compileAndRunTests();
-            CompilerResult compilerResult = cmp.getCompilerResult();
-            if (!compilerResult.hasCompileErrors()) {
-                TestResult tr = cmp.getTestResult();
-                System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
-                System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
-                if (tr.getNumberOfFailedTests() == 1 && state == 0) {
-                    setState(1);
-                } else if (tr.getNumberOfFailedTests() != 1 && state == 0) {
-                    System.out.println("Number of failed tests must be EXACTLY one!");
-                } else if (tr.getNumberOfFailedTests() == 0 && (state == 1 || state == 2)) {
-                    setState(state + 1);
-                } else if (tr.getNumberOfFailedTests() != 0 && (state == 1 || state == 2)) {
-                    System.out.println("All tests need to pass!");
-                }
-            } else {
-                System.out.println("An error occurred compiling your tests!");
-                for (CompilationUnit unit : compilationUnitArray)
-                    compilerResult.getCompilerErrorsForCompilationUnit(unit).forEach((CompileError err) -> {
-                        System.out.println(err.getMessage());
-                    });
-                if (state == 0)
-                    setState(1);
+                scene.getStylesheets().set(0, styles.get(3));
+                state = 4;
+                System.out.println("You are now in acceptance test mode\n");
+            } catch (Exception e) {
             }
-        } catch (NullPointerException nullPtr) {
-            System.out.println("An error occurred compiling your tests!");
-        } catch (Exception e) {
-            System.out.println("An error occurred compiling your tests! [GUID] Exception: " + e);
         }
     }
 
-    public void compileBabysteps() {
-        try {
-            ArrayList<CompilationUnit> cu = new ArrayList();
-            for (CodeTab tab : controller.getCodeTabs()) {
+    public CompilationUnit[] getCompilationUnits(boolean getAcceptanceTest) {
+        ArrayList<CompilationUnit> cu = new ArrayList();
+        for (CodeTab tab : controller.getCodeTabs()) {
+            if(!tab.isTest() || (!getAcceptanceTest && !tab.isAcceptance()) || (getAcceptanceTest && tab.isAcceptance()))
                 cu.add(new CompilationUnit(tab.getText(), tab.getCode(), tab.isTest()));
-            }
-            CompilationUnit[] compilationUnitArray = cu.toArray(new CompilationUnit[0]);
-            JavaStringCompiler cmp = CompilerFactory.getCompiler(compilationUnitArray);
-
-            cmp.compileAndRunTests();
-            CompilerResult compilerResult = cmp.getCompilerResult();
-            if (!compilerResult.hasCompileErrors()) {
-                TestResult tr = cmp.getTestResult();
-                System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
-                System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
-                if (tr.getNumberOfFailedTests() == 1 && state == 0) {
-                    goOnBabysteps();
-                } else if (tr.getNumberOfFailedTests() != 1 && state == 0) {
-                    System.out.println("Number of failed tests must be EXACTLY one!");
-                } else if (tr.getNumberOfFailedTests() == 0 && (state == 1 || state == 2)) {
-                    goOnBabysteps();
-                } else if (tr.getNumberOfFailedTests() != 0 && (state == 1 || state == 2)) {
-                    System.out.println("All tests need to pass!");
-                }
-            } else {
-                System.out.println("An error occurred compiling your tests!");
-                for (CompilationUnit unit : compilationUnitArray)
-                    compilerResult.getCompilerErrorsForCompilationUnit(unit).forEach((CompileError err) -> {
-                        System.out.println(err.getMessage());
-                    });
-                if (state == 0) {
-                    goOnBabysteps();
-                }
-            }
-        } catch (NullPointerException nullPtr) {
-            System.out.println("An error occurred compiling your tests!");
-        } catch (Exception e) {
-            System.out.println("An error occurred compiling your tests! [GUID] Exception: " + e);
         }
+        return cu.toArray(new CompilationUnit[0]);
     }
 
-    private void goOnBabysteps() {
-        Timer timer = controller.getElementById("timer");
-        System.out.println("Timer stopped by : " + timer.getTime());
-        timer.reset();
-        if (state != 1) {
-            timer.start(babystepDuration);
-        }
-        setStopHandler();
-        saveTabs();
-        setState(state + 1);
+    public JavaStringCompiler getStringCompiler(CompilationUnit[] compilationUnitArray) throws Exception {
+        JavaStringCompiler cmp = CompilerFactory.getCompiler(compilationUnitArray);
+        cmp.compileAndRunTests();
+        return cmp;
     }
 
-    public TestResult getTestResult() {
-        try {
-            ArrayList<CompilationUnit> cu = new ArrayList();
-            for (CodeTab tab : controller.getCodeTabs()) {
-                cu.add(new CompilationUnit(tab.getText(), tab.getCode(), tab.isTest()));
-            }
-            CompilationUnit[] compilationUnitArray = cu.toArray(new CompilationUnit[0]);
-            JavaStringCompiler cmp = CompilerFactory.getCompiler(compilationUnitArray);
 
-            cmp.compileAndRunTests();
+    public TestResult getTestResult(boolean getAcceptanceTest) {
+        try {
+            CompilationUnit[] compilationUnitArray = getCompilationUnits(getAcceptanceTest);
+            JavaStringCompiler cmp = getStringCompiler(compilationUnitArray);
             CompilerResult compilerResult = cmp.getCompilerResult();
 
             if (!compilerResult.hasCompileErrors()) {
@@ -278,6 +209,67 @@ public class GUIDisplay extends Application {
         return null;
     }
 
+    public void compile() {
+        if(state == 4) {
+            if (acceptenceTestSuccess())
+                System.out.println("At least one acceptance test has to fail.");
+            else
+                cycle(false);
+            return;
+        }
+        TestResult tr = getTestResult(false);
+
+        if (tr != null) { //no compile errors
+            System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
+            System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
+            if (tr.getNumberOfFailedTests() == 1 && state == 0) {
+                cycle(false);
+            } else if (tr.getNumberOfFailedTests() != 1 && state == 0) {
+                System.out.println("Number of failed tests must be EXACTLY one!");
+            } else if (tr.getNumberOfFailedTests() == 0 && state == 1) {
+                cycle(false);
+            } else if (tr.getNumberOfFailedTests() == 0 && state == 2) {
+                cycle(acceptenceTestSuccess());
+            } else if (tr.getNumberOfFailedTests() != 0 && (state == 1 || state == 2)) {
+                System.out.println("All tests need to pass!");
+            }
+        } else {
+            if (state == 0 && !babysteps)
+                setState(1);
+        }
+    }
+
+    public boolean acceptenceTestSuccess() {
+        if(acceptance) {
+            TestResult tr = getTestResult(true);
+            if (tr != null) {
+                if (tr.getNumberOfFailedTests() == 0) {
+                    System.out.println("Acceptance test succeeded.");
+                    return true;
+                }
+                System.out.println("Acceptance test did not succeed. " + tr.getNumberOfFailedTests() + " tests failed.");
+            }
+        }
+        return false;
+    }
+
+    private void cycle(boolean acceptanceState) {
+        if(babysteps) {
+            Timer timer = controller.getElementById("timer");
+            System.out.println("Timer stopped by : " + timer.getTime());
+            timer.reset();
+            if (state != 1) {
+                timer.start(babystepDuration);
+            }
+            setStopHandler();
+            saveTabs();
+        }
+        if(!acceptanceState)
+            setState(state + 1);
+        else
+            setState(4);
+    }
+
     //initializing buttons and their functions
     private void initializeEventHandlers() {
         //Cycle-button
@@ -286,10 +278,7 @@ public class GUIDisplay extends Application {
         Button cycle = controller.getElementById("buttonCycle");
         cycle.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             if(exerciseHandler.getCurrentExercise() != null) {
-                if (!babysteps)
-                    compile();
-                else
-                    compileBabysteps();
+                compile();
             } else {
                 System.out.println("Please select an exercise first.");
             }
@@ -299,10 +288,11 @@ public class GUIDisplay extends Application {
         Button test = controller.getElementById("buttonTest");
         test.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             if(exerciseHandler.getCurrentExercise() != null) {
-                TestResult tr = getTestResult();
+                TestResult tr = getTestResult(false);
                 if (tr != null) {
                     System.out.println("Number of failed tests: " + tr.getNumberOfFailedTests());
                     System.out.println("Number of successful tests: " + tr.getNumberOfSuccessfulTests());
+                    acceptenceTestSuccess();
                 }
             } else {
                 System.out.println("Please select an exercise first.");
@@ -394,7 +384,20 @@ public class GUIDisplay extends Application {
             setState(0);
         }
         if (acceptance) {
-            setState(0);
+            TabPane codes = controller.getElementById("tabPane");
+            ClassStruct acceptanceTest = new ClassStruct("AcceptanceTest", "import static org.junit.Assert.*;\n" +
+                                                        "import org.junit.Test;\n" +
+                                                        "public class AcceptanceTest {\n" +
+                                                        "    @Test\n"+
+                                                        "    public void testSomething() {" +
+                                                        "    }\n" +
+                                                        "}", true);
+            CodeTab acceptanceTab = new CodeTab(acceptanceTest);
+            acceptanceTab.setAcceptance(true);
+            codes.getTabs().add(acceptanceTab);
+            codes.getSelectionModel().select(acceptanceTab);
+            saveTabs();
+            setState(4);
         }
     }
 

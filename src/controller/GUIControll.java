@@ -53,6 +53,12 @@ public class GUIControll{
 			System.out.println(e.getName());
 			tabPane.getTabs().clear();
 			tabPane.getTabs().addAll(ExerciseHandling.createTabView(e));
+			for(Tab tab : tabPane.getTabs()) {
+				if(tab instanceof CodeTab && ((CodeTab)tab).isTest()) {
+					tabPane.getSelectionModel().select(tab);
+					break;
+				}
+			}
 		} catch(NullPointerException npe){
 			System.out.print("Please load a catalog first."); //NULL printed before ERROR
 		}
