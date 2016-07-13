@@ -360,6 +360,17 @@ public class GUIDisplay extends Application {
         });
     }
 
+    public void setStopHandler() {
+        Timer timer = controller.getElementById("timer");
+        BooleanProperty isStopped = timer.isStopped();
+        isStopped.addListener((value) -> {
+            resetTabs();
+            setState(state - 1);
+            if(state != 2)
+                timer.start(babystepDuration);
+        });
+    }
+
     public String formatDescription(String string){
         int cnt = 0;
         String formatted = "";
@@ -401,15 +412,19 @@ public class GUIDisplay extends Application {
         }
     }
 
-    public void setStopHandler() {
+    public void handleBabysteps() {
         Timer timer = controller.getElementById("timer");
-        BooleanProperty isStopped = timer.isStopped();
-        isStopped.addListener((value) -> {
-            resetTabs();
-            setState(state - 1);
-            if(state != 2)
-                timer.start(babystepDuration);
-        });
+        Label timerLabel = controller.getElementById("timerLabel");
+        Label maxTimer = controller.getElementById("maxTimer");
+
+        timer.start(babystepDuration);
+        setStopHandler();
+        timer.setVisible(true);
+        timerLabel.setVisible(true);
+        maxTimer.setText("/" + String.format("%02d:%02d", babystepDuration / 60, 0));
+        maxTimer.setVisible(true); //Initialize timer and labels
+        setState(0);
+        saveTabs();
     }
 
     public void closeTimer(){
@@ -466,20 +481,5 @@ public class GUIDisplay extends Application {
                 }
             }
         }
-    }
-
-    public void handleBabysteps() {
-        Timer timer = controller.getElementById("timer");
-        Label timerLabel = controller.getElementById("timerLabel");
-        Label maxTimer = controller.getElementById("maxTimer");
-
-        timer.start(babystepDuration);
-        setStopHandler();
-        timer.setVisible(true);
-        timerLabel.setVisible(true);
-        maxTimer.setText("/" + String.format("%02d:%02d", babystepDuration / 60, 0));
-        maxTimer.setVisible(true); //Initialize timer and labels
-        setState(0);
-        saveTabs();
     }
 }
