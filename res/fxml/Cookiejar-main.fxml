@@ -60,10 +60,14 @@
         </SplitPane>
     </right>
     <left>
-        <SplitPane dividerPositions="0.27046997389033943, 0.783289817232376" orientation="VERTICAL" prefHeight="100.0"
+        <SplitPane dividerPositions="0.18046997389033943, 0.783289817232376" orientation="VERTICAL" prefHeight="100.0"
                    prefWidth="160.0" BorderPane.alignment="CENTER">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="4.0" prefWidth="158.0"/>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="158.0">
+                    <HBox prefHeight="800.0" prefWidth="158.0" Alignment="CENTER">
+                        <TextArea fx:id="description" editable="false"/>
+                    </HBox>
+                </AnchorPane>
                 <TreeView prefHeight="478.0" prefWidth="158.0"/>
                 <AnchorPane prefHeight="100.0" prefWidth="200.0">
                     <HBox prefHeight="50.0" prefWidth="150.0" Alignment="CENTER">

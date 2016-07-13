@@ -346,6 +346,8 @@ public class GUIDisplay extends Application {
                         babystepDuration = settings.babystepsDuration();
                         handleSettings();
                     });
+                    TextArea description = controller.getElementById("description");
+                    description.setText("Description:\n"+formatDescription(selected.getDescription()));
                 } else {
                     System.out.println("Please select an exercise.");
                 }
@@ -353,6 +355,21 @@ public class GUIDisplay extends Application {
                 System.out.println("Please select a catalog first.");
             }
         });
+    }
+
+    public String formatDescription(String string){
+        int cnt = 0;
+        String formatted = "";
+        for(int i = 0; i < string.length(); i++){
+            if(cnt > 15 && string.charAt(i) == ' '){
+                formatted += string.charAt(i)+"\n";
+                cnt = 0;
+            } else{
+                formatted += string.charAt(i);
+            }
+            cnt ++;
+        }
+        return formatted;
     }
 
     public void handleSettings() {
