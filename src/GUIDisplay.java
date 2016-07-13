@@ -365,6 +365,7 @@ public class GUIDisplay extends Application {
             CodeTab acceptanceTab = new CodeTab(acceptanceTest);
             acceptanceTab.setAcceptance(true);
             codes.getTabs().add(acceptanceTab);
+            codes.getSelectionModel().select(acceptanceTab);
             saveTabs();
             setState(4);
         }
