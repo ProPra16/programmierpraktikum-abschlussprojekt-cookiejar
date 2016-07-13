@@ -290,6 +290,8 @@ public class GUIDisplay extends Application {
 
         Button file = controller.getElementById("buttonFile");
         file.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            ListView listView = controller.getElementById("listView");
+            listView.setItems(null);
             closeTimer();
             exerciseHandler = new ExerciseHandling();
             controller.showExerciseList(exerciseHandler.getExerciseList());
@@ -323,20 +325,24 @@ public class GUIDisplay extends Application {
         Button load = controller.getElementById("buttonLoad");
         load.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             closeTimer();
-            Exercise selected = controller.getSelectedExercise(exerciseHandler.getExerciseList());
-            if (selected != null) {
-                exerciseHandler.setCurrentExercise(selected);
-                controller.loadExercise(selected);
-                settings.start();
-                BooleanProperty isStarted = settings.isStarted();
-                isStarted.addListener((value) -> {
-                    babysteps = settings.isBabysteps();
-                    acceptance = settings.isAcceptanceTest();
-                    babystepDuration = settings.babystepsDuration();
-                    handleSettings();
-                });
-            } else {
-                System.out.println("Please select an exercise.");
+            try {
+                Exercise selected = controller.getSelectedExercise(exerciseHandler.getExerciseList());
+                if (selected != null) {
+                    exerciseHandler.setCurrentExercise(selected);
+                    controller.loadExercise(selected);
+                    settings.start();
+                    BooleanProperty isStarted = settings.isStarted();
+                    isStarted.addListener((value) -> {
+                        babysteps = settings.isBabysteps();
+                        acceptance = settings.isAcceptanceTest();
+                        babystepDuration = settings.babystepsDuration();
+                        handleSettings();
+                    });
+                } else {
+                    System.out.println("Please select an exercise.");
+                }
+            } catch(NullPointerException e){
+                System.out.println("Please select a catalog first.");
             }
         });
     }
