@@ -15,9 +15,11 @@ public class ExerciseHandling {
     private List<Exercise> exerciseList;
     private Exercise currentExercise;
 
-    public ExerciseHandling() {
-        exerciseList = FileHandling.loadCatalog();
-        currentExercise = null;
+    public ExerciseHandling(boolean start) {
+        if(start) {
+            exerciseList = FileHandling.loadCatalog();
+            currentExercise = null;
+        }
     }
 
     public Exercise getCurrentExercise() {
