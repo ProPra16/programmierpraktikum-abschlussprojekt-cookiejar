@@ -2,7 +2,7 @@
 <exercises>
     <exercise>
         <name>Roemische Zahlen</name>
-        <description>Konvertiert arabische in roemische Zahlen.</description>
+        <description>Konvertiert arabische in roemische Zahlen. Außerdem testen die Tests auf unschlagbar gute Superheldenkräfte, irgendwie glaube ich man kann hier vieles nicht mehr lesen.</description>
 		<identifier>numcon1</identifier>
         <classes>
             <className>RomanNumberConverter</className>

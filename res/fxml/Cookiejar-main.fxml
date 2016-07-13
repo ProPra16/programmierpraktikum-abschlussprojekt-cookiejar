@@ -60,23 +60,23 @@
         </SplitPane>
     </right>
     <left>
-        <SplitPane dividerPositions="0.18046997389033943, 0.783289817232376" orientation="VERTICAL" prefHeight="100.0"
-                   prefWidth="160.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.42346997389033943, 0.783289817232376" orientation="VERTICAL" prefHeight="100.0"
+                   prefWidth="180.0" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="158.0">
-                    <HBox prefHeight="800.0" prefWidth="158.0" Alignment="CENTER">
+                    <HBox prefHeight="800.0" prefWidth="180.0" Alignment="CENTER">
                         <TextArea fx:id="description" editable="false"/>
                     </HBox>
                 </AnchorPane>
-                <TreeView prefHeight="478.0" prefWidth="158.0"/>
-                <AnchorPane prefHeight="100.0" prefWidth="200.0">
-                    <HBox prefHeight="50.0" prefWidth="150.0" Alignment="CENTER">
+                <TreeView prefHeight="478.0" prefWidth="180.0"/>
+                <AnchorPane prefHeight="100.0" prefWidth="180.0">
+                    <HBox prefHeight="50.0" prefWidth="180.0" Alignment="CENTER">
                         <Label fx:id="timerLabel" text="Timer:" visible="false"/>
                     </HBox>
-                    <HBox prefHeight="100.0" prefWidth="150.0" Alignment="CENTER">
+                    <HBox prefHeight="100.0" prefWidth="180.0" Alignment="CENTER">
                         <Timer fx:id="timer" visible="false"/>
                     </HBox>
-                    <HBox prefHeight="150.0" prefWidth="150.0" Alignment="CENTER">
+                    <HBox prefHeight="150.0" prefWidth="180.0" Alignment="CENTER">
                         <Label fx:id="maxTimer" visible="false"/>
                     </HBox>
                 </AnchorPane>
