@@ -6,7 +6,7 @@ To correctly parse a catalog, it should have the following format:
     <exercise>
         <name>ExerciseName</name>
         <description>Description the user sees after loading the exercise.</description>
-		<identifier>identifier(intern)</identifier>
+        <identifier>identifier(intern)</identifier>
         <classes>
             <className>ClassNameExample</className>
             <class>
