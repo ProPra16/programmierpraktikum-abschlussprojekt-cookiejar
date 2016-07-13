@@ -70,6 +70,8 @@ public class GUIDisplay extends Application {
             styles.add(f.toURI().toString());
             f = new File("res/css/refactorstyle.css");
             styles.add(f.toURI().toString());
+            f = new File("res/css/acceptancestyle.css");
+            styles.add(f.toURI().toString());
 
             //add stylesheets for phase recognition
             scene.getStylesheets().add(0, styles.get(0));
@@ -147,7 +149,7 @@ public class GUIDisplay extends Application {
                 for (CodeTab t : controller.getCodeTabs())
                     t.setEditable(t.isTest() && t.isAcceptance());
 
-                scene.getStylesheets().set(0, styles.get(2));
+                scene.getStylesheets().set(0, styles.get(3));
                 state = 4;
                 System.out.println("You are now in acceptance test mode\n");
             } catch (Exception e) {
