@@ -1,4 +1,3 @@
-package tests;
 
 import controller.XMLLoader;
 import models.Exercise;
