@@ -4,22 +4,23 @@ TDD Trainer:
                             The Test Driven Development:
 
 Failing Test RED:
-There are three different states in which you can be in. 
-The first one is "write a test that fails", that means, that you have to write a test, of which you think 
-it's a good start for your methods. Keep your tests small. 
-For example: 
+There are three different states in which you can write your exercises.
+The first one is "write a test that fails", that means, that you have to write a test, of which you think
+it's a good start for your methods. Keep your tests small. Remember to name your tests well.
+For example:
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 public class RomanNumberConverterTest {
     @Test
-    public void testSomething() {
+    public void testForNumber1() {
         RomanNumberConverter rnc = new RomanNumberConverter();
         assertEquals("I", rnc.convert(1));
     }
 }
 
-Non existing methods can cause compilation errors, be aware of typos.
+Non existing methods can cause compilation errors, this is not bad if you implement
+a new method but be aware of typos.
 Write a very easy test to start with and slowly increase the difficulty of your tests.
 After that test cannot compile, or fails you can move forward. 
 You need exactly ONE test to fail to enter code-writing mode.
