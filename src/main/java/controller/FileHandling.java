@@ -38,7 +38,7 @@ public class FileHandling {
 
     public static ClassStruct[] loadAllFiles(String identifier) {
         ArrayList<ClassStruct> cs = new ArrayList();
-        File dir = new File("/saves/"+identifier+"/");
+        File dir = new File("saves/"+identifier+"/");
         for(File f: dir.listFiles()){
             if(f.getName().endsWith(".java")) {
                 String className = f.getName().substring(0,f.getName().length()-5);
@@ -52,6 +52,7 @@ public class FileHandling {
     public static List<Exercise> loadCatalog() {
         FileChooser catalog = new FileChooser();
         catalog.setTitle("Choose Catalog-File");
+        System.out.println(new File("res/catalogs/").toURI());
         catalog.setInitialDirectory(new File("res/catalogs/"));
 		            /*catalog.getExtensionFilters().add(
 				    new FileChooser.ExtensionFilter("XML files (.xml)", ".xml")

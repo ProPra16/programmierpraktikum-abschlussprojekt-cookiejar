@@ -17,7 +17,7 @@ public class XMLLoaderTest {
     @Before
     public void setUp() {
         xmlLoader = new XMLLoader();
-        File file = new File("src/tests/testfiles/exercisesXMLTest.xml");
+        File file = new File("src/test/java/testfiles/exercisesXMLTest.xml");
         exercises = xmlLoader.getExercises(file);
     }
 
