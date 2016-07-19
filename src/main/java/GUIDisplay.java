@@ -390,13 +390,11 @@ public class GUIDisplay extends Application {
     }
 
     public void handleSettings() {
-        tracker = new Tracker();
         if (babysteps) {
             handleBabysteps();
         } else if (!acceptance) {
             closeTimer();
             saveTabs();
-            tracker.save(3, controller.getCodeTabs());
             setState(0);
         }
         if (acceptance) {
@@ -413,9 +411,10 @@ public class GUIDisplay extends Application {
             codes.getTabs().add(acceptanceTab);
             codes.getSelectionModel().select(acceptanceTab);
             saveTabs();
-            tracker.save(3, controller.getCodeTabs());
             setState(4);
         }
+        tracker = new Tracker();
+        tracker.save(3, controller.getCodeTabs());
     }
 
     public void handleBabysteps() {
