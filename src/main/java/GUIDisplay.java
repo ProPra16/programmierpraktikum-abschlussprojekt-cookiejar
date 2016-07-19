@@ -1,6 +1,4 @@
-import controller.ExerciseHandling;
-import controller.ExerciseSettings;
-import controller.FileHandling;
+import controller.*;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
@@ -12,7 +10,6 @@ import models.Exercise;
 import tasks.Timer;
 import vk.core.api.*;
 
-import controller.GUIControll;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -37,6 +34,7 @@ public class GUIDisplay extends Application {
     private boolean babysteps, acceptance;
     private int babystepDuration;
     private CodeTab[] save;
+    private Tracker tracker;
 
     public GUIDisplay() {
         main = new Stage();
@@ -234,8 +232,10 @@ public class GUIDisplay extends Application {
                 System.out.println("All tests need to pass!");
             }
         } else {
-            if (state == 0)
+            if (state == 0) {
+                tracker.save(0, controller.getCodeTabs());
                 setState(1);
+            }
         }
     }
 
@@ -264,6 +264,7 @@ public class GUIDisplay extends Application {
             setStopHandler();
             saveTabs();
         }
+        tracker.save(state, controller.getCodeTabs());
         if(!acceptanceState)
             setState(state + 1);
         else
@@ -311,6 +312,7 @@ public class GUIDisplay extends Application {
         Button back = controller.getElementById("buttonBack");
         back.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             if (state == 1) {
+                tracker.save(state, controller.getCodeTabs());
                 resetTabs();
                 setState(state - 1);
             }
@@ -364,6 +366,7 @@ public class GUIDisplay extends Application {
         Timer timer = controller.getElementById("timer");
         BooleanProperty isStopped = timer.isStopped();
         isStopped.addListener((value) -> {
+            tracker.save(state, controller.getCodeTabs());
             resetTabs();
             setState(state - 1);
             if(state != 2)
@@ -387,11 +390,13 @@ public class GUIDisplay extends Application {
     }
 
     public void handleSettings() {
+        tracker = new Tracker();
         if (babysteps) {
             handleBabysteps();
         } else if (!acceptance) {
             closeTimer();
             saveTabs();
+            tracker.save(3, controller.getCodeTabs());
             setState(0);
         }
         if (acceptance) {
@@ -408,6 +413,7 @@ public class GUIDisplay extends Application {
             codes.getTabs().add(acceptanceTab);
             codes.getSelectionModel().select(acceptanceTab);
             saveTabs();
+            tracker.save(3, controller.getCodeTabs());
             setState(4);
         }
     }
