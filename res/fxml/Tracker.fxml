@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="800.0" prefWidth="1280.0"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.Tracker">
+    <padding>
+        <Insets top="10" right="5" bottom="10" left="5"/>
+    </padding>
+    <top>
+        <HBox prefHeight="32.0" prefWidth="200.0" GridPane.halignment="CENTER">
+            <children>
+                <Button mnemonicParsing="false" text="Prev" fx:id="buttonPrev"/>
+                <Button mnemonicParsing="false" text="Next" fx:id="buttonNext"/>
+            </children>
+        </HBox>
+    </top>
+    <Pane>
+        <TabPane fx:id="logTabs" prefWidth="200.0" prefHeight="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.halignment="CENTER"/>
+    </Pane>
+</GridPane>

@@ -360,6 +360,12 @@ public class GUIDisplay extends Application {
                 System.out.println("Please select a catalog first.");
             }
         });
+
+        Button track = controller.getElementById("buttonTrack");
+        track.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            if(exerciseHandler.getCurrentExercise() != null)
+                tracker.trackerGUI();
+        });
     }
 
     public void setStopHandler() {
