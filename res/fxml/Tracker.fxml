@@ -13,14 +13,20 @@
         <Insets top="10" right="5" bottom="10" left="5"/>
     </padding>
     <top>
-        <HBox prefHeight="32.0" prefWidth="200.0" GridPane.halignment="CENTER">
+        <HBox prefHeight="32.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.columnIndex="0">
             <children>
                 <Button mnemonicParsing="false" text="Prev" fx:id="buttonPrev"/>
                 <Button mnemonicParsing="false" text="Next" fx:id="buttonNext"/>
             </children>
         </HBox>
+        <HBox prefHeight="32.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.columnIndex="0">
+            <children>
+                <Label fx:id="labelThisTime"/>
+                <Label fx:id="labelAverageTime"/>
+            </children>
+        </HBox>
     </top>
     <Pane>
-        <TabPane fx:id="logTabs" prefWidth="200.0" prefHeight="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.halignment="CENTER"/>
+        <TabPane fx:id="logTabs" prefWidth="200.0" prefHeight="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
     </Pane>
 </GridPane>
