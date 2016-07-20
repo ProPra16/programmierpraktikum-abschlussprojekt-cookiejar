@@ -60,6 +60,8 @@ public class Tracker {
         try {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader();
+
+            //system can't find this file
             GridPane root = fxmlLoader.load(new FileInputStream("res/fxml/Tracker.fxml"));
 
             Scene scene = new Scene(root, 200, 264);
