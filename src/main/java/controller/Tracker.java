@@ -19,31 +19,23 @@ public class Tracker {
 
     public void save(int state, CodeTab[] tabs){
         saves.add(new TrackSave(state, tabs, timer.getTime()));
+        timer.reset();
     }
 
     public String averageTime(int state){
-        String time;
-        int seconds = 0;
-        int minutes = 0;
+        int time = 0;
         for(TrackSave trackSave: saves)
             if (trackSave.getState() == state){
                 String trackSaveTime = trackSave.getTime();
                 String trackSaveSeconds = trackSaveTime.substring(3, 4);
                 String trackSaveMinutes = trackSaveTime.substring(0, 1);
 
-                seconds+=Integer.parseInt(trackSaveSeconds);
-                minutes+=Integer.parseInt(trackSaveMinutes);
+                time+=Integer.parseInt(trackSaveSeconds);
+                time+=(Integer.parseInt(trackSaveMinutes))*60;
             }
-        if (seconds<10)
-            time = "00:0"+seconds;
-        else
-            time = "00:"+seconds;
 
-        if (minutes<10)
-            time = "0"+minutes+":"+time.substring(3, 4);
-        else
-            time = minutes+":"+time.substring(3, 4);
-
-        return time;
+        int minutes = (int)time/60000;
+        int seconds = (int)(time/1000)%60;
+        return String.format("%02d:%02d", minutes,seconds);
     }
 }
