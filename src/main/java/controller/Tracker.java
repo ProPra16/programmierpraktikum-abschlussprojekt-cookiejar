@@ -26,7 +26,7 @@ public class Tracker {
     private Timer timer;
     private List<TrackSave> saves;
     private int currentLog = 0;
-    private String[] labelTexts = {"test-writing: ", "code-writing: ", "refactor: "};
+    private String[] labelTexts = {"test-writing: ", "code-writing: ", "refactor: ", "acceptance: "};
 
     public Tracker(){
         saves = new ArrayList<>();
